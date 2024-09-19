@@ -1,20 +1,34 @@
 import 'package:flutter/material.dart';
 
+import 'package:forui/forui.dart';
+
 void main() {
-  runApp(const MainApp());
+  runApp(const Application());
 }
 
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+class Application extends StatelessWidget {
+  const Application({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Anaquel'),
+  Widget build(BuildContext context) => MaterialApp(
+        title: "Anaquel",
+        builder: (context, child) => FTheme(
+          data: FThemes.zinc.light,
+          child: child!,
         ),
-      ),
-    );
-  }
+        home: const FScaffold(
+          header: FHeader(
+            title: Text(
+              'Anaquel',
+              style: TextStyle(
+                color: Color(0xFF941932),
+              ),
+            ),
+          ),
+          contentPad: false,
+          content: Center(
+            child: Text('Hello, World!'),
+          ),
+        ),
+      );
 }
