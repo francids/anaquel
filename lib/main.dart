@@ -7,8 +7,15 @@ void main() {
   runApp(const Application());
 }
 
-class Application extends StatelessWidget {
+class Application extends StatefulWidget {
   const Application({super.key});
+
+  @override
+  State<Application> createState() => _ApplicationState();
+}
+
+class _ApplicationState extends State<Application> {
+  int index = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +32,7 @@ class Application extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
         return FTheme(
-          data: FThemes.zinc.light,
+          data: FThemes.red.light,
           child: child!,
         );
       },
@@ -43,6 +50,8 @@ class Application extends StatelessWidget {
           child: Text('Hello, World!'),
         ),
         footer: FBottomNavigationBar(
+          index: index,
+          onChange: (index) => setState(() => this.index = index),
           items: [
             FBottomNavigationBarItem(
               icon: FAssets.icons.home,
