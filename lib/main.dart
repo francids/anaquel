@@ -39,10 +39,7 @@ class _ApplicationState extends State<Application> {
       },
       home: FScaffold(
         header: FHeader(
-          title: const Text(
-            'Anaquel',
-            textAlign: TextAlign.center,
-          ),
+          title: const Text('Anaquel'),
           style: FRootHeaderStyle(
             titleTextStyle: const TextStyle(
               fontSize: 24,
@@ -55,65 +52,68 @@ class _ApplicationState extends State<Application> {
               enabledColor: const Color(0xFF050505),
               size: 22,
             ),
-            padding: const EdgeInsets.only(),
+            padding: const EdgeInsets.symmetric(horizontal: 24),
           ),
         ),
         contentPad: false,
         content: const Center(
           child: Text('Hello, World!'),
         ),
-        footer: FBottomNavigationBar(
-          style: FBottomNavigationBarStyle(
-            item: FBottomNavigationBarItemStyle(
-              activeIconColor: const Color(0xFF050505),
-              activeTextStyle: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 14,
-                color: Color(0xFF050505),
-              ),
-              inactiveIconColor: const Color(0xFF232323),
-              inactiveTextStyle: const TextStyle(
-                fontWeight: FontWeight.w400,
-                fontSize: 14,
-                color: Color(0xFF232323),
-              ),
-              iconSize: 22,
-              padding: const EdgeInsets.only(
-                top: 8,
-                bottom: 16,
-              ),
-            ),
-            decoration: BoxDecoration(
-              backgroundBlendMode: BlendMode.overlay,
-              color: const Color(0xFFFBFBFB),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
-                  offset: const Offset(0, -1),
+        footer: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: FBottomNavigationBar(
+            style: FBottomNavigationBarStyle(
+              item: FBottomNavigationBarItemStyle(
+                activeIconColor: const Color(0xFF050505),
+                activeTextStyle: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 14,
+                  color: Color(0xFF050505),
                 ),
-              ],
+                inactiveIconColor: const Color(0xFF232323),
+                inactiveTextStyle: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontSize: 14,
+                  color: Color(0xFF232323),
+                ),
+                iconSize: 22,
+                padding: const EdgeInsets.only(
+                  top: 8,
+                  bottom: 16,
+                ),
+              ),
+              decoration: BoxDecoration(
+                backgroundBlendMode: BlendMode.overlay,
+                color: const Color(0xFFFBFBFB),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.1),
+                    offset: const Offset(0, -1),
+                  ),
+                ],
+              ),
             ),
+            index: index,
+            onChange: (index) => setState(() => this.index = index),
+            items: [
+              FBottomNavigationBarItem(
+                icon: FAssets.icons.home,
+                label: 'Principal',
+              ),
+              FBottomNavigationBarItem(
+                icon: FAssets.icons.book,
+                label: "Libros",
+              ),
+              FBottomNavigationBarItem(
+                icon: FAssets.icons.alarmClock,
+                label: "Horarios",
+              ),
+              FBottomNavigationBarItem(
+                icon: FAssets.icons.user,
+                label: 'Perfil',
+              ),
+            ],
           ),
-          index: index,
-          onChange: (index) => setState(() => this.index = index),
-          items: [
-            FBottomNavigationBarItem(
-              icon: FAssets.icons.home,
-              label: 'Principal',
-            ),
-            FBottomNavigationBarItem(
-              icon: FAssets.icons.book,
-              label: "Libros",
-            ),
-            FBottomNavigationBarItem(
-              icon: FAssets.icons.alarmClock,
-              label: "Horarios",
-            ),
-            FBottomNavigationBarItem(
-              icon: FAssets.icons.user,
-              label: 'Perfil',
-            ),
-          ],
         ),
       ),
     );
