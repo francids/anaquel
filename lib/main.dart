@@ -50,6 +50,37 @@ class _ApplicationState extends State<Application> {
           child: Text('Hello, World!'),
         ),
         footer: FBottomNavigationBar(
+          style: FBottomNavigationBarStyle(
+            item: FBottomNavigationBarItemStyle(
+              activeIconColor: const Color(0xFF050505),
+              activeTextStyle: const TextStyle(
+                fontWeight: FontWeight.w600,
+                fontSize: 14,
+                color: Color(0xFF050505),
+              ),
+              inactiveIconColor: const Color(0xFF232323),
+              inactiveTextStyle: const TextStyle(
+                fontWeight: FontWeight.w400,
+                fontSize: 14,
+                color: Color(0xFF232323),
+              ),
+              iconSize: 22,
+              padding: const EdgeInsets.only(
+                top: 8,
+                bottom: 16,
+              ),
+            ),
+            decoration: BoxDecoration(
+              backgroundBlendMode: BlendMode.overlay,
+              color: const Color(0xFFFBFBFB),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  offset: const Offset(0, -1),
+                ),
+              ],
+            ),
+          ),
           index: index,
           onChange: (index) => setState(() => this.index = index),
           items: [
