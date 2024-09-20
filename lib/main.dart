@@ -29,6 +29,7 @@ class _ApplicationState extends State<Application> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     return MaterialApp(
       title: "Anaquel",
+      locale: const Locale('es'),
       debugShowCheckedModeBanner: false,
       builder: (context, child) {
         return FTheme(
@@ -37,12 +38,24 @@ class _ApplicationState extends State<Application> {
         );
       },
       home: FScaffold(
-        header: const FHeader(
-          title: Text(
+        header: FHeader(
+          title: const Text(
             'Anaquel',
-            style: TextStyle(
+            textAlign: TextAlign.center,
+          ),
+          style: FRootHeaderStyle(
+            titleTextStyle: const TextStyle(
+              fontSize: 24,
               color: Color(0xFF941932),
+              fontWeight: FontWeight.w900,
             ),
+            actionSpacing: 16,
+            actionStyle: FHeaderActionStyle(
+              disabledColor: const Color(0xFF050505),
+              enabledColor: const Color(0xFF050505),
+              size: 22,
+            ),
+            padding: const EdgeInsets.only(),
           ),
         ),
         contentPad: false,
