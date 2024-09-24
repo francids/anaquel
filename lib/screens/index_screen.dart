@@ -78,13 +78,14 @@ class _IndexScreenState extends State<IndexScreen> {
           ),
         ),
       ),
-      contentPad: true,
-      content: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: _screens[index],
-      ),
+      contentPad: false,
+      content: _screens[index],
       footer: FBottomNavigationBar(
         style: FBottomNavigationBarStyle(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20,
+            vertical: 8,
+          ),
           item: FBottomNavigationBarItemStyle(
             activeIconColor: const Color(0xFF050505),
             activeTextStyle: const TextStyle(
