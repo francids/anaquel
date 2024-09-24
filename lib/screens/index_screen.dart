@@ -37,7 +37,7 @@ class _IndexScreenState extends State<IndexScreen> {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.dark,
-        systemNavigationBarColor: Colors.transparent,
+        systemNavigationBarColor: Colors.white,
       ),
     );
 
