@@ -44,6 +44,9 @@ class Application extends StatelessWidget {
       title: "Anaquel",
       locale: const Locale('es'),
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        fontFamily: 'Inter',
+      ),
       builder: (context, child) {
         return FTheme(
           data: FThemes.zinc.light,
