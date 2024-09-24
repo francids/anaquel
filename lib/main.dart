@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+// ForUI
 import 'package:forui/forui.dart';
+
+// Screens
+import 'package:anaquel/screens/books_screen.dart';
+import 'package:anaquel/screens/principal_screen.dart';
+import 'package:anaquel/screens/profile_screen.dart';
+import 'package:anaquel/screens/schedules_screen.dart';
 
 void main() {
   runApp(const Application());
@@ -13,6 +20,20 @@ class Application extends StatefulWidget {
   @override
   State<Application> createState() => _ApplicationState();
 }
+
+List<String> _titles = [
+  'Anaquel',
+  'Libros',
+  'Horarios de lectura',
+  'Perfil',
+];
+
+List<Widget> _screens = [
+  const PrincipalScreen(),
+  const BooksScreen(),
+  const SchedulesScreen(),
+  const ProfileScreen(),
+];
 
 class _ApplicationState extends State<Application> {
   int index = 0;
@@ -39,12 +60,14 @@ class _ApplicationState extends State<Application> {
       },
       home: FScaffold(
         header: FHeader(
-          title: const Text('Anaquel'),
+          title: Text(_titles[index]),
           style: FRootHeaderStyle(
-            titleTextStyle: const TextStyle(
+            titleTextStyle: TextStyle(
               fontSize: 24,
-              color: Color(0xFF941932),
-              fontWeight: FontWeight.w900,
+              color: index == 0
+                  ? const Color(0xFF941932)
+                  : const Color(0xFF050505),
+              fontWeight: index == 0 ? FontWeight.w800 : FontWeight.w600,
             ),
             actionSpacing: 16,
             actionStyle: FHeaderActionStyle(
@@ -56,9 +79,7 @@ class _ApplicationState extends State<Application> {
           ),
         ),
         contentPad: false,
-        content: const Center(
-          child: Text('Hello, World!'),
-        ),
+        content: _screens[index],
         footer: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: FBottomNavigationBar(
