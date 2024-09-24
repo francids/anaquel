@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
+import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -9,7 +10,7 @@ class ProfileScreen extends StatelessWidget {
     return Column(
       children: [
         FButton(
-          onPress: () {},
+          onPress: () => context.go('/auth'),
           style: FButtonStyle.destructive,
           label: const Text("Cerrar sesión"),
         )
