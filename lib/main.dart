@@ -27,15 +27,54 @@ final _router = GoRouter(
   routes: [
     GoRoute(
       path: "/auth",
-      builder: (context, state) => const AuthScreen(),
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: const AuthScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(0, 1),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            );
+          },
+        );
+      },
     ),
     GoRoute(
       path: '/',
-      builder: (context, state) => const IndexScreen(),
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: const IndexScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return FadeTransition(
+              opacity: animation,
+              child: child,
+            );
+          },
+        );
+      },
     ),
     GoRoute(
       path: "/change-password",
-      builder: (context, state) => const ChangePasswordScreen(),
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: const ChangePasswordScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(1, 0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            );
+          },
+        );
+      },
     )
   ],
 );
