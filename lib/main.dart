@@ -1,3 +1,4 @@
+import 'package:anaquel/screens/auth/change_password_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:forui/forui.dart';
@@ -32,6 +33,10 @@ final _router = GoRouter(
       path: '/',
       builder: (context, state) => const IndexScreen(),
     ),
+    GoRoute(
+      path: "/change-password",
+      builder: (context, state) => const ChangePasswordScreen(),
+    )
   ],
 );
 

@@ -42,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           FButton(
-            onPress: () {},
+            onPress: () => context.push("/change-password"),
             style: FButtonStyle.outline,
             label: const Text("Cambiar contraseña"),
           ),

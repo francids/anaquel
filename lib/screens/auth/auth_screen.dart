@@ -67,7 +67,13 @@ class AuthScreen extends StatelessWidget {
                               const FTextField(
                                   label: Text('Correo electrónico')),
                               const SizedBox(height: 16),
-                              const FTextField(label: Text('Contraseña')),
+                              const FTextField(
+                                label: Text('Contraseña'),
+                                obscureText: true,
+                                enableSuggestions: false,
+                                autocorrect: false,
+                                maxLines: 1,
+                              ),
                               const SizedBox(height: 16),
                               FButton(
                                 onPress: () {
@@ -127,10 +133,21 @@ class AuthScreen extends StatelessWidget {
                               const FTextField(
                                   label: Text('Correo electrónico')),
                               const SizedBox(height: 16),
-                              const FTextField(label: Text('Contraseña')),
+                              const FTextField(
+                                label: Text('Contraseña'),
+                                obscureText: true,
+                                enableSuggestions: false,
+                                autocorrect: false,
+                                maxLines: 1,
+                              ),
                               const SizedBox(height: 16),
                               const FTextField(
-                                  label: Text('Confirmar contraseña')),
+                                label: Text('Confirmar contraseña'),
+                                obscureText: true,
+                                enableSuggestions: false,
+                                autocorrect: false,
+                                maxLines: 1,
+                              ),
                               const SizedBox(height: 16),
                               FButton(
                                 onPress: () {
