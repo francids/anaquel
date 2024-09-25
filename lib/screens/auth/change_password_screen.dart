@@ -40,6 +40,8 @@ class ChangePasswordScreen extends StatelessWidget {
                 enableSuggestions: false,
                 autocorrect: false,
                 maxLines: 1,
+                autofillHints: [AutofillHints.password],
+                keyboardType: TextInputType.visiblePassword,
               ),
               const SizedBox(height: 16),
               const FTextField(
@@ -48,6 +50,8 @@ class ChangePasswordScreen extends StatelessWidget {
                 enableSuggestions: false,
                 autocorrect: false,
                 maxLines: 1,
+                autofillHints: [AutofillHints.password],
+                keyboardType: TextInputType.visiblePassword,
               ),
               const SizedBox(height: 16),
               const FTextField(
@@ -56,6 +60,8 @@ class ChangePasswordScreen extends StatelessWidget {
                 enableSuggestions: false,
                 autocorrect: false,
                 maxLines: 1,
+                autofillHints: [AutofillHints.password],
+                keyboardType: TextInputType.visiblePassword,
               ),
               const FDivider(vertical: false),
               FButton(

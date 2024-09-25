@@ -65,7 +65,10 @@ class AuthScreen extends StatelessWidget {
                             children: [
                               const SizedBox(height: 6),
                               const FTextField(
-                                  label: Text('Correo electrónico')),
+                                label: Text('Correo electrónico'),
+                                autofillHints: [AutofillHints.email],
+                                keyboardType: TextInputType.emailAddress,
+                              ),
                               const SizedBox(height: 16),
                               const FTextField(
                                 label: Text('Contraseña'),
@@ -73,6 +76,8 @@ class AuthScreen extends StatelessWidget {
                                 enableSuggestions: false,
                                 autocorrect: false,
                                 maxLines: 1,
+                                autofillHints: [AutofillHints.password],
+                                keyboardType: TextInputType.visiblePassword,
                               ),
                               const SizedBox(height: 16),
                               FButton(
@@ -128,10 +133,17 @@ class AuthScreen extends StatelessWidget {
                           child: Column(
                             children: [
                               const SizedBox(height: 6),
-                              const FTextField(label: Text('Nombre')),
+                              const FTextField(
+                                label: Text('Nombre'),
+                                autofillHints: [AutofillHints.name],
+                                keyboardType: TextInputType.name,
+                              ),
                               const SizedBox(height: 16),
                               const FTextField(
-                                  label: Text('Correo electrónico')),
+                                label: Text('Correo electrónico'),
+                                autofillHints: [AutofillHints.email],
+                                keyboardType: TextInputType.emailAddress,
+                              ),
                               const SizedBox(height: 16),
                               const FTextField(
                                 label: Text('Contraseña'),
@@ -139,6 +151,8 @@ class AuthScreen extends StatelessWidget {
                                 enableSuggestions: false,
                                 autocorrect: false,
                                 maxLines: 1,
+                                autofillHints: [AutofillHints.password],
+                                keyboardType: TextInputType.visiblePassword,
                               ),
                               const SizedBox(height: 16),
                               const FTextField(
@@ -147,6 +161,8 @@ class AuthScreen extends StatelessWidget {
                                 enableSuggestions: false,
                                 autocorrect: false,
                                 maxLines: 1,
+                                autofillHints: [AutofillHints.password],
+                                keyboardType: TextInputType.visiblePassword,
                               ),
                               const SizedBox(height: 16),
                               FButton(

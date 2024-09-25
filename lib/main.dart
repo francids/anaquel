@@ -9,6 +9,7 @@ import 'package:anaquel/screens/index_screen.dart';
 import 'package:anaquel/screens/auth/auth_screen.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
