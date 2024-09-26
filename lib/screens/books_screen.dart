@@ -1,6 +1,7 @@
 import 'package:anaquel/widgets/collection_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
+import 'package:go_router/go_router.dart';
 
 List<String> _collections = [
   "Colección 01",
@@ -50,11 +51,17 @@ class BooksScreen extends StatelessWidget {
                     width: MediaQuery.of(context).size.width / 2 - 24,
                     child: CollectionChip(
                       label: _collections[index],
-                      color: Color(int.parse(
+                      color: Color(
+                        int.parse(
                               _collectionsColors[index].substring(1),
-                              radix: 16) +
-                          0xFF000000),
-                      onPress: () {},
+                              radix: 16,
+                            ) +
+                            0xFF000000,
+                      ),
+                      onPress: () => context.push(
+                        "/collection/$index",
+                        extra: _collections[index],
+                      ),
                     ),
                   );
                 },

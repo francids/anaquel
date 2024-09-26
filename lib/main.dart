@@ -1,4 +1,5 @@
 import 'package:anaquel/screens/auth/change_password_screen.dart';
+import 'package:anaquel/screens/collection_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:forui/forui.dart';
@@ -76,7 +77,27 @@ final _router = GoRouter(
           },
         );
       },
-    )
+    ),
+    GoRoute(
+      path: "/collection/:collection_id",
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: CollectionPage(
+            collection_id: state.pathParameters['collection_id']!,
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(1, 0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            );
+          },
+        );
+      },
+    ),
   ],
 );
 
