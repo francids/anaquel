@@ -49,7 +49,7 @@ class PrincipalScreen extends StatelessWidget {
           const SizedBox(height: 12),
           SizedBox(
             width: double.infinity,
-            height: 240,
+            height: 200,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,

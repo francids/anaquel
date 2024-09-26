@@ -14,8 +14,8 @@ class MediumBookCard extends StatelessWidget {
           Image.network(
             image,
             fit: BoxFit.cover,
-            width: 150,
-            height: 240,
+            width: 125,
+            height: 200,
           ),
         ],
       ),
