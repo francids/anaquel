@@ -1,3 +1,4 @@
+import 'package:anaquel/widgets/books/small_book_card.dart';
 import 'package:anaquel/widgets/collection_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
@@ -17,6 +18,27 @@ List<String> _collectionsColors = [
   "#E91E63",
   "#9C27B0",
   "#3F51B5",
+];
+
+List<String> _bookCovers = [
+  "https://marketplace.canva.com/EAFutLMZJKs/1/0/1003w/canva-portada-libro-novela-suspenso-elegante-negro-wxuYB_sJtMw.jpg",
+  "https://marketplace.canva.com/EAFjNCKkDPI/1/0/1003w/canva-portada-de-libro-de-fantas%C3%ADa-dram%C3%A1tico-verde-Ct1fLal3ekY.jpg",
+  "https://edit.org/images/cat/portadas-libros-big-2019101610.jpg",
+  "https://marketplace.canva.com/EAFI171fL0M/1/0/1003w/canva-portada-de-libro-de-novela-ilustrado-color-azul-aqua-PQeWaiiK0aA.jpg",
+];
+
+List<String> _bookTitles = [
+  "Cruce de Caminos",
+  "Reyes Caídos",
+  "Mi Portada de Libro",
+  "Hasta que el verano se acabe",
+];
+
+List<String> _bookAuthors = [
+  "Naira Gamboa",
+  "Julián Alonoso",
+  "Nombre del Autor",
+  "Connor Hamilton",
 ];
 
 class BooksScreen extends StatelessWidget {
@@ -89,6 +111,24 @@ class BooksScreen extends StatelessWidget {
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
               ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          SizedBox(
+            width: double.infinity,
+            child: ListView.separated(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              padding: const EdgeInsets.all(0),
+              separatorBuilder: (context, index) => const SizedBox(height: 8),
+              itemCount: _bookTitles.length,
+              itemBuilder: (context, index) {
+                return SmallBookCard(
+                  image: _bookCovers[index],
+                  title: _bookTitles[index],
+                  author: _bookAuthors[index],
+                );
+              },
             ),
           ),
         ],
