@@ -48,13 +48,71 @@ class ProfileScreen extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           FButton(
-            onPress: () {},
+            onPress: () => showAdaptiveDialog(
+              context: context,
+              builder: (context) => FDialog(
+                direction: Axis.vertical,
+                body: const Padding(
+                  padding: EdgeInsets.only(bottom: 16),
+                  child: Text(
+                    "Elige el modo de colores a mostrar de la aplicación:",
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                actions: <FButton>[
+                  FButton(
+                    onPress: () => context.pop(),
+                    style: FButtonStyle.outline,
+                    label: const Text("Predeterminado"),
+                  ),
+                  FButton(
+                    onPress: () => context.pop(),
+                    style: FButtonStyle.outline,
+                    label: const Text("Claro"),
+                  ),
+                  FButton(
+                    onPress: () => context.pop(),
+                    style: FButtonStyle.outline,
+                    label: const Text("Oscuro"),
+                  ),
+                ],
+              ),
+            ),
             style: FButtonStyle.outline,
             label: const Text("Apariencia de la aplicación"),
           ),
           const SizedBox(height: 8),
           FButton(
-            onPress: () {},
+            onPress: () => showAdaptiveDialog(
+              context: context,
+              builder: (context) => FDialog(
+                direction: Axis.vertical,
+                body: const Padding(
+                  padding: EdgeInsets.only(bottom: 16),
+                  child: Text(
+                    "Elige el idioma a mostrar dentro de la aplicación",
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                actions: <FButton>[
+                  FButton(
+                    onPress: () => context.pop(),
+                    style: FButtonStyle.outline,
+                    label: const Text("Predeterminado"),
+                  ),
+                  FButton(
+                    onPress: () => context.pop(),
+                    style: FButtonStyle.outline,
+                    label: const Text("Español"),
+                  ),
+                  FButton(
+                    onPress: () => context.pop(),
+                    style: FButtonStyle.outline,
+                    label: const Text("Inglés"),
+                  ),
+                ],
+              ),
+            ),
             style: FButtonStyle.outline,
             label: const Text("Idioma de la aplicación"),
           ),
@@ -83,7 +141,31 @@ class ProfileScreen extends StatelessWidget {
           ),
           const FDivider(vertical: false),
           FButton(
-            onPress: () => context.go('/auth'),
+            onPress: () => showAdaptiveDialog(
+              context: context,
+              builder: (context) => FDialog(
+                direction: Axis.vertical,
+                body: const Padding(
+                  padding: EdgeInsets.only(bottom: 16),
+                  child: Text(
+                    "¿Estás seguro de que deseas cerrar sesión?",
+                    textAlign: TextAlign.start,
+                  ),
+                ),
+                actions: <FButton>[
+                  FButton(
+                    onPress: () => context.go('/auth'),
+                    style: FButtonStyle.destructive,
+                    label: const Text("Cerrar sesión"),
+                  ),
+                  FButton(
+                    onPress: () => context.pop(),
+                    style: FButtonStyle.outline,
+                    label: const Text("Cancelar"),
+                  ),
+                ],
+              ),
+            ),
             style: FButtonStyle.destructive,
             label: const Text("Cerrar sesión"),
           ),
