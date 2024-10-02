@@ -17,8 +17,8 @@ List<String> _bookTitles = [
   "Hasta que el verano se acabe",
 ];
 
-class CollectionPage extends StatelessWidget {
-  const CollectionPage({super.key, required this.collection_id});
+class CollectionScreen extends StatelessWidget {
+  const CollectionScreen({super.key, required this.collection_id});
 
   final String collection_id;
 

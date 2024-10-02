@@ -1,6 +1,6 @@
 import 'package:anaquel/screens/auth/change_password_screen.dart';
 import 'package:anaquel/screens/book_screen.dart';
-import 'package:anaquel/screens/collection_page.dart';
+import 'package:anaquel/screens/collection_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:forui/forui.dart';
@@ -84,7 +84,7 @@ final _router = GoRouter(
       pageBuilder: (context, state) {
         return CustomTransitionPage(
           key: state.pageKey,
-          child: CollectionPage(
+          child: CollectionScreen(
             collection_id: state.pathParameters['collection_id']!,
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
