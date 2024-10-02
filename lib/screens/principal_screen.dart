@@ -3,6 +3,7 @@ import 'package:anaquel/widgets/books/small_book_card.dart';
 import 'package:anaquel/widgets/mini_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
+import 'package:go_router/go_router.dart';
 
 List<String> _bookCovers = [
   "https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg",
@@ -93,7 +94,10 @@ class PrincipalScreen extends StatelessWidget {
               shrinkWrap: true,
               itemCount: _bookCovers.length,
               itemBuilder: (context, index) {
-                return MediumBookCard(image: _bookCovers[index]);
+                return MediumBookCard(
+                  image: _bookCovers[index],
+                  onPress: () => context.push("/book/$index"),
+                );
               },
               padding: const EdgeInsets.only(left: 16, right: 16),
               separatorBuilder: (context, index) {

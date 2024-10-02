@@ -1,4 +1,5 @@
 import 'package:anaquel/screens/auth/change_password_screen.dart';
+import 'package:anaquel/screens/book_screen.dart';
 import 'package:anaquel/screens/collection_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -85,6 +86,26 @@ final _router = GoRouter(
           key: state.pageKey,
           child: CollectionPage(
             collection_id: state.pathParameters['collection_id']!,
+          ),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(1, 0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            );
+          },
+        );
+      },
+    ),
+    GoRoute(
+      path: "/book/:book_id",
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: BookScreen(
+            lookId: state.pathParameters['book_id']!,
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
