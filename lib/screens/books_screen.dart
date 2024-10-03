@@ -98,7 +98,7 @@ class BooksScreen extends StatelessWidget {
           ),
           const FDivider(),
           FButton(
-            onPress: () {},
+            onPress: () => context.push("/register_book"),
             style: FButtonStyle.primary,
             label: const Text("Registrar libro"),
           ),
