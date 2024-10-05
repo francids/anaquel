@@ -1,6 +1,8 @@
 import 'package:anaquel/widgets/chip.dart';
 import 'package:anaquel/widgets/mini_tab.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_popup/flutter_popup.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
@@ -47,9 +49,51 @@ class BookScreen extends StatelessWidget {
               ),
             ],
             rightActions: [
-              FHeaderAction(
-                icon: FAssets.icons.ellipsisVertical,
-                onPress: () {},
+              CustomPopup(
+                content: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          context.pop();
+                        },
+                        child: const Text(
+                          "Limpiar historial",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      GestureDetector(
+                        onTap: () {
+                          context.pop();
+                        },
+                        child: const Text(
+                          "Colecciones",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                      const SizedBox(height: 24),
+                      GestureDetector(
+                        onTap: () {
+                          context.pop();
+                        },
+                        child: const Text(
+                          "Eliminar libro",
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  child: FAssets.icons.ellipsisVertical(),
+                ),
               ),
             ],
           ),
