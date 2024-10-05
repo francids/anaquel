@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_popup/flutter_popup.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
+import 'package:scaled_app/scaled_app.dart';
 
 final List<String> _genres = [
   "Fiction",
@@ -27,193 +28,196 @@ class BookScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FTheme(
-      data: FThemes.zinc.light,
-      child: FScaffold(
-        header: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                offset: const Offset(0, 1),
-              ),
-            ],
-          ),
-          child: FHeader.nested(
-            title: Text(lookId),
-            // title: const SizedBox.shrink(),
-            leftActions: [
-              FHeaderAction.back(
-                onPress: () => context.pop(),
-              ),
-            ],
-            rightActions: [
-              CustomPopup(
-                content: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
+    return MediaQuery(
+      data: MediaQuery.of(context).scale(),
+      child: FTheme(
+        data: FThemes.zinc.light,
+        child: FScaffold(
+          header: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  offset: const Offset(0, 1),
+                ),
+              ],
+            ),
+            child: FHeader.nested(
+              title: Text(lookId),
+              // title: const SizedBox.shrink(),
+              leftActions: [
+                FHeaderAction.back(
+                  onPress: () => context.pop(),
+                ),
+              ],
+              rightActions: [
+                CustomPopup(
+                  content: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 8,
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            context.pop();
+                          },
+                          child: const Text(
+                            "Limpiar historial",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        GestureDetector(
+                          onTap: () {
+                            context.pop();
+                          },
+                          child: const Text(
+                            "Colecciones",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+                        GestureDetector(
+                          onTap: () {
+                            context.pop();
+                          },
+                          child: const Text(
+                            "Eliminar libro",
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          context.pop();
-                        },
-                        child: const Text(
-                          "Limpiar historial",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      GestureDetector(
-                        onTap: () {
-                          context.pop();
-                        },
-                        child: const Text(
-                          "Colecciones",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                      const SizedBox(height: 24),
-                      GestureDetector(
-                        onTap: () {
-                          context.pop();
-                        },
-                        child: const Text(
-                          "Eliminar libro",
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ],
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8),
+                    child: FAssets.icons.ellipsisVertical(),
                   ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
-                  child: FAssets.icons.ellipsisVertical(),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-        contentPad: false,
-        content: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              const SizedBox(height: 8),
-              SizedBox(
-                height: 260,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8),
-                  child: AspectRatio(
-                    aspectRatio: 0.625,
-                    child: Image.network(
-                      _image,
-                      fit: BoxFit.cover,
-                      width: 150,
-                      height: 240,
+          contentPad: false,
+          content: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                const SizedBox(height: 8),
+                SizedBox(
+                  height: 260,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: AspectRatio(
+                      aspectRatio: 0.625,
+                      child: Image.network(
+                        _image,
+                        fit: BoxFit.cover,
+                        width: 150,
+                        height: 240,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Text(
-                _title,
-                style: const TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                _author,
-                style: const TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF232323),
-                ),
-              ),
-              const SizedBox(height: 16),
-              const MiniTab(
-                label: "Leyendo",
-                isSelected: true,
-              ),
-              const FDivider(),
-              FButton(
-                onPress: () {},
-                style: FButtonStyle.primary,
-                label: const Text("Reanudar lectura"),
-              ),
-              const SizedBox(height: 8),
-              FButton(
-                onPress: () {},
-                style: FButtonStyle.outline,
-                label: const Text("Cuestionario"),
-              ),
-              const SizedBox(height: 8),
-              FButton(
-                onPress: () {},
-                style: FButtonStyle.outline,
-                label: const Text("Recomendaciones"),
-              ),
-              const FDivider(),
-              const SizedBox(
-                width: double.infinity,
-                child: Text(
-                  "Descripción",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
+                const SizedBox(height: 16),
+                Text(
+                  _title,
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                _description,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                  color: Color(0xFF232323),
-                ),
-              ),
-              const FDivider(),
-              const SizedBox(
-                width: double.infinity,
-                child: Text(
-                  "Géneros",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
+                const SizedBox(height: 8),
+                Text(
+                  _author,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF232323),
                   ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              SizedBox(
-                width: double.infinity,
-                child: Wrap(
-                  alignment: WrapAlignment.start,
-                  spacing: 8,
-                  runSpacing: 8,
-                  children: [
-                    for (final genre in _genres) AChip(label: genre),
-                  ],
+                const SizedBox(height: 16),
+                const MiniTab(
+                  label: "Leyendo",
+                  isSelected: true,
                 ),
-              ),
-              const FDivider(),
-              const SizedBox(
-                width: double.infinity,
-                child: Text(
-                  "Historial",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
+                const FDivider(),
+                FButton(
+                  onPress: () {},
+                  style: FButtonStyle.primary,
+                  label: const Text("Reanudar lectura"),
+                ),
+                const SizedBox(height: 8),
+                FButton(
+                  onPress: () {},
+                  style: FButtonStyle.outline,
+                  label: const Text("Cuestionario"),
+                ),
+                const SizedBox(height: 8),
+                FButton(
+                  onPress: () {},
+                  style: FButtonStyle.outline,
+                  label: const Text("Recomendaciones"),
+                ),
+                const FDivider(),
+                const SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    "Descripción",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 8),
+                Text(
+                  _description,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: Color(0xFF232323),
+                  ),
+                ),
+                const FDivider(),
+                const SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    "Géneros",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                SizedBox(
+                  width: double.infinity,
+                  child: Wrap(
+                    alignment: WrapAlignment.start,
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      for (final genre in _genres) AChip(label: genre),
+                    ],
+                  ),
+                ),
+                const FDivider(),
+                const SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    "Historial",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

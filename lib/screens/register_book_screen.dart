@@ -2,6 +2,7 @@ import 'package:anaquel/widgets/books/small_book_card.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
+import 'package:scaled_app/scaled_app.dart';
 
 List<String> _bookCovers = [
   "https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg",
@@ -29,68 +30,71 @@ class RegisterBookScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FTheme(
-      data: FThemes.zinc.light,
-      child: FScaffold(
-        header: Container(
-          decoration: BoxDecoration(
-            color: Colors.white,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withOpacity(0.1),
-                offset: const Offset(0, 1),
-              ),
-            ],
-          ),
-          child: FHeader.nested(
-            title: const Text("Registrando libro"),
-            // title: const SizedBox.shrink(),
-            leftActions: [
-              FHeaderAction.back(
-                onPress: () => context.pop(),
-              ),
-            ],
-          ),
-        ),
-        contentPad: false,
-        content: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              FButton(
-                onPress: () {},
-                style: FButtonStyle.outline,
-                label: const Text("Crear libro"),
-              ),
-              const FDivider(),
-              // Search book
-              FTextField(
-                hint: "Buscar libro",
-                suffix: Container(
-                  padding: const EdgeInsets.all(12),
-                  child: FAssets.icons.search(),
+    return MediaQuery(
+      data: MediaQuery.of(context).scale(),
+      child: FTheme(
+        data: FThemes.zinc.light,
+        child: FScaffold(
+          header: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  offset: const Offset(0, 1),
                 ),
-              ),
-              const SizedBox(height: 16),
-              SizedBox(
-                width: double.infinity,
-                child: ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  padding: const EdgeInsets.all(0),
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 8),
-                  itemCount: _bookTitles.length,
-                  itemBuilder: (context, index) {
-                    return SmallBookCard(
-                      image: _bookCovers[index],
-                      title: _bookTitles[index],
-                      author: _bookAuthors[index],
-                    );
-                  },
+              ],
+            ),
+            child: FHeader.nested(
+              title: const Text("Registrando libro"),
+              // title: const SizedBox.shrink(),
+              leftActions: [
+                FHeaderAction.back(
+                  onPress: () => context.pop(),
                 ),
-              ),
-            ],
+              ],
+            ),
+          ),
+          contentPad: false,
+          content: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              children: [
+                FButton(
+                  onPress: () {},
+                  style: FButtonStyle.outline,
+                  label: const Text("Crear libro"),
+                ),
+                const FDivider(),
+                // Search book
+                FTextField(
+                  hint: "Buscar libro",
+                  suffix: Container(
+                    padding: const EdgeInsets.all(12),
+                    child: FAssets.icons.search(),
+                  ),
+                ),
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: double.infinity,
+                  child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(0),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
+                    itemCount: _bookTitles.length,
+                    itemBuilder: (context, index) {
+                      return SmallBookCard(
+                        image: _bookCovers[index],
+                        title: _bookTitles[index],
+                        author: _bookAuthors[index],
+                      );
+                    },
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
