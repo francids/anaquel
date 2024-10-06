@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
 // Screens
-import 'package:anaquel/screens/books_screen.dart';
-import 'package:anaquel/screens/principal_screen.dart';
-import 'package:anaquel/screens/profile_screen.dart';
-import 'package:anaquel/screens/schedules_screen.dart';
+import 'package:anaquel/screens/home/books_screen.dart';
+import 'package:anaquel/screens/home/principal_screen.dart';
+import 'package:anaquel/screens/home/profile_screen.dart';
+import 'package:anaquel/screens/home/schedules_screen.dart';
 
 List<String> _titles = [
   'Anaquel',
@@ -21,14 +21,14 @@ List<Widget> _screens = [
   const ProfileScreen(),
 ];
 
-class IndexScreen extends StatefulWidget {
-  const IndexScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<IndexScreen> createState() => _IndexScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _IndexScreenState extends State<IndexScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   int index = 0;
 
   @override

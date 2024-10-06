@@ -8,7 +8,7 @@ import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
 // Screens
-import 'package:anaquel/screens/index_screen.dart';
+import 'package:anaquel/screens/home/home_screen.dart';
 import 'package:anaquel/screens/auth/auth_screen.dart';
 
 void main() {
@@ -16,6 +16,7 @@ void main() {
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
       statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
       systemNavigationBarColor: Colors.transparent,
       systemNavigationBarContrastEnforced: false,
       systemNavigationBarDividerColor: Colors.transparent,
@@ -51,7 +52,7 @@ final _router = GoRouter(
       pageBuilder: (context, state) {
         return CustomTransitionPage(
           key: state.pageKey,
-          child: const IndexScreen(),
+          child: const HomeScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return FadeTransition(
               opacity: animation,
