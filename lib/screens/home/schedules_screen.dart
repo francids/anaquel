@@ -1,3 +1,4 @@
+import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
@@ -32,7 +33,7 @@ class SchedulesScreen extends StatelessWidget {
           ),
           FDivider(
             style: FDividerStyle(
-              color: const Color(0xFFEEEEEE),
+              color: AppColors.antiFlashWhite,
               padding: const EdgeInsets.only(top: 16),
             ),
           ),

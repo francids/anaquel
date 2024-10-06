@@ -1,3 +1,4 @@
+import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class AChip extends StatelessWidget {
@@ -13,7 +14,7 @@ class AChip extends StatelessWidget {
         vertical: 4,
       ),
       decoration: BoxDecoration(
-        color: Colors.grey[200],
+        color: AppColors.antiFlashWhite,
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(label),

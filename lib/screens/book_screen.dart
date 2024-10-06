@@ -1,6 +1,6 @@
+import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/widgets/chip.dart';
 import 'package:anaquel/widgets/mini_tab.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_popup/flutter_popup.dart';
 import 'package:forui/forui.dart';
@@ -35,17 +35,16 @@ class BookScreen extends StatelessWidget {
         child: FScaffold(
           header: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: AppColors.black.withOpacity(0.1),
                   offset: const Offset(0, 1),
                 ),
               ],
             ),
             child: FHeader.nested(
               title: Text(lookId),
-              // title: const SizedBox.shrink(),
               leftActions: [
                 FHeaderAction.back(
                   onPress: () => context.pop(),
@@ -136,7 +135,7 @@ class BookScreen extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
-                    color: Color(0xFF232323),
+                    color: AppColors.eerieBlack,
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -179,7 +178,7 @@ class BookScreen extends StatelessWidget {
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
-                    color: Color(0xFF232323),
+                    color: AppColors.eerieBlack,
                   ),
                 ),
                 const FDivider(),

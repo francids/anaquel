@@ -1,3 +1,4 @@
+import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class CollectionChip extends StatelessWidget {
@@ -26,7 +27,7 @@ class CollectionChip extends StatelessWidget {
               label,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Colors.white,
+                color: AppColors.white,
                 fontWeight: FontWeight.w600,
               ),
             ),

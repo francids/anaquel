@@ -1,3 +1,4 @@
+import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class MiniTab extends StatelessWidget {
@@ -14,7 +15,7 @@ class MiniTab extends StatelessWidget {
         vertical: 8,
       ),
       decoration: BoxDecoration(
-        color: isSelected ? const Color(0xFFEEEEEE) : Colors.transparent,
+        color: isSelected ? AppColors.antiFlashWhite : Colors.transparent,
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(

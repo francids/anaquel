@@ -1,3 +1,4 @@
+import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forui/forui.dart';
@@ -20,7 +21,7 @@ class AuthScreen extends StatelessWidget {
             contentPadding: const EdgeInsets.all(16),
             footerDecoration: const BoxDecoration(),
             headerDecoration: const BoxDecoration(),
-            backgroundColor: const Color(0xFF941932),
+            backgroundColor: AppColors.burgundy,
           ),
           content: Container(
             height: double.infinity,
@@ -47,7 +48,7 @@ class AuthScreen extends StatelessWidget {
                           content: FCard(
                             style: FCardStyle(
                               decoration: const BoxDecoration(
-                                color: Colors.white,
+                                color: AppColors.white,
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(8),
                                 ),
@@ -86,12 +87,12 @@ class AuthScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 8),
                                 const FDivider(vertical: false),
-                                SizedBox(
+                                const SizedBox(
                                   width: double.infinity,
                                   child: Text(
                                     "O puedes iniciar sesión con:",
                                     style: TextStyle(
-                                      color: Colors.grey[600],
+                                      color: AppColors.eerieBlack,
                                       fontSize: 15,
                                     ),
                                   ),
@@ -116,7 +117,7 @@ class AuthScreen extends StatelessWidget {
                           content: FCard(
                             style: FCardStyle(
                               decoration: const BoxDecoration(
-                                color: Colors.white,
+                                color: AppColors.white,
                                 borderRadius: BorderRadius.all(
                                   Radius.circular(8),
                                 ),
@@ -171,12 +172,12 @@ class AuthScreen extends StatelessWidget {
                                 ),
                                 const SizedBox(height: 8),
                                 const FDivider(vertical: false),
-                                SizedBox(
+                                const SizedBox(
                                   width: double.infinity,
                                   child: Text(
                                     "O puedes registrarte con:",
                                     style: TextStyle(
-                                      color: Colors.grey[600],
+                                      color: AppColors.eerieBlack,
                                       fontSize: 15,
                                     ),
                                   ),

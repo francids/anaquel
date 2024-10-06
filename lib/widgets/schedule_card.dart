@@ -1,3 +1,4 @@
+import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
@@ -18,7 +19,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: const Color(0xFFEEEEEE),
+        color: AppColors.antiFlashWhite,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
@@ -28,18 +29,18 @@ class _ScheduleCardState extends State<ScheduleCard> {
               FAssets.icons.tag(
                 height: 16,
                 width: 16,
-                colorFilter: const ColorFilter.mode(
-                  Color(0x99151515),
+                colorFilter: ColorFilter.mode(
+                  AppColors.night.withOpacity(0.6),
                   BlendMode.srcIn,
                 ),
               ),
               const SizedBox(width: 8),
-              const Text(
+              Text(
                 "Normal",
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.normal,
-                  color: Color(0x99151515),
+                  color: AppColors.night.withOpacity(0.6),
                 ),
               ),
             ],
@@ -58,10 +59,10 @@ class _ScheduleCardState extends State<ScheduleCard> {
               const FSwitch(
                 enabled: true,
                 style: FSwitchStyle(
-                  checkedColor: Color(0xFF941932),
-                  uncheckedColor: Color(0xFFD8D8D8),
-                  focusColor: Color(0xFF941932),
-                  thumbColor: Color(0xFFFBFBFB),
+                  checkedColor: AppColors.burgundy,
+                  uncheckedColor: AppColors.timberwolf,
+                  focusColor: AppColors.burgundy,
+                  thumbColor: AppColors.white,
                 ),
               ),
             ],
@@ -77,13 +78,13 @@ class _ScheduleCardState extends State<ScheduleCard> {
                 child: Container(
                   decoration: BoxDecoration(
                     color: isSelected[index]
-                        ? const Color(0xFF941932)
-                        : const Color(0x00FBFBFB),
+                        ? AppColors.burgundy
+                        : AppColors.white,
                     borderRadius: BorderRadius.circular(8.0),
                     border: Border.all(
                       color: isSelected[index]
-                          ? const Color(0xFF941932)
-                          : const Color(0xFFD8D8D8),
+                          ? AppColors.burgundy
+                          : AppColors.timberwolf,
                       width: 1,
                     ),
                   ),
@@ -94,8 +95,8 @@ class _ScheduleCardState extends State<ScheduleCard> {
                       ['L', 'M', 'M', 'J', 'V', 'S', 'D'][index],
                       style: TextStyle(
                         color: isSelected[index]
-                            ? const Color(0xFFFBFBFB)
-                            : const Color(0xFF151515),
+                            ? AppColors.white
+                            : AppColors.night,
                         fontWeight: FontWeight.w500,
                         fontSize: 20,
                       ),

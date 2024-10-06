@@ -1,3 +1,4 @@
+import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
@@ -15,10 +16,10 @@ class ChangePasswordScreen extends StatelessWidget {
         child: FScaffold(
           header: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.white,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.1),
+                  color: AppColors.black.withOpacity(0.1),
                   offset: const Offset(0, 1),
                 ),
               ],

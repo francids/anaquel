@@ -1,3 +1,4 @@
+import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class LargeBookCard extends StatelessWidget {
@@ -12,11 +13,11 @@ class LargeBookCard extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: Colors.white,
+            color: AppColors.white,
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: AppColors.black.withOpacity(0.1),
                 spreadRadius: 1,
                 blurRadius: 20,
                 offset: const Offset(0, 1),
@@ -44,7 +45,7 @@ class LargeBookCard extends StatelessWidget {
               title,
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Color(0xFF232323),
+                color: AppColors.eerieBlack,
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),

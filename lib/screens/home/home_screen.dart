@@ -1,3 +1,4 @@
+import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
@@ -36,10 +37,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return FScaffold(
       header: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1),
+              color: AppColors.black.withOpacity(0.1),
               offset: const Offset(0, 1),
             ),
           ],
@@ -50,15 +51,13 @@ class _HomeScreenState extends State<HomeScreen> {
           style: FRootHeaderStyle(
             titleTextStyle: TextStyle(
               fontSize: 24,
-              color: index == 0
-                  ? const Color(0xFF941932)
-                  : const Color(0xFF050505),
+              color: index == 0 ? AppColors.burgundy : AppColors.black,
               fontWeight: index == 0 ? FontWeight.w800 : FontWeight.w600,
             ),
             actionSpacing: 16,
             actionStyle: FHeaderActionStyle(
-              disabledColor: const Color(0xFF050505),
-              enabledColor: const Color(0xFF050505),
+              disabledColor: AppColors.black,
+              enabledColor: AppColors.black,
               size: 22,
             ),
             padding: const EdgeInsets.only(
@@ -79,17 +78,17 @@ class _HomeScreenState extends State<HomeScreen> {
             vertical: 8,
           ),
           item: FBottomNavigationBarItemStyle(
-            activeIconColor: const Color(0xFF050505),
+            activeIconColor: AppColors.black,
             activeTextStyle: const TextStyle(
               fontWeight: FontWeight.w600,
               fontSize: 14,
-              color: Color(0xFF050505),
+              color: AppColors.black,
             ),
-            inactiveIconColor: const Color(0xFF232323),
+            inactiveIconColor: AppColors.eerieBlack,
             inactiveTextStyle: const TextStyle(
               fontWeight: FontWeight.w400,
               fontSize: 14,
-              color: Color(0xFF232323),
+              color: AppColors.eerieBlack,
             ),
             iconSize: 22,
             padding: const EdgeInsets.only(
@@ -98,10 +97,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           decoration: BoxDecoration(
-            color: const Color(0xFFFBFBFB),
+            color: AppColors.white,
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.1),
+                color: AppColors.black.withOpacity(0.1),
                 offset: const Offset(0, -1),
               ),
             ],

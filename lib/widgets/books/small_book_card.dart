@@ -1,3 +1,4 @@
+import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class SmallBookCard extends StatelessWidget {
@@ -17,11 +18,11 @@ class SmallBookCard extends StatelessWidget {
       height: 90,
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-        color: const Color(0xFFEEEEEE),
+        color: AppColors.antiFlashWhite,
         borderRadius: BorderRadius.circular(8),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: AppColors.black.withOpacity(0.05),
             spreadRadius: 1,
             blurRadius: 20,
             offset: const Offset(0, 1),
@@ -51,7 +52,7 @@ class SmallBookCard extends StatelessWidget {
                 Text(
                   title,
                   style: const TextStyle(
-                    color: Color(0xFF232323),
+                    color: AppColors.eerieBlack,
                     fontSize: 20,
                     fontWeight: FontWeight.w500,
                   ),
@@ -63,7 +64,7 @@ class SmallBookCard extends StatelessWidget {
                   author,
                   textAlign: TextAlign.start,
                   style: const TextStyle(
-                    color: Color(0xFF232323),
+                    color: AppColors.eerieBlack,
                     fontSize: 14,
                     fontWeight: FontWeight.w300,
                   ),
