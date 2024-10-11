@@ -1,15 +1,15 @@
-import 'package:anaquel/screens/auth/change_password_screen.dart';
-import 'package:anaquel/screens/book_screen.dart';
-import 'package:anaquel/screens/collection_screen.dart';
-import 'package:anaquel/screens/register_book_screen.dart';
+import 'package:forui/forui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
 // Screens
 import 'package:anaquel/screens/home/home_screen.dart';
 import 'package:anaquel/screens/auth/auth_screen.dart';
+import 'package:anaquel/screens/auth/change_password_screen.dart';
+import 'package:anaquel/screens/book_screen.dart';
+import 'package:anaquel/screens/collection_screen.dart';
+import 'package:anaquel/screens/register_book_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
