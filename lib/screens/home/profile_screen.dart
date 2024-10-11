@@ -1,3 +1,5 @@
+import 'package:anaquel/screens/auth/change_password_screen.dart';
+import 'package:anaquel/screens/auth/edit_profile_screen.dart';
 import 'package:anaquel/widgets/chip.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
@@ -36,13 +38,43 @@ class ProfileScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           FButton(
-            onPress: () => context.push("/edit_profile"),
+            onPress: () => Navigator.of(context).push(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    const EditProfileScreen(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1, 0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  );
+                },
+              ),
+            ),
             style: FButtonStyle.outline,
             label: const Text("Editar perfil"),
           ),
           const SizedBox(height: 8),
           FButton(
-            onPress: () => context.push("/change-password"),
+            onPress: () => Navigator.of(context).push(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    const ChangePasswordScreen(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1, 0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  );
+                },
+              ),
+            ),
             style: FButtonStyle.outline,
             label: const Text("Cambiar contraseña"),
           ),

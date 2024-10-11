@@ -28,7 +28,7 @@ class ChangePasswordScreen extends StatelessWidget {
               title: const Text("Cambiar contraseña"),
               leftActions: [
                 FHeaderAction.back(
-                  onPress: () => context.go("/"),
+                  onPress: () => context.pop(),
                 ),
               ],
             ),

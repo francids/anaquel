@@ -1,3 +1,4 @@
+import 'package:anaquel/screens/register_book_screen.dart';
 import 'package:anaquel/widgets/books/small_book_card.dart';
 import 'package:anaquel/widgets/collection_chip.dart';
 import 'package:flutter/material.dart';
@@ -98,7 +99,22 @@ class BooksScreen extends StatelessWidget {
           ),
           const FDivider(),
           FButton(
-            onPress: () => context.push("/register_book"),
+            onPress: () => Navigator.of(context).push(
+              PageRouteBuilder(
+                pageBuilder: (context, animation, secondaryAnimation) =>
+                    const RegisterBookScreen(),
+                transitionsBuilder:
+                    (context, animation, secondaryAnimation, child) {
+                  return SlideTransition(
+                    position: Tween<Offset>(
+                      begin: const Offset(1, 0),
+                      end: Offset.zero,
+                    ).animate(animation),
+                    child: child,
+                  );
+                },
+              ),
+            ),
             style: FButtonStyle.primary,
             label: const Text("Registrar libro"),
           ),

@@ -6,11 +6,8 @@ import 'package:go_router/go_router.dart';
 // Screens
 import 'package:anaquel/screens/home/home_screen.dart';
 import 'package:anaquel/screens/auth/auth_screen.dart';
-import 'package:anaquel/screens/auth/change_password_screen.dart';
-import 'package:anaquel/screens/auth/edit_profile_screen.dart';
 import 'package:anaquel/screens/book_screen.dart';
 import 'package:anaquel/screens/collection_screen.dart';
-import 'package:anaquel/screens/register_book_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -64,24 +61,6 @@ final _router = GoRouter(
       },
     ),
     GoRoute(
-      path: "/change-password",
-      pageBuilder: (context, state) {
-        return CustomTransitionPage(
-          key: state.pageKey,
-          child: const ChangePasswordScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(1, 0),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            );
-          },
-        );
-      },
-    ),
-    GoRoute(
       path: "/collection/:collection_id",
       pageBuilder: (context, state) {
         return CustomTransitionPage(
@@ -109,42 +88,6 @@ final _router = GoRouter(
           child: BookScreen(
             lookId: state.pathParameters['book_id']!,
           ),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(1, 0),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            );
-          },
-        );
-      },
-    ),
-    GoRoute(
-      path: "/register_book",
-      pageBuilder: (context, state) {
-        return CustomTransitionPage(
-          key: state.pageKey,
-          child: const RegisterBookScreen(),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(1, 0),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            );
-          },
-        );
-      },
-    ),
-    GoRoute(
-      path: "/edit_profile",
-      pageBuilder: (context, state) {
-        return CustomTransitionPage(
-          key: state.pageKey,
-          child: const EditProfileScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: Tween<Offset>(
