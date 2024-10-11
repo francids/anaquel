@@ -36,7 +36,7 @@ class ProfileScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           FButton(
-            onPress: () {},
+            onPress: () => context.push("/edit_profile"),
             style: FButtonStyle.outline,
             label: const Text("Editar perfil"),
           ),
