@@ -1,3 +1,4 @@
+import 'package:anaquel/screens/register/register_book_details_screen.dart';
 import 'package:forui/forui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -92,6 +93,24 @@ final _router = GoRouter(
             return SlideTransition(
               position: Tween<Offset>(
                 begin: const Offset(1, 0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            );
+          },
+        );
+      },
+    ),
+    GoRoute(
+      path: "/register_book/:book_id",
+      pageBuilder: (context, state) {
+        return CustomTransitionPage(
+          key: state.pageKey,
+          child: const RegisterBookDetailsScreen(),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(0, 1),
                 end: Offset.zero,
               ).animate(animation),
               child: child,

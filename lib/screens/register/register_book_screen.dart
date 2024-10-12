@@ -1,5 +1,5 @@
 import 'package:anaquel/constants/colors.dart';
-import 'package:anaquel/widgets/books/small_book_card.dart';
+import 'package:anaquel/widgets/books/register_small_book_card.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
@@ -48,7 +48,6 @@ class RegisterBookScreen extends StatelessWidget {
             ),
             child: FHeader.nested(
               title: const Text("Registrando libro"),
-              // title: const SizedBox.shrink(),
               leftActions: [
                 FHeaderAction.back(
                   onPress: () => context.pop(),
@@ -67,7 +66,6 @@ class RegisterBookScreen extends StatelessWidget {
                   label: const Text("Crear libro"),
                 ),
                 const FDivider(),
-                // Search book
                 FTextField(
                   hint: "Buscar libro",
                   suffix: Container(
@@ -86,7 +84,7 @@ class RegisterBookScreen extends StatelessWidget {
                         const SizedBox(height: 8),
                     itemCount: _bookTitles.length,
                     itemBuilder: (context, index) {
-                      return SmallBookCard(
+                      return RegisterSmallBookCard(
                         id: index.toString(),
                         image: _bookCovers[index],
                         title: _bookTitles[index],
