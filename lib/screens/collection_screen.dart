@@ -72,6 +72,7 @@ class CollectionScreen extends StatelessWidget {
                         return SizedBox(
                           width: MediaQuery.of(context).size.width / 2 - 32,
                           child: LargeBookCard(
+                            id: index.toString(),
                             image: _bookCovers[index],
                             title: _bookTitles[index],
                           ),

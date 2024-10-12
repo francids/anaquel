@@ -70,6 +70,7 @@ class RecommendationsBooksScreen extends StatelessWidget {
                     itemCount: _bookTitles.length,
                     itemBuilder: (context, index) {
                       return SmallBookCard(
+                        id: index.toString(),
                         image: _bookCovers[index],
                         title: _bookTitles[index],
                         author: _bookAuthors[index],
