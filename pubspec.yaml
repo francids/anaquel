@@ -9,6 +9,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_colorpicker: ^1.1.0
   flutter_popup: ^3.3.0
   flutter_svg: ^2.0.10+1
   forui: ^0.4.0

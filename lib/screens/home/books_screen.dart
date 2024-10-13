@@ -1,3 +1,4 @@
+import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/screens/register/register_book_screen.dart';
 import 'package:anaquel/widgets/books/small_book_card.dart';
 import 'package:anaquel/widgets/collection_chip.dart';
@@ -93,7 +94,7 @@ class BooksScreen extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           FButton(
-            onPress: () {},
+            onPress: () => buildCreateCollectionDialog(context),
             style: FButtonStyle.outline,
             label: const Text("Crear colección"),
           ),
@@ -147,6 +148,83 @@ class BooksScreen extends StatelessWidget {
                 );
               },
             ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<dynamic> buildCreateCollectionDialog(BuildContext context) {
+    return showAdaptiveDialog(
+      context: context,
+      builder: (context) => FDialog(
+        title: const Text("Crear colección"),
+        direction: Axis.vertical,
+        body: Padding(
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Column(
+            children: [
+              const SizedBox(height: 6),
+              const Text(
+                "Ingresa el nombre y decide el color:",
+                textAlign: TextAlign.start,
+              ),
+              const SizedBox(height: 16),
+              const FTextField(
+                label: Text('Nombre:'),
+              ),
+              const SizedBox(height: 16),
+              const SizedBox(
+                width: double.infinity,
+                child: Text(
+                  'Color:',
+                  textAlign: TextAlign.start,
+                  style: TextStyle(
+                    color: AppColors.black,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 8),
+              Wrap(
+                spacing: 8,
+                children: List.generate(
+                  _collectionsColors.length,
+                  (index) {
+                    return GestureDetector(
+                      onTap: () {},
+                      child: Container(
+                        width: 32,
+                        height: 32,
+                        decoration: BoxDecoration(
+                          color: Color(
+                            int.parse(
+                                  _collectionsColors[index].substring(1),
+                                  radix: 16,
+                                ) +
+                                0xFF000000,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+        actions: <FButton>[
+          FButton(
+            onPress: () => context.pop(),
+            style: FButtonStyle.primary,
+            label: const Text("Crear colección"),
+          ),
+          FButton(
+            onPress: () => context.pop(),
+            style: FButtonStyle.outline,
+            label: const Text("Cancelar"),
           ),
         ],
       ),
