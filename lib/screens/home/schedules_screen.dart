@@ -1,8 +1,8 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-
 import 'package:anaquel/widgets/schedule_card.dart';
+import 'package:go_router/go_router.dart';
 
 List<String> _times = [
   '08:00 AM',
@@ -21,7 +21,7 @@ class SchedulesScreen extends StatelessWidget {
       child: Column(
         children: [
           FButton(
-            onPress: () {},
+            onPress: () => buildCreateScheduleDialog(context),
             style: FButtonStyle.primary,
             label: const Text("Crear hora de lectura"),
           ),
@@ -42,6 +42,72 @@ class SchedulesScreen extends StatelessWidget {
             separatorBuilder: (context, index) {
               return const SizedBox(height: 8);
             },
+          ),
+          const SizedBox(
+            width: double.infinity,
+            child: Text(
+              "Para modificar una hora, mantéenla presionada.",
+              style: TextStyle(
+                color: AppColors.eerieBlack,
+                fontSize: 15,
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+
+  Future<dynamic> buildCreateScheduleDialog(BuildContext context) {
+    return showAdaptiveDialog(
+      context: context,
+      builder: (context) => FDialog(
+        title: const Text("Crear hora de lectura"),
+        direction: Axis.vertical,
+        body: Column(
+          children: [
+            const Text(
+              "Selecciona la hora:",
+              textAlign: TextAlign.start,
+            ),
+            const SizedBox(height: 16),
+            const FTextField(
+              label: Text('Etiqueta:'),
+              hint: "Opcional",
+              maxLines: 1,
+            ),
+            const SizedBox(height: 16),
+            GestureDetector(
+              onTap: () async {
+                TimeOfDay? pickedTime = await showTimePicker(
+                  context: context,
+                  initialTime: TimeOfDay.now(),
+                );
+                if (pickedTime != null) {
+                  print(pickedTime.format(context));
+                }
+              },
+              child: const FTextField(
+                label: Text('Hora:'),
+                maxLines: 1,
+                readOnly: true,
+                enabled: false,
+              ),
+            ),
+            const SizedBox(height: 12),
+          ],
+        ),
+        actions: <FButton>[
+          FButton(
+            onPress: () => context.pop(),
+            style: FButtonStyle.primary,
+            label: const Text("Crear hora de lectura"),
+          ),
+          FButton(
+            onPress: () => context.pop(),
+            style: FButtonStyle.outline,
+            label: const Text("Cancelar"),
           ),
         ],
       ),

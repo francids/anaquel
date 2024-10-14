@@ -164,7 +164,6 @@ class BooksScreen extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 16),
           child: Column(
             children: [
-              const SizedBox(height: 6),
               const Text(
                 "Ingresa el nombre y decide el color:",
                 textAlign: TextAlign.start,
@@ -172,6 +171,7 @@ class BooksScreen extends StatelessWidget {
               const SizedBox(height: 16),
               const FTextField(
                 label: Text('Nombre:'),
+                maxLines: 1,
               ),
               const SizedBox(height: 16),
               const SizedBox(
@@ -186,7 +186,7 @@ class BooksScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 12),
               Wrap(
                 spacing: 8,
                 children: List.generate(
