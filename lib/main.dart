@@ -1,14 +1,15 @@
-import 'package:anaquel/screens/auth/log_in_screen.dart';
-import 'package:anaquel/screens/register/register_book_details_screen.dart';
 import 'package:forui/forui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
+import 'package:scaled_app/scaled_app.dart';
 
 // Screens
 import 'package:anaquel/screens/home/home_screen.dart';
 import 'package:anaquel/screens/book_screen.dart';
 import 'package:anaquel/screens/collection_screen.dart';
+import 'package:anaquel/screens/auth/log_in_screen.dart';
+import 'package:anaquel/screens/register/register_book_details_screen.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -135,9 +136,12 @@ class Application extends StatelessWidget {
         fontFamily: 'Inter',
       ),
       builder: (context, child) {
-        return FTheme(
-          data: FThemes.zinc.light,
-          child: child!,
+        return MediaQuery(
+          data: MediaQuery.of(context).scale(),
+          child: FTheme(
+            data: FThemes.zinc.light,
+            child: child!,
+          ),
         );
       },
       routerConfig: _router,

@@ -3,7 +3,6 @@ import 'package:anaquel/widgets/chip.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-import 'package:scaled_app/scaled_app.dart';
 
 final List<String> _genres = [
   "Fiction",
@@ -25,120 +24,114 @@ class RegisterBookDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MediaQuery(
-      data: MediaQuery.of(context).scale(),
-      child: FTheme(
-        data: FThemes.zinc.light,
-        child: FScaffold(
-          header: Container(
-            decoration: BoxDecoration(
-              color: AppColors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.black.withOpacity(0.1),
-                  offset: const Offset(0, 1),
-                ),
-              ],
+    return FScaffold(
+      header: Container(
+        decoration: BoxDecoration(
+          color: AppColors.white,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.black.withOpacity(0.1),
+              offset: const Offset(0, 1),
             ),
-            child: FHeader.nested(
-              title: const Text("Registrando libro"),
-              leftActions: [
-                FHeaderAction.back(
-                  onPress: () => context.pop(),
-                ),
-              ],
+          ],
+        ),
+        child: FHeader.nested(
+          title: const Text("Registrando libro"),
+          leftActions: [
+            FHeaderAction.back(
+              onPress: () => context.pop(),
             ),
-          ),
-          contentPad: false,
-          content: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                const SizedBox(height: 8),
-                SizedBox(
-                  height: 260,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8),
-                    child: AspectRatio(
-                      aspectRatio: 0.625,
-                      child: Image.network(
-                        _image,
-                        fit: BoxFit.cover,
-                        width: 150,
-                        height: 240,
-                      ),
-                    ),
+          ],
+        ),
+      ),
+      contentPad: false,
+      content: SingleChildScrollView(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          children: [
+            const SizedBox(height: 8),
+            SizedBox(
+              height: 260,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: AspectRatio(
+                  aspectRatio: 0.625,
+                  child: Image.network(
+                    _image,
+                    fit: BoxFit.cover,
+                    width: 150,
+                    height: 240,
                   ),
                 ),
-                const SizedBox(height: 16),
-                Text(
-                  _title,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  _author,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.eerieBlack,
-                  ),
-                ),
-                const FDivider(),
-                const SizedBox(
-                  width: double.infinity,
-                  child: Text(
-                    "Descripción",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  _description,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.eerieBlack,
-                  ),
-                ),
-                const FDivider(),
-                const SizedBox(
-                  width: double.infinity,
-                  child: Text(
-                    "Géneros",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 8),
-                SizedBox(
-                  width: double.infinity,
-                  child: Wrap(
-                    alignment: WrapAlignment.start,
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      for (final genre in _genres) AChip(label: genre),
-                    ],
-                  ),
-                ),
-                const FDivider(),
-                FButton(
-                  onPress: () => context.pop(),
-                  style: FButtonStyle.primary,
-                  label: const Text("Registrar lectura"),
-                ),
-              ],
+              ),
             ),
-          ),
+            const SizedBox(height: 16),
+            Text(
+              _title,
+              style: const TextStyle(
+                fontSize: 24,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              _author,
+              style: const TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+                color: AppColors.eerieBlack,
+              ),
+            ),
+            const FDivider(),
+            const SizedBox(
+              width: double.infinity,
+              child: Text(
+                "Descripción",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              _description,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w400,
+                color: AppColors.eerieBlack,
+              ),
+            ),
+            const FDivider(),
+            const SizedBox(
+              width: double.infinity,
+              child: Text(
+                "Géneros",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            SizedBox(
+              width: double.infinity,
+              child: Wrap(
+                alignment: WrapAlignment.start,
+                spacing: 8,
+                runSpacing: 8,
+                children: [
+                  for (final genre in _genres) AChip(label: genre),
+                ],
+              ),
+            ),
+            const FDivider(),
+            FButton(
+              onPress: () => context.pop(),
+              style: FButtonStyle.primary,
+              label: const Text("Registrar lectura"),
+            ),
+          ],
         ),
       ),
     );
