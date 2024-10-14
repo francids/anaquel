@@ -186,7 +186,7 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 actions: <FButton>[
                   FButton(
-                    onPress: () => context.go('/auth'),
+                    onPress: () => context.go('/login'),
                     style: FButtonStyle.destructive,
                     label: const Text("Cerrar sesión"),
                   ),

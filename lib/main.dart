@@ -1,3 +1,4 @@
+import 'package:anaquel/screens/auth/log_in_screen.dart';
 import 'package:anaquel/screens/register/register_book_details_screen.dart';
 import 'package:forui/forui.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:go_router/go_router.dart';
 
 // Screens
 import 'package:anaquel/screens/home/home_screen.dart';
-import 'package:anaquel/screens/auth/auth_screen.dart';
 import 'package:anaquel/screens/book_screen.dart';
 import 'package:anaquel/screens/collection_screen.dart';
 
@@ -29,11 +29,11 @@ void main() {
 final _router = GoRouter(
   routes: [
     GoRoute(
-      path: "/auth",
+      path: "/login",
       pageBuilder: (context, state) {
         return CustomTransitionPage(
           key: state.pageKey,
-          child: const AuthScreen(),
+          child: const LogInScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: Tween<Offset>(
