@@ -29,79 +29,67 @@ class BookScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FScaffold(
-      header: Container(
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.black.withOpacity(0.1),
-              offset: const Offset(0, 1),
-            ),
-          ],
-        ),
-        child: FHeader.nested(
-          title: Text(lookId),
-          leftActions: [
-            FHeaderAction.back(
-              onPress: () => context.pop(),
-            ),
-          ],
-          rightActions: [
-            CustomPopup(
-              content: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        context.pop();
-                      },
-                      child: const Text(
-                        "Limpiar historial",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    GestureDetector(
-                      onTap: () {
-                        context.pop();
-                      },
-                      child: const Text(
-                        "Colecciones",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                    const SizedBox(height: 24),
-                    GestureDetector(
-                      onTap: () {
-                        context.pop();
-                      },
-                      child: const Text(
-                        "Eliminar libro",
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ),
-                  ],
-                ),
+      header: FHeader.nested(
+        title: Text(lookId),
+        leftActions: [
+          FHeaderAction.back(
+            onPress: () => context.pop(),
+          ),
+        ],
+        rightActions: [
+          CustomPopup(
+            content: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 8,
               ),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
-                child: FAssets.icons.ellipsisVertical(),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      context.pop();
+                    },
+                    child: const Text(
+                      "Limpiar historial",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  GestureDetector(
+                    onTap: () {
+                      context.pop();
+                    },
+                    child: const Text(
+                      "Colecciones",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  GestureDetector(
+                    onTap: () {
+                      context.pop();
+                    },
+                    child: const Text(
+                      "Eliminar libro",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: FAssets.icons.ellipsisVertical(),
+            ),
+          ),
+        ],
       ),
       contentPad: false,
       content: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            const SizedBox(height: 8),
             SizedBox(
               height: 260,
               child: ClipRRect(

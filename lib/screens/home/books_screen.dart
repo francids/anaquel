@@ -1,4 +1,3 @@
-import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/screens/register/register_book_screen.dart';
 import 'package:anaquel/widgets/books/small_book_card.dart';
 import 'package:anaquel/widgets/collection_chip.dart';
@@ -180,7 +179,6 @@ class BooksScreen extends StatelessWidget {
                   'Color:',
                   textAlign: TextAlign.start,
                   style: TextStyle(
-                    color: AppColors.black,
                     fontSize: 14,
                     fontWeight: FontWeight.w600,
                   ),

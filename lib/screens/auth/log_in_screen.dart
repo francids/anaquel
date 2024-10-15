@@ -1,6 +1,5 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/screens/auth/sign_up_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forui/forui.dart';
@@ -12,25 +11,14 @@ class LogInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FScaffold(
-      header: Container(
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.black.withOpacity(0.1),
-              offset: const Offset(0, 1),
-            ),
-          ],
-        ),
-        child: const FHeader(
-          title: Text(
-            "Iniciar sesión",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: AppColors.eerieBlack,
-              fontSize: 20,
-              fontWeight: FontWeight.normal,
-            ),
+      header: const FHeader(
+        title: Text(
+          "Iniciar sesión",
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontWeight: FontWeight.normal,
+            fontSize: 20,
+            height: 1,
           ),
         ),
       ),
@@ -39,7 +27,6 @@ class LogInScreen extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            const SizedBox(height: 8),
             const FTextField(
               label: Text('Correo electrónico'),
               autofillHints: [AutofillHints.email],
@@ -103,25 +90,17 @@ class LogInScreen extends StatelessWidget {
                     },
                   ),
                 ),
-                child: RichText(
-                  text: const TextSpan(
-                    text: "¿No tienes una cuenta? ",
-                    style: TextStyle(
-                      color: AppColors.eerieBlack,
-                      fontSize: 15,
-                      fontWeight: FontWeight.normal,
-                    ),
-                    children: [
-                      TextSpan(
-                        text: "Crear cuenta",
-                        style: TextStyle(
-                          color: AppColors.burgundy,
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                        ),
+                child: const Row(
+                  children: [
+                    Text("¿No tienes una cuenta? "),
+                    Text(
+                      "Crear cuenta",
+                      style: TextStyle(
+                        color: AppColors.burgundy,
+                        fontWeight: FontWeight.bold,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),

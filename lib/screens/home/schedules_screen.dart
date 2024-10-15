@@ -1,4 +1,3 @@
-import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:anaquel/widgets/schedule_card.dart';
@@ -25,12 +24,7 @@ class SchedulesScreen extends StatelessWidget {
             style: FButtonStyle.primary,
             label: const Text("Crear hora de lectura"),
           ),
-          FDivider(
-            style: FDividerStyle(
-              color: AppColors.antiFlashWhite,
-              padding: const EdgeInsets.only(top: 16),
-            ),
-          ),
+          const SizedBox(height: 8),
           ListView.separated(
             physics: const NeverScrollableScrollPhysics(),
             itemBuilder: (context, index) {
@@ -45,15 +39,9 @@ class SchedulesScreen extends StatelessWidget {
           ),
           const SizedBox(
             width: double.infinity,
-            child: Text(
-              "Para modificar una hora, mantéenla presionada.",
-              style: TextStyle(
-                color: AppColors.eerieBlack,
-                fontSize: 15,
-              ),
-            ),
+            child: Text("Para modificar una hora, mantéenla presionada."),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 16),
         ],
       ),
     );

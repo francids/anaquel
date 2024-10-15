@@ -1,4 +1,3 @@
-import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
@@ -9,22 +8,11 @@ class EditProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FScaffold(
-      header: Container(
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.black.withOpacity(0.1),
-              offset: const Offset(0, 1),
-            ),
-          ],
-        ),
-        child: FHeader.nested(
-          title: Text("Editar perfil"),
-          leftActions: [
-            FHeaderAction.back(onPress: () => context.pop()),
-          ],
-        ),
+      header: FHeader.nested(
+        title: const Text("Editar perfil"),
+        leftActions: [
+          FHeaderAction.back(onPress: () => context.pop()),
+        ],
       ),
       contentPad: false,
       content: SingleChildScrollView(

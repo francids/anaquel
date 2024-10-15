@@ -1,4 +1,3 @@
-import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/widgets/books/large_book_card.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
@@ -27,24 +26,13 @@ class CollectionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final String collection = GoRouterState.of(context).extra! as String;
     return FScaffold(
-      header: Container(
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.black.withOpacity(0.1),
-              offset: const Offset(0, 1),
-            ),
-          ],
-        ),
-        child: FHeader.nested(
-          title: Text("$collection_id - $collection"),
-          leftActions: [
-            FHeaderAction.back(
-              onPress: () => context.pop(),
-            ),
-          ],
-        ),
+      header: FHeader.nested(
+        title: Text("$collection_id - $collection"),
+        leftActions: [
+          FHeaderAction.back(
+            onPress: () => context.pop(),
+          ),
+        ],
       ),
       contentPad: false,
       content: SingleChildScrollView(

@@ -35,77 +35,32 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return FScaffold(
-      header: Container(
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.black.withOpacity(0.1),
-              offset: const Offset(0, 1),
-            ),
-          ],
-        ),
-        child: FHeader(
-          title: Text(_titles[index]),
-          key: ValueKey(index),
-          style: FRootHeaderStyle(
-            titleTextStyle: TextStyle(
-              fontSize: 24,
-              color: index == 0 ? AppColors.burgundy : AppColors.black,
-              fontWeight: index == 0 ? FontWeight.w800 : FontWeight.w600,
-            ),
-            actionSpacing: 16,
-            actionStyle: FHeaderActionStyle(
-              disabledColor: AppColors.black,
-              enabledColor: AppColors.black,
-              size: 22,
-            ),
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 16,
-              top: 8,
-              bottom: 16,
-            ),
+      header: FHeader(
+        title: Text(_titles[index]),
+        key: ValueKey(index),
+        style: FRootHeaderStyle(
+          titleTextStyle: TextStyle(
+            fontSize: 24,
+            color: index == 0 ? AppColors.burgundy : AppColors.black,
+            fontWeight: index == 0 ? FontWeight.w800 : FontWeight.w600,
+          ),
+          actionSpacing: 16,
+          actionStyle: FHeaderActionStyle(
+            disabledColor: AppColors.black,
+            enabledColor: AppColors.black,
+            size: 22,
+          ),
+          padding: const EdgeInsets.only(
+            left: 16,
+            right: 16,
+            top: 8,
+            bottom: 16,
           ),
         ),
       ),
       contentPad: false,
       content: _screens[index],
       footer: FBottomNavigationBar(
-        style: FBottomNavigationBarStyle(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20,
-            vertical: 8,
-          ),
-          item: FBottomNavigationBarItemStyle(
-            activeIconColor: AppColors.black,
-            activeTextStyle: const TextStyle(
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-              color: AppColors.black,
-            ),
-            inactiveIconColor: AppColors.eerieBlack,
-            inactiveTextStyle: const TextStyle(
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              color: AppColors.eerieBlack,
-            ),
-            iconSize: 22,
-            padding: const EdgeInsets.only(
-              top: 8,
-              bottom: 8,
-            ),
-          ),
-          decoration: BoxDecoration(
-            color: AppColors.white,
-            boxShadow: [
-              BoxShadow(
-                color: AppColors.black.withOpacity(0.1),
-                offset: const Offset(0, -1),
-              ),
-            ],
-          ),
-        ),
         index: index,
         onChange: (index) => setState(() => this.index = index),
         items: [

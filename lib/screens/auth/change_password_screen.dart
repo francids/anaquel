@@ -1,4 +1,3 @@
-import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
@@ -9,30 +8,19 @@ class ChangePasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FScaffold(
-      header: Container(
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.black.withOpacity(0.1),
-              offset: const Offset(0, 1),
-            ),
-          ],
-        ),
-        child: FHeader.nested(
-          title: const Text("Cambiar contraseña"),
-          leftActions: [
-            FHeaderAction.back(
-              onPress: () => context.pop(),
-            ),
-          ],
-        ),
+      header: FHeader.nested(
+        title: const Text("Cambiar contraseña"),
+        leftActions: [
+          FHeaderAction.back(
+            onPress: () => context.pop(),
+          ),
+        ],
       ),
+      contentPad: false,
       content: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            const SizedBox(height: 6),
             const FTextField(
               label: Text('Contraseña actual'),
               obscureText: true,

@@ -1,4 +1,3 @@
-import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forui/forui.dart';
@@ -10,39 +9,19 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FScaffold(
-      header: Container(
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.black.withOpacity(0.1),
-              offset: const Offset(0, 1),
-            ),
-          ],
-        ),
-        child: FHeader.nested(
-          title: const Text(
-            "Crear cuenta",
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: AppColors.eerieBlack,
-              fontSize: 20,
-              fontWeight: FontWeight.normal,
-            ),
+      header: FHeader.nested(
+        title: const Text("Crear cuenta"),
+        leftActions: [
+          FHeaderAction.back(
+            onPress: () => context.pop(),
           ),
-          leftActions: [
-            FHeaderAction.back(
-              onPress: () => context.pop(),
-            ),
-          ],
-        ),
+        ],
       ),
       contentPad: true,
       content: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            const SizedBox(height: 8),
             const FTextField(
               label: Text('Nombre'),
               autofillHints: [AutofillHints.name],
@@ -89,7 +68,6 @@ class SignUpScreen extends StatelessWidget {
               child: Text(
                 "O puedes registrarte con:",
                 style: TextStyle(
-                  color: AppColors.eerieBlack,
                   fontSize: 15,
                 ),
               ),
