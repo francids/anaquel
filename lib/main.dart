@@ -15,5 +15,5 @@ void main() {
     ),
   );
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-  runApp(const Application());
+  runApp(const AnaquelApp());
 }

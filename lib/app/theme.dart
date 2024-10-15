@@ -2,8 +2,8 @@ import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
-class AFTheme extends StatelessWidget {
-  const AFTheme({super.key, this.child});
+class AnaquelTheme extends StatelessWidget {
+  const AnaquelTheme(this.child, {super.key});
 
   final Widget? child;
 
