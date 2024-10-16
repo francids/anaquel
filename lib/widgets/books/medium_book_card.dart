@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
 class MediumBookCard extends StatelessWidget {
@@ -19,8 +21,16 @@ class MediumBookCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         child: Column(
           children: [
-            Image.network(
-              image,
+            CachedNetworkImage(
+              placeholder: (context, url) => const Center(
+                child: CircularProgressIndicator(
+                  color: Colors.black,
+                ),
+              ),
+              errorWidget: (context, url, error) => Center(
+                child: FAssets.icons.circleX(),
+              ),
+              imageUrl: image,
               fit: BoxFit.cover,
               width: 125,
               height: 200,

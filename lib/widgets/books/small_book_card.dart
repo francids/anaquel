@@ -1,5 +1,7 @@
 import 'package:anaquel/constants/colors.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
 class SmallBookCard extends StatelessWidget {
@@ -42,8 +44,16 @@ class SmallBookCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(8),
                 child: AspectRatio(
                   aspectRatio: 0.625,
-                  child: Image.network(
-                    image,
+                  child: CachedNetworkImage(
+                    placeholder: (context, url) => const Center(
+                      child: CircularProgressIndicator(
+                        color: Colors.black,
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => Center(
+                      child: FAssets.icons.circleX(),
+                    ),
+                    imageUrl: image,
                     fit: BoxFit.cover,
                   ),
                 ),
