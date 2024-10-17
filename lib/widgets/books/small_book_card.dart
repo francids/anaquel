@@ -28,14 +28,6 @@ class SmallBookCard extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.antiFlashWhite,
           borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.black.withOpacity(0.05),
-              spreadRadius: 1,
-              blurRadius: 20,
-              offset: const Offset(0, 1),
-            ),
-          ],
         ),
         child: Row(
           children: [
