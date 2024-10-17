@@ -46,17 +46,6 @@ class PrincipalScreen extends StatelessWidget {
                 const SizedBox(
                   width: double.infinity,
                   child: Text(
-                    "Tu progreso",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                const FDivider(),
-                const SizedBox(
-                  width: double.infinity,
-                  child: Text(
                     "Tus libros",
                     style: TextStyle(
                       fontSize: 22,
