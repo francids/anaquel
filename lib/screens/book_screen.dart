@@ -6,6 +6,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_popup/flutter_popup.dart';
 import 'package:forui/forui.dart';
+import 'package:forui/widgets/divider.dart';
 import 'package:go_router/go_router.dart';
 
 final List<String> _genres = [
@@ -212,17 +213,7 @@ class BookScreen extends StatelessWidget {
                 ],
               ),
             ),
-            const FDivider(),
-            const SizedBox(
-              width: double.infinity,
-              child: Text(
-                "Historial",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-            ),
+            const SizedBox(height: 16),
           ],
         ),
       ),
