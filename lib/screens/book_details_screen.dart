@@ -6,7 +6,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_popup/flutter_popup.dart';
 import 'package:forui/forui.dart';
-import 'package:forui/widgets/divider.dart';
 import 'package:go_router/go_router.dart';
 
 final List<String> _genres = [
@@ -17,8 +16,8 @@ final List<String> _genres = [
   "Adult",
 ];
 
-class BookScreen extends StatelessWidget {
-  const BookScreen({super.key, required this.lookId});
+class BookDetailsScreen extends StatelessWidget {
+  const BookDetailsScreen({super.key, required this.lookId});
 
   final String lookId;
   final String _image =

@@ -5,7 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:anaquel/screens/auth/log_in_screen.dart';
 import 'package:anaquel/screens/home/home_screen.dart';
 import 'package:anaquel/screens/collection_screen.dart';
-import 'package:anaquel/screens/book_screen.dart';
+import 'package:anaquel/screens/book_details_screen.dart';
 import 'package:anaquel/screens/register/register_book_details_screen.dart';
 
 final appRouter = GoRouter(
@@ -69,7 +69,7 @@ final appRouter = GoRouter(
       pageBuilder: (context, state) {
         return CustomTransitionPage(
           key: state.pageKey,
-          child: BookScreen(
+          child: BookDetailsScreen(
             lookId: state.pathParameters['book_id']!,
           ),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
