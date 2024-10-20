@@ -1,3 +1,4 @@
+import 'package:anaquel/constants/colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
@@ -22,11 +23,11 @@ class MediumBookCard extends StatelessWidget {
         child: Column(
           children: [
             CachedNetworkImage(
-              placeholder: (context, url) => const Center(
-                child: CircularProgressIndicator(
-                  color: Colors.black,
-                ),
-              ),
+              placeholder: (context, url) {
+                return Container(
+                  color: AppColors.antiFlashWhite,
+                );
+              },
               errorWidget: (context, url, error) => Center(
                 child: FAssets.icons.circleX(),
               ),

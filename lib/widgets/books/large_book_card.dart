@@ -40,11 +40,11 @@ class LargeBookCard extends StatelessWidget {
               child: AspectRatio(
                 aspectRatio: 0.625,
                 child: CachedNetworkImage(
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(
-                      color: Colors.black,
-                    ),
-                  ),
+                  placeholder: (context, url) {
+                    return Container(
+                      color: AppColors.antiFlashWhite,
+                    );
+                  },
                   errorWidget: (context, url, error) => Center(
                     child: FAssets.icons.circleX(),
                   ),
