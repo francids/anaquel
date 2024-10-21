@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shimmer/shimmer.dart';
 
 class LargeBookCard extends StatelessWidget {
   const LargeBookCard({
@@ -41,8 +42,12 @@ class LargeBookCard extends StatelessWidget {
                 aspectRatio: 0.625,
                 child: CachedNetworkImage(
                   placeholder: (context, url) {
-                    return Container(
-                      color: AppColors.antiFlashWhite,
+                    return Shimmer.fromColors(
+                      baseColor: AppColors.antiFlashWhite,
+                      highlightColor: AppColors.timberwolf,
+                      child: Container(
+                        color: AppColors.antiFlashWhite,
+                      ),
                     );
                   },
                   errorWidget: (context, url, error) => Center(

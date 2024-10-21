@@ -17,6 +17,7 @@ dependencies:
   forui_assets: ^0.2.0
   go_router: ^14.2.7
   scaled_app: ^2.3.0
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
