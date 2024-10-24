@@ -1,7 +1,9 @@
+import 'package:anaquel/blocs/auth_bloc.dart';
 import 'package:anaquel/screens/auth/change_password_screen.dart';
 import 'package:anaquel/screens/auth/edit_profile_screen.dart';
 import 'package:anaquel/widgets/chip.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
@@ -186,7 +188,10 @@ class ProfileScreen extends StatelessWidget {
                 ),
                 actions: <FButton>[
                   FButton(
-                    onPress: () => context.go('/login'),
+                    onPress: () => {
+                      context.read<AuthBloc>().add(LogoutEvent()),
+                      context.go('/login'),
+                    },
                     style: FButtonStyle.destructive,
                     label: const Text("Cerrar sesión"),
                   ),

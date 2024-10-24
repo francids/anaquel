@@ -1,3 +1,4 @@
+import 'package:anaquel/data/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -8,15 +9,27 @@ import 'package:anaquel/screens/collection_screen.dart';
 import 'package:anaquel/screens/book_details_screen.dart';
 import 'package:anaquel/screens/register/register_book_details_screen.dart';
 
-final appRouter = GoRouter(
+final GoRouter appRouter = GoRouter(
   initialLocation: '/login',
+  redirect: (context, state) async {
+    final authService = AuthService();
+    final token = await authService.getToken();
+    final tokenType = await authService.getTokenType();
+    return (token == null || tokenType == null) ? '/login' : null;
+  },
   routes: [
     GoRoute(
       path: "/login",
+      redirect: (context, state) async {
+        final authService = AuthService();
+        final token = await authService.getToken();
+        final tokenType = await authService.getTokenType();
+        return (token == null || tokenType == null) ? null : '/';
+      },
       pageBuilder: (context, state) {
         return CustomTransitionPage(
           key: state.pageKey,
-          child: const LogInScreen(),
+          child: LogInScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: Tween<Offset>(
