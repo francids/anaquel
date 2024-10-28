@@ -13,6 +13,12 @@ class LoginEvent extends AuthEvent {
 
 class LogoutEvent extends AuthEvent {}
 
+class SignUpEvent extends AuthEvent {
+  final User user;
+
+  SignUpEvent(this.user);
+}
+
 abstract class AuthState {}
 
 class AuthInitial extends AuthState {}
@@ -49,6 +55,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       await authService.logout();
 
       emit(AuthInitial());
+    });
+
+    on<SignUpEvent>((event, emit) async {
+      emit(AuthLoading());
+      try {
+        await authService.signUp(event.user);
+        emit(AuthInitial());
+
+        // Login after sign up
+        await Future.delayed(const Duration(seconds: 1));
+        final authResponse = await authService.login(event.user);
+        emit(AuthSuccess(authResponse));
+      } catch (e) {
+        emit(AuthFailure(e.toString()));
+      }
     });
   }
 }

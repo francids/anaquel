@@ -132,7 +132,7 @@ class LogInScreen extends StatelessWidget {
                   onTap: () => Navigator.of(context).push(
                     PageRouteBuilder(
                       pageBuilder: (context, animation, secondaryAnimation) =>
-                          const SignUpScreen(),
+                          SignUpScreen(),
                       transitionsBuilder:
                           (context, animation, secondaryAnimation, child) {
                         return SlideTransition(

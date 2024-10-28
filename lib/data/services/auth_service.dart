@@ -46,6 +46,24 @@ class AuthService {
     await secureStorage.delete(key: 'token_type');
   }
 
+  Future signUp(User user) async {
+    final response = await _dio.post(
+      '/auth/register',
+      data: {
+        'username': user.username,
+        'email': user.email,
+        'name': user.name,
+        'password': user.password,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return response.data;
+    } else {
+      throw Exception('Error al registrarse');
+    }
+  }
+
   Future<String?> getToken() async {
     return await secureStorage.read(key: 'access_token');
   }
