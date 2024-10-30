@@ -11,7 +11,7 @@ class AnaquelApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: blocProviders(context),
+      providers: Providers.blocs(),
       child: MaterialApp.router(
         title: "Anaquel",
         locale: const Locale('es'),
