@@ -1,81 +1,80 @@
+import 'package:anaquel/blocs/books_bloc.dart';
 import 'package:anaquel/widgets/books/register_small_book_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-
-List<String> _bookCovers = [
-  "https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg",
-  "https://images.squarespace-cdn.com/content/v1/624da83e75ca872f189ffa42/aa45e942-f55d-432d-8217-17c7d98105ce/image001.jpg",
-  "https://images.squarespace-cdn.com/content/v1/5fc7868e04dc9f2855c99940/32f738d4-e4b9-4c61-bfc0-e813699cdd3c/laura-barrett-illustrator-beloved-girls-book-cover.jpg",
-  "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/yellow-the-mind-of-a-leader-book-cover-design-template-f3cc2996f5f381d3d2d092e2d67337a4_screen.jpg"
-];
-
-List<String> _bookTitles = [
-  "SOUL",
-  "really good, actually",
-  "The Beloved Girls",
-  "The Mind of a Leader",
-];
-
-List<String> _bookAuthors = [
-  "Olivia Wilson",
-  "Monica Heisey",
-  "Harriet Evans",
-  "Nouah Schumacher",
-];
 
 class RegisterBookScreen extends StatelessWidget {
   const RegisterBookScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return FScaffold(
-      header: FHeader.nested(
-        title: const Text("Registrando libro"),
-        leftActions: [
-          FHeaderAction.back(
-            onPress: () => context.pop(),
-          ),
-        ],
-      ),
-      contentPad: false,
-      content: SingleChildScrollView(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          children: [
-            FButton(
-              onPress: () {},
-              style: FButtonStyle.outline,
-              label: const Text("Crear libro"),
-            ),
-            const FDivider(),
-            FTextField(
-              hint: "Buscar libro",
-              suffix: Container(
-                padding: const EdgeInsets.all(12),
-                child: FAssets.icons.search(),
-              ),
-            ),
-            const SizedBox(height: 16),
-            SizedBox(
-              width: double.infinity,
-              child: ListView.separated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                padding: const EdgeInsets.all(0),
-                separatorBuilder: (context, index) => const SizedBox(height: 8),
-                itemCount: _bookTitles.length,
-                itemBuilder: (context, index) {
-                  return RegisterSmallBookCard(
-                    id: index.toString(),
-                    image: _bookCovers[index],
-                    title: _bookTitles[index],
-                    author: _bookAuthors[index],
-                  );
-                },
-              ),
+    return BlocListener<BooksBloc, BooksState>(
+      listener: (context, state) {},
+      child: FScaffold(
+        header: FHeader.nested(
+          title: const Text("Registrando libro"),
+          leftActions: [
+            FHeaderAction.back(
+              onPress: () => context.pop(),
             ),
           ],
+        ),
+        contentPad: false,
+        content: SingleChildScrollView(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: [
+              FButton(
+                onPress: () {},
+                style: FButtonStyle.outline,
+                label: const Text("Crear libro"),
+              ),
+              const FDivider(),
+              FTextField(
+                hint: "Buscar libro",
+                maxLines: 1,
+                suffix: Container(
+                  padding: const EdgeInsets.all(12),
+                  child: FAssets.icons.search(),
+                ),
+                onChange: (value) {
+                  context.read<BooksBloc>().add(SearchBooks(value));
+                },
+              ),
+              const SizedBox(height: 16),
+              BlocBuilder<BooksBloc, BooksState>(
+                builder: (context, state) {
+                  if (state is BooksLoading) {
+                    return const LinearProgressIndicator();
+                  }
+                  if (state is BooksLoaded) {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.all(0),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 8),
+                        itemCount: state.books.length,
+                        itemBuilder: (context, index) {
+                          return RegisterSmallBookCard(
+                            id: index.toString(),
+                            image: state.books[index].coverUrl,
+                            title: state.books[index].title,
+                            author: state.books[index].authors.join(", "),
+                          );
+                        },
+                      ),
+                    );
+                  }
+                  return const SizedBox.shrink();
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
