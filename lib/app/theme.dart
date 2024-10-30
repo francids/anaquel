@@ -96,3 +96,12 @@ class AnaquelTheme extends StatelessWidget {
     );
   }
 }
+
+ThemeData anaquelMaterialTheme() {
+  return ThemeData(
+    colorScheme: const ColorScheme.light(
+      primary: AppColors.night,
+      secondaryContainer: AppColors.antiFlashWhite,
+    ),
+  );
+}

@@ -39,7 +39,7 @@ class LogInScreen extends StatelessWidget {
             BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
                 if (state is AuthLoading) {
-                  return const LinearProgressIndicator(color: AppColors.night);
+                  return const LinearProgressIndicator();
                 }
                 return const SizedBox.shrink();
               },

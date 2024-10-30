@@ -16,6 +16,7 @@ class AnaquelApp extends StatelessWidget {
         title: "Anaquel",
         locale: const Locale('es'),
         debugShowCheckedModeBanner: false,
+        theme: anaquelMaterialTheme(),
         builder: (context, child) {
           return MediaQuery(
             data: MediaQuery.of(context).scale(),
