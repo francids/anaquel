@@ -42,4 +42,17 @@ class BooksService {
       throw Exception('Error al obtener los libros');
     }
   }
+
+  Future<Book> getBook(int id) async {
+    final response = await _dio.get(
+      "/books/$id",
+    );
+
+    if (response.statusCode == 200) {
+      final Book book = Book.fromJson(response.data);
+      return book;
+    } else {
+      throw Exception('Error al obtener el libro');
+    }
+  }
 }

@@ -17,6 +17,15 @@ class SearchBooks extends BooksEvent {
   List<Object?> get props => [title];
 }
 
+class GetBook extends BooksEvent {
+  final int id;
+
+  GetBook(this.id);
+
+  @override
+  List<Object?> get props => [id];
+}
+
 abstract class BooksState extends Equatable {
   @override
   List<Object?> get props => [];
@@ -53,6 +62,16 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
       try {
         final books = await booksService.getBooks(event.title);
         emit(BooksLoaded(books));
+      } catch (e) {
+        emit(BooksError(e.toString()));
+      }
+    });
+
+    on<GetBook>((event, emit) async {
+      emit(BooksLoading());
+      try {
+        final book = await booksService.getBook(event.id);
+        emit(BooksLoaded([book]));
       } catch (e) {
         emit(BooksError(e.toString()));
       }

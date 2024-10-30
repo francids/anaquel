@@ -100,9 +100,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: "/register_book/:book_id",
       pageBuilder: (context, state) {
+        final int bookId = int.parse(state.pathParameters['book_id']!);
         return CustomTransitionPage(
           key: state.pageKey,
-          child: const RegisterBookDetailsScreen(),
+          child: RegisterBookDetailsScreen(bookId: bookId),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: Tween<Offset>(

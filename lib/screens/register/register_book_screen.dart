@@ -61,7 +61,7 @@ class RegisterBookScreen extends StatelessWidget {
                         itemCount: state.books.length,
                         itemBuilder: (context, index) {
                           return RegisterSmallBookCard(
-                            id: index.toString(),
+                            id: state.books[index].id,
                             image: state.books[index].coverUrl,
                             title: state.books[index].title,
                             author: state.books[index].authors.join(", "),
