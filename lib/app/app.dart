@@ -15,17 +15,17 @@ import 'package:anaquel/data/services/books_service.dart';
 class AnaquelApp extends StatelessWidget {
   const AnaquelApp({super.key});
 
+  List<BlocProvider> _blocProviders(BuildContext context) {
+    return [
+      BlocProvider(create: (context) => AuthBloc(AuthService())),
+      BlocProvider(create: (context) => BooksBloc(BooksService())),
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => AuthBloc(AuthService()),
-        ),
-        BlocProvider(
-          create: (context) => BooksBloc(BooksService()),
-        )
-      ],
+      providers: _blocProviders(context),
       child: MaterialApp.router(
         title: "Anaquel",
         locale: const Locale('es'),
