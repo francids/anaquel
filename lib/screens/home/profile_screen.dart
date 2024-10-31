@@ -1,4 +1,5 @@
 import 'package:anaquel/blocs/auth_bloc.dart';
+import 'package:anaquel/blocs/user_bloc.dart';
 import 'package:anaquel/screens/auth/change_password_screen.dart';
 import 'package:anaquel/screens/auth/edit_profile_screen.dart';
 import 'package:anaquel/widgets/chip.dart';
@@ -22,63 +23,104 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    context.read<UserBloc>().add(GetUser());
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          FAvatar(
-            image: const NetworkImage(''),
-            size: 150,
-          ),
-          const SizedBox(height: 8),
-          const Text(
-            "Francisco Mesa",
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 16),
-          FButton(
-            onPress: () => Navigator.of(context).push(
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) =>
-                    const EditProfileScreen(),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-                  return SlideTransition(
-                    position: Tween<Offset>(
-                      begin: const Offset(1, 0),
-                      end: Offset.zero,
-                    ).animate(animation),
-                    child: child,
-                  );
-                },
-              ),
-            ),
-            style: FButtonStyle.outline,
-            label: const Text("Editar perfil"),
-          ),
-          const SizedBox(height: 8),
-          FButton(
-            onPress: () => Navigator.of(context).push(
-              PageRouteBuilder(
-                pageBuilder: (context, animation, secondaryAnimation) =>
-                    const ChangePasswordScreen(),
-                transitionsBuilder:
-                    (context, animation, secondaryAnimation, child) {
-                  return SlideTransition(
-                    position: Tween<Offset>(
-                      begin: const Offset(1, 0),
-                      end: Offset.zero,
-                    ).animate(animation),
-                    child: child,
-                  );
-                },
-              ),
-            ),
-            style: FButtonStyle.outline,
-            label: const Text("Cambiar contraseña"),
+          BlocBuilder<UserBloc, UserState>(
+            builder: (context, state) {
+              if (state is UserLoading) {
+                return const Column(
+                  children: [
+                    CircularProgressIndicator(),
+                  ],
+                );
+              }
+              if (state is UserError) {
+                return Column(
+                  children: [
+                    FAlert(
+                      icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                      title: const Text("Error al cargar usuario"),
+                      subtitle: Text(state.message),
+                      style: FAlertStyle.destructive,
+                    ),
+                  ],
+                );
+              }
+              if (state is UserLoaded) {
+                return Column(
+                  children: [
+                    FAvatar(
+                      image: const NetworkImage(''),
+                      size: 150,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      state.user.name,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      "(${state.user.username}) - ${state.user.email}",
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w300,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    FButton(
+                      onPress: () => Navigator.of(context).push(
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  const EditProfileScreen(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(1, 0),
+                                end: Offset.zero,
+                              ).animate(animation),
+                              child: child,
+                            );
+                          },
+                        ),
+                      ),
+                      style: FButtonStyle.outline,
+                      label: const Text("Editar perfil"),
+                    ),
+                    const SizedBox(height: 8),
+                    FButton(
+                      onPress: () => Navigator.of(context).push(
+                        PageRouteBuilder(
+                          pageBuilder:
+                              (context, animation, secondaryAnimation) =>
+                                  const ChangePasswordScreen(),
+                          transitionsBuilder:
+                              (context, animation, secondaryAnimation, child) {
+                            return SlideTransition(
+                              position: Tween<Offset>(
+                                begin: const Offset(1, 0),
+                                end: Offset.zero,
+                              ).animate(animation),
+                              child: child,
+                            );
+                          },
+                        ),
+                      ),
+                      style: FButtonStyle.outline,
+                      label: const Text("Cambiar contraseña"),
+                    ),
+                  ],
+                );
+              }
+              return const SizedBox.shrink();
+            },
           ),
           const SizedBox(height: 8),
           FButton(

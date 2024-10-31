@@ -28,6 +28,10 @@ class AuthService {
     if (response.statusCode == 200) {
       final loginResponse = LoginResponse.fromJson(response.data);
       await secureStorage.write(
+        key: "username",
+        value: user.username,
+      );
+      await secureStorage.write(
         key: 'access_token',
         value: loginResponse.accessToken,
       );
@@ -42,6 +46,7 @@ class AuthService {
   }
 
   Future<void> logout() async {
+    await secureStorage.delete(key: 'username');
     await secureStorage.delete(key: 'access_token');
     await secureStorage.delete(key: 'token_type');
   }
