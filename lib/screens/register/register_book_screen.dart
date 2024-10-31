@@ -26,12 +26,6 @@ class RegisterBookScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
-              FButton(
-                onPress: () {},
-                style: FButtonStyle.outline,
-                label: const Text("Crear libro"),
-              ),
-              const FDivider(),
               FTextField(
                 hint: "Buscar libro",
                 maxLines: 1,
