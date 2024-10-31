@@ -1,7 +1,9 @@
+import 'package:anaquel/blocs/user_books_bloc.dart';
 import 'package:anaquel/screens/register/register_book_screen.dart';
 import 'package:anaquel/widgets/books/small_book_card.dart';
 import 'package:anaquel/widgets/collection_chip.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
@@ -21,32 +23,12 @@ List<String> _collectionsColors = [
   "#3F51B5",
 ];
 
-List<String> _bookCovers = [
-  "https://marketplace.canva.com/EAFutLMZJKs/1/0/1003w/canva-portada-libro-novela-suspenso-elegante-negro-wxuYB_sJtMw.jpg",
-  "https://marketplace.canva.com/EAFjNCKkDPI/1/0/1003w/canva-portada-de-libro-de-fantas%C3%ADa-dram%C3%A1tico-verde-Ct1fLal3ekY.jpg",
-  "https://edit.org/images/cat/portadas-libros-big-2019101610.jpg",
-  "https://marketplace.canva.com/EAFI171fL0M/1/0/1003w/canva-portada-de-libro-de-novela-ilustrado-color-azul-aqua-PQeWaiiK0aA.jpg",
-];
-
-List<String> _bookTitles = [
-  "Cruce de Caminos",
-  "Reyes Caídos",
-  "Mi Portada de Libro",
-  "Hasta que el verano se acabe",
-];
-
-List<String> _bookAuthors = [
-  "Naira Gamboa",
-  "Julián Alonoso",
-  "Nombre del Autor",
-  "Connor Hamilton",
-];
-
 class BooksScreen extends StatelessWidget {
   const BooksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    context.read<UserBooksBloc>().add(GetUserBooks());
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -130,23 +112,48 @@ class BooksScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            child: ListView.separated(
-              shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
-              padding: const EdgeInsets.all(0),
-              separatorBuilder: (context, index) => const SizedBox(height: 8),
-              itemCount: _bookTitles.length,
-              itemBuilder: (context, index) {
-                return SmallBookCard(
-                  id: index.toString(),
-                  image: _bookCovers[index],
-                  title: _bookTitles[index],
-                  author: _bookAuthors[index],
+          BlocBuilder<UserBooksBloc, UserBooksState>(
+            builder: (context, state) {
+              if (state is UserBooksLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
                 );
-              },
-            ),
+              }
+              if (state is UserBooksError) {
+                return FAlert(
+                  icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                  title: const Text("Error al cargar libros"),
+                  subtitle: Text(state.message),
+                  style: FAlertStyle.destructive,
+                );
+              }
+              if (state is UserBooksLoaded) {
+                return Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.all(0),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 8),
+                        itemCount: state.books.length,
+                        itemBuilder: (context, index) {
+                          return SmallBookCard(
+                            id: state.books[index].id,
+                            image: state.books[index].coverUrl,
+                            title: state.books[index].title,
+                            author: state.books[index].authors.join(", "),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              }
+              return const SizedBox.shrink();
+            },
           ),
         ],
       ),

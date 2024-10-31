@@ -120,7 +120,7 @@ class PrincipalScreen extends StatelessWidget {
                     itemCount: _bookTitles.length,
                     itemBuilder: (context, index) {
                       return SmallBookCard(
-                        id: index.toString(),
+                        id: index,
                         image: _bookCovers[index],
                         title: _bookTitles[index],
                         author: _bookAuthors[index],

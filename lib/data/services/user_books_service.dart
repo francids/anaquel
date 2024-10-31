@@ -27,7 +27,10 @@ class UserBooksService {
 
   Future<List<Book>> getUserBooks() async {
     final response = await _dio.get(
-      "/user/books",
+      "/books/user",
+      queryParameters: {
+        "username": await secureStorage.read(key: "username"),
+      },
     );
 
     if (response.statusCode == 200) {
