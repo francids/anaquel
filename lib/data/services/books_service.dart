@@ -25,7 +25,7 @@ class BooksService {
     );
   }
 
-  Future<List<Book>> getBooks(String title) async {
+  Future<List<Book>> searchBooks(String title) async {
     final response = await _dio.get(
       "/books",
       queryParameters: {

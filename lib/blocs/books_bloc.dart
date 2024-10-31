@@ -60,7 +60,7 @@ class BooksBloc extends Bloc<BooksEvent, BooksState> {
     on<SearchBooks>((event, emit) async {
       emit(BooksLoading());
       try {
-        final books = await booksService.getBooks(event.title);
+        final books = await booksService.searchBooks(event.title);
         emit(BooksLoaded(books));
       } catch (e) {
         emit(BooksError(e.toString()));
