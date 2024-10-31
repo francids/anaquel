@@ -23,7 +23,6 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<UserBloc>().add(GetUser());
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(

@@ -28,7 +28,6 @@ class BooksScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    context.read<UserBooksBloc>().add(GetUserBooks());
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(

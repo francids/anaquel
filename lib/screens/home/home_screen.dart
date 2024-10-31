@@ -1,6 +1,11 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
+
+// Blocs
+import 'package:anaquel/blocs/user_bloc.dart';
+import 'package:anaquel/blocs/user_books_bloc.dart';
 
 // Screens
 import 'package:anaquel/screens/home/books_screen.dart';
@@ -31,6 +36,13 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int index = 0;
+
+  @override
+  void initState() {
+    context.read<UserBloc>().add(GetUser());
+    context.read<UserBooksBloc>().add(GetUserBooks());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
