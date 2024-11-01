@@ -12,7 +12,7 @@ class MediumBookCard extends StatelessWidget {
     required this.image,
   });
 
-  final String id;
+  final int id;
   final String image;
 
   @override

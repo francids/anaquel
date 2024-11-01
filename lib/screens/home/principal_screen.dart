@@ -1,7 +1,8 @@
+import 'package:anaquel/blocs/user_books_bloc.dart';
 import 'package:anaquel/widgets/books/medium_book_card.dart';
 import 'package:anaquel/widgets/books/small_book_card.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 
 List<String> _bookCovers = [
@@ -46,24 +47,61 @@ class PrincipalScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          SizedBox(
-            width: double.infinity,
-            height: 200,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: _bookCovers.length,
-              itemBuilder: (context, index) {
-                return MediumBookCard(
-                  id: index.toString(),
-                  image: _bookCovers[index],
+          BlocBuilder<UserBooksBloc, UserBooksState>(
+            builder: (context, state) {
+              if (state is UserBooksLoading) {
+                return const SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 );
-              },
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              separatorBuilder: (context, index) {
-                return const SizedBox(width: 12);
-              },
-            ),
+              }
+              if (state is UserBooksError) {
+                return SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: FAlert(
+                    icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                    title: const Text("Error al cargar libros"),
+                    subtitle: Text(state.message),
+                    style: FAlertStyle.destructive,
+                  ),
+                );
+              }
+              if (state is UserBooksLoaded) {
+                if (state.books.isEmpty) {
+                  return const SizedBox(
+                    width: double.infinity,
+                    height: 200,
+                    child: Center(
+                      child: Text("No hay libros leyendo"),
+                    ),
+                  );
+                }
+                return SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: state.books.length,
+                    itemBuilder: (context, index) {
+                      return MediumBookCard(
+                        id: state.books[index].id,
+                        image: state.books[index].coverUrl,
+                      );
+                    },
+                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(width: 12);
+                    },
+                  ),
+                );
+              }
+              return const SizedBox.shrink();
+            },
           ),
           const FDivider(),
           Container(
@@ -78,24 +116,61 @@ class PrincipalScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 12),
-          SizedBox(
-            width: double.infinity,
-            height: 200,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: _bookCovers.length,
-              itemBuilder: (context, index) {
-                return MediumBookCard(
-                  id: index.toString(),
-                  image: _bookCovers[index],
+          BlocBuilder<UserBooksBloc, UserBooksState>(
+            builder: (context, state) {
+              if (state is UserBooksLoading) {
+                return const SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 );
-              },
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              separatorBuilder: (context, index) {
-                return const SizedBox(width: 12);
-              },
-            ),
+              }
+              if (state is UserBooksError) {
+                return SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: FAlert(
+                    icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                    title: const Text("Error al cargar libros"),
+                    subtitle: Text(state.message),
+                    style: FAlertStyle.destructive,
+                  ),
+                );
+              }
+              if (state is UserBooksLoaded) {
+                if (state.books.isEmpty) {
+                  return const SizedBox(
+                    width: double.infinity,
+                    height: 200,
+                    child: Center(
+                      child: Text("No hay libros por leer"),
+                    ),
+                  );
+                }
+                return SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: state.books.length,
+                    itemBuilder: (context, index) {
+                      return MediumBookCard(
+                        id: state.books[index].id,
+                        image: state.books[index].coverUrl,
+                      );
+                    },
+                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    separatorBuilder: (context, index) {
+                      return const SizedBox(width: 12);
+                    },
+                  ),
+                );
+              }
+              return const SizedBox.shrink();
+            },
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
