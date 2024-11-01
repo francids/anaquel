@@ -1,6 +1,6 @@
 import 'package:anaquel/widgets/books/medium_book_card.dart';
 import 'package:anaquel/widgets/books/small_book_card.dart';
-import 'package:anaquel/widgets/mini_tab.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 
@@ -25,11 +25,6 @@ List<String> _bookAuthors = [
   "Nouah Schumacher",
 ];
 
-List<String> _bookStatus = [
-  "Leyendo",
-  "Por leer",
-];
-
 class PrincipalScreen extends StatelessWidget {
   const PrincipalScreen({super.key});
 
@@ -39,38 +34,47 @@ class PrincipalScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         children: [
-          Padding(
+          Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                const SizedBox(
-                  width: double.infinity,
-                  child: Text(
-                    "Tus libros",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ),
-                const SizedBox(height: 12),
-                SizedBox(
-                  width: double.infinity,
-                  child: Wrap(
-                    alignment: WrapAlignment.start,
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: [
-                      for (final status in _bookStatus)
-                        MiniTab(
-                          label: status,
-                          isSelected: status == "Leyendo",
-                        ),
-                    ],
-                  ),
-                ),
-                const SizedBox(height: 8),
-              ],
+            width: double.infinity,
+            child: const Text(
+              "Leyendo",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            height: 200,
+            child: ListView.separated(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount: _bookCovers.length,
+              itemBuilder: (context, index) {
+                return MediumBookCard(
+                  id: index.toString(),
+                  image: _bookCovers[index],
+                );
+              },
+              padding: const EdgeInsets.only(left: 16, right: 16),
+              separatorBuilder: (context, index) {
+                return const SizedBox(width: 12);
+              },
+            ),
+          ),
+          const FDivider(),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            width: double.infinity,
+            child: const Text(
+              "Por leer",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+              ),
             ),
           ),
           const SizedBox(height: 12),

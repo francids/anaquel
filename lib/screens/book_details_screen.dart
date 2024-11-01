@@ -1,7 +1,6 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/screens/recommendations_books_screen.dart';
 import 'package:anaquel/widgets/chip.dart';
-import 'package:anaquel/widgets/mini_tab.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_popup/flutter_popup.dart';
@@ -132,10 +131,7 @@ class BookDetailsScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            const MiniTab(
-              label: "Leyendo",
-              isSelected: true,
-            ),
+            const AChip(label: "Leyendo"),
             const FDivider(),
             FButton(
               onPress: () {},
