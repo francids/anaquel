@@ -102,7 +102,7 @@ class BooksScreen extends StatelessWidget {
           const SizedBox(
             width: double.infinity,
             child: Text(
-              "Libros en ninguna colección",
+              "Libros",
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
