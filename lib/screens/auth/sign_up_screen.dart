@@ -47,7 +47,12 @@ class SignUpScreen extends StatelessWidget {
         ),
         contentPad: true,
         content: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.only(
+            top: 16,
+            left: 16,
+            right: 16,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+          ),
           child: Column(
             children: [
               FTextField(
@@ -153,6 +158,7 @@ class SignUpScreen extends StatelessWidget {
                 style: FButtonStyle.outline,
                 label: const Text("Registrarse con Google"),
               ),
+              const SizedBox(height: 16),
             ],
           ),
         ),
