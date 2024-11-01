@@ -1,8 +1,10 @@
 import 'package:anaquel/data/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // Screens
+import 'package:anaquel/screens/get_started_screen.dart';
 import 'package:anaquel/screens/auth/log_in_screen.dart';
 import 'package:anaquel/screens/home/home_screen.dart';
 import 'package:anaquel/screens/collection_screen.dart';
@@ -10,21 +12,30 @@ import 'package:anaquel/screens/book_details_screen.dart';
 import 'package:anaquel/screens/register/register_book_details_screen.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/login',
-  redirect: (context, state) async {
-    final authService = AuthService();
-    final token = await authService.getToken();
-    final tokenType = await authService.getTokenType();
-    return (token == null || tokenType == null) ? '/login' : null;
-  },
+  initialLocation: '/get_started',
   routes: [
+    GoRoute(
+      path: "/get_started",
+      redirect: (context, state) async {
+        final prefs = await SharedPreferences.getInstance();
+        final bool hasSeenGetStarted =
+            prefs.getBool("has_seen_get_started") ?? false;
+        return hasSeenGetStarted ? "/login" : null;
+      },
+      builder: (context, state) {
+        return const GetStartedScreen();
+      },
+    ),
     GoRoute(
       path: "/login",
       redirect: (context, state) async {
         final authService = AuthService();
         final token = await authService.getToken();
         final tokenType = await authService.getTokenType();
-        return (token == null || tokenType == null) ? null : '/';
+        if (token != null && tokenType != null) {
+          return '/';
+        }
+        return null;
       },
       pageBuilder: (context, state) {
         return CustomTransitionPage(
