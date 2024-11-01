@@ -230,7 +230,7 @@ class BooksScreen extends StatelessWidget {
                     ),
                   ),
                   onColorChanged: (color) {
-                    colorSelected = "#${color.toHexString()}";
+                    colorSelected = "#${color.toHexString().substring(2)}";
                   },
                   availableColors: _collectionsColors
                       .map((e) => Color(
