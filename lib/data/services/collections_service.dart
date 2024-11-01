@@ -54,4 +54,14 @@ class CollectionsService {
       throw Exception(response.statusMessage);
     }
   }
+
+  Future<void> deleteCollection(String id) async {
+    final response = await _dio.delete(
+      "/collection/$id",
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception(response.statusMessage);
+    }
+  }
 }

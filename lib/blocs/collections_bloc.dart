@@ -13,6 +13,12 @@ class CreateCollection extends CollectionsEvent {
   CreateCollection(this.name, this.color);
 }
 
+class DeleteCollection extends CollectionsEvent {
+  final String id;
+
+  DeleteCollection(this.id);
+}
+
 abstract class CollectionsState {}
 
 class CollectionsInitial extends CollectionsState {}
@@ -49,6 +55,17 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
       emit(CollectionsLoading());
       try {
         await collectionsService.createCollection(event.name, event.color);
+        final collections = await collectionsService.getCollections();
+        emit(CollectionsLoaded(collections));
+      } catch (e) {
+        emit(CollectionsError(e.toString()));
+      }
+    });
+
+    on<DeleteCollection>((event, emit) async {
+      emit(CollectionsLoading());
+      try {
+        await collectionsService.deleteCollection(event.id);
         final collections = await collectionsService.getCollections();
         emit(CollectionsLoaded(collections));
       } catch (e) {

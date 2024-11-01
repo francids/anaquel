@@ -1,5 +1,8 @@
+import 'package:anaquel/blocs/collections_bloc.dart';
 import 'package:anaquel/widgets/books/large_book_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_popup/flutter_popup.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
@@ -30,6 +33,67 @@ class CollectionScreen extends StatelessWidget {
         leftActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
+          ),
+        ],
+        rightActions: [
+          CustomPopup(
+            content: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 8,
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      context.pop();
+                      showAdaptiveDialog(
+                        context: context,
+                        builder: (context) => FDialog(
+                          direction: Axis.vertical,
+                          body: const Padding(
+                            padding: EdgeInsets.only(bottom: 16),
+                            child: Text(
+                              "¿Estás seguro de que deseas eliminar esta colección?",
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                          actions: <FButton>[
+                            FButton(
+                              onPress: () => {
+                                context.read<CollectionsBloc>().add(
+                                      DeleteCollection(
+                                        collectionId.toString(),
+                                      ),
+                                    ),
+                                context.pop(),
+                                context.pop(),
+                              },
+                              style: FButtonStyle.destructive,
+                              label: const Text("Eliminar"),
+                            ),
+                            FButton(
+                              onPress: () => context.pop(),
+                              style: FButtonStyle.outline,
+                              label: const Text("Cancelar"),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "Eliminar colección",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: FAssets.icons.ellipsisVertical(),
+            ),
           ),
         ],
       ),

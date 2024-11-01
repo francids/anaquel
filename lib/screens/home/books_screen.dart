@@ -57,7 +57,7 @@ class BooksScreen extends StatelessWidget {
                     width: double.infinity,
                     height: 200,
                     child: Center(
-                      child: Text("No hay libros leyendo"),
+                      child: Text("No tienes colecciones aún"),
                     ),
                   );
                 }
