@@ -6,6 +6,7 @@ import 'package:forui/forui.dart';
 // Blocs
 import 'package:anaquel/blocs/user_bloc.dart';
 import 'package:anaquel/blocs/user_books_bloc.dart';
+import 'package:anaquel/blocs/collections_bloc.dart';
 
 // Screens
 import 'package:anaquel/screens/home/books_screen.dart';
@@ -41,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     context.read<UserBloc>().add(GetUser());
     context.read<UserBooksBloc>().add(GetUserBooks());
+    context.read<CollectionsBloc>().add(GetCollections());
     super.initState();
   }
 

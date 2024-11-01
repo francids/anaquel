@@ -71,11 +71,11 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: "/collection/:collection_id",
       pageBuilder: (context, state) {
+        final int collectionId =
+            int.parse(state.pathParameters['collection_id']!);
         return CustomTransitionPage(
           key: state.pageKey,
-          child: CollectionScreen(
-            collection_id: state.pathParameters['collection_id']!,
-          ),
+          child: CollectionScreen(collectionId: collectionId),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: Tween<Offset>(

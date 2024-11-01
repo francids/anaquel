@@ -1,3 +1,4 @@
+import 'package:anaquel/blocs/collections_bloc.dart';
 import 'package:anaquel/blocs/user_books_bloc.dart';
 import 'package:anaquel/screens/register/register_book_screen.dart';
 import 'package:anaquel/widgets/books/small_book_card.dart';
@@ -7,13 +8,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-
-List<String> _collections = [
-  "Colección 01",
-  "Colección 02",
-  "Colección 03",
-  "Colección 04",
-];
 
 List<String> _collectionsColors = [
   "#005799",
@@ -42,34 +36,61 @@ class BooksScreen extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            child: Wrap(
-              spacing: 8,
-              runSpacing: 8,
-              children: List.generate(
-                _collections.length,
-                (index) {
-                  return SizedBox(
-                    width: MediaQuery.of(context).size.width / 2 - 24,
-                    child: CollectionChip(
-                      label: _collections[index],
-                      color: Color(
-                        int.parse(
-                              _collectionsColors[index].substring(1),
-                              radix: 16,
-                            ) +
-                            0xFF000000,
-                      ),
-                      onPress: () => context.push(
-                        "/collection/$index",
-                        extra: _collections[index],
-                      ),
+          BlocBuilder<CollectionsBloc, CollectionsState>(
+            builder: (context, state) {
+              if (state is CollectionsLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is CollectionsError) {
+                return FAlert(
+                  icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                  title: const Text("Error al cargar las colecciones"),
+                  subtitle: Text(state.message),
+                  style: FAlertStyle.destructive,
+                );
+              }
+              if (state is CollectionsLoaded) {
+                if (state.collections.isEmpty) {
+                  return const SizedBox(
+                    width: double.infinity,
+                    height: 200,
+                    child: Center(
+                      child: Text("No hay libros leyendo"),
                     ),
                   );
-                },
-              ),
-            ),
+                }
+                return SizedBox(
+                  width: double.infinity,
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: List.generate(
+                      state.collections.length,
+                      (index) {
+                        return SizedBox(
+                          width: MediaQuery.of(context).size.width / 2 - 24,
+                          child: CollectionChip(
+                            label: state.collections[index].name,
+                            color: Color(
+                              int.parse(
+                                    state.collections[index].color.substring(1),
+                                    radix: 16,
+                                  ) +
+                                  0xFF000000,
+                            ),
+                            onPress: () => context.push(
+                                "/collection/${state.collections[index].id}"),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                );
+              }
+              return const SizedBox.shrink();
+            },
           ),
           const SizedBox(height: 16),
           FButton(

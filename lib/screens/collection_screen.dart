@@ -18,16 +18,15 @@ List<String> _bookTitles = [
 ];
 
 class CollectionScreen extends StatelessWidget {
-  const CollectionScreen({super.key, required this.collection_id});
+  const CollectionScreen({super.key, required this.collectionId});
 
-  final String collection_id;
+  final int collectionId;
 
   @override
   Widget build(BuildContext context) {
-    final String collection = GoRouterState.of(context).extra! as String;
     return FScaffold(
       header: FHeader.nested(
-        title: Text("$collection_id - $collection"),
+        title: Text("$collectionId"),
         leftActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
