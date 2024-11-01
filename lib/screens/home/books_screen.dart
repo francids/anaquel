@@ -180,80 +180,110 @@ class BooksScreen extends StatelessWidget {
   }
 
   Future<dynamic> buildCreateCollectionDialog(BuildContext context) {
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    final TextEditingController nameController = TextEditingController();
+    String colorSelected = "#005799";
+
     return showAdaptiveDialog(
+      useSafeArea: true,
+      barrierDismissible: true,
       context: context,
       builder: (context) => FDialog(
         title: const Text("Crear colección"),
         direction: Axis.vertical,
-        body: Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: Column(
-            children: [
-              const Text(
-                "Ingresa el nombre y decide el color:",
-                textAlign: TextAlign.start,
-              ),
-              const SizedBox(height: 16),
-              const FTextField(
-                label: Text('Nombre:'),
-                maxLines: 1,
-              ),
-              const SizedBox(height: 16),
-              const SizedBox(
-                width: double.infinity,
-                child: Text(
-                  'Color:',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+        body: Form(
+          key: formKey,
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                FTextField(
+                  controller: nameController,
+                  label: const Text('Nombre:'),
+                  maxLines: 1,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Por favor ingresa un nombre";
+                    }
+                    return null;
+                  },
+                ),
+                const SizedBox(height: 16),
+                const SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                    'Color:',
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              BlockPicker(
-                pickerColor: Colors.red,
-                onColorChanged: (color) {},
-                availableColors: _collectionsColors
-                    .map((e) => Color(
-                          int.parse(e.substring(1), radix: 16),
-                        ))
-                    .toList(),
-                useInShowDialog: true,
-                layoutBuilder: (context, colors, child) {
-                  return Column(
-                    children: [
-                      Wrap(
-                        spacing: 12,
-                        runSpacing: 6,
-                        children: List.generate(
-                          colors.length,
-                          (index) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: colors[index].withOpacity(1),
-                                    blurRadius: 0,
-                                  ),
-                                ],
-                              ),
-                              child: child(colors[index]),
-                            );
-                          },
+                const SizedBox(height: 8),
+                BlockPicker(
+                  pickerColor: Color(
+                    int.parse(
+                      _collectionsColors[0].substring(1),
+                      radix: 16,
+                    ),
+                  ),
+                  onColorChanged: (color) {
+                    colorSelected = "#${color.toHexString()}";
+                  },
+                  availableColors: _collectionsColors
+                      .map((e) => Color(
+                            int.parse(e.substring(1), radix: 16),
+                          ))
+                      .toList(),
+                  useInShowDialog: true,
+                  layoutBuilder: (context, colors, child) {
+                    return Column(
+                      children: [
+                        Wrap(
+                          spacing: 12,
+                          runSpacing: 6,
+                          children: List.generate(
+                            colors.length,
+                            (index) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: colors[index].withOpacity(1),
+                                      blurRadius: 0,
+                                    ),
+                                  ],
+                                ),
+                                child: child(colors[index]),
+                              );
+                            },
+                          ),
                         ),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ],
+                      ],
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
         actions: <FButton>[
           FButton(
-            onPress: () => context.pop(),
+            onPress: () {
+              if (!formKey.currentState!.validate()) {
+                return;
+              }
+              context.read<CollectionsBloc>().add(
+                    CreateCollection(
+                      nameController.text,
+                      colorSelected,
+                    ),
+                  );
+              context.pop();
+            },
             style: FButtonStyle.primary,
             label: const Text("Crear colección"),
           ),

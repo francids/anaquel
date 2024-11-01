@@ -39,4 +39,19 @@ class CollectionsService {
       throw Exception(response.statusMessage);
     }
   }
+
+  Future<void> createCollection(String name, String color) async {
+    final response = await _dio.post(
+      "/collection",
+      data: {
+        "username": await secureStorage.read(key: "username"),
+        "name": name,
+        "color": color,
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception(response.statusMessage);
+    }
+  }
 }

@@ -6,6 +6,13 @@ abstract class CollectionsEvent {}
 
 class GetCollections extends CollectionsEvent {}
 
+class CreateCollection extends CollectionsEvent {
+  final String name;
+  final String color;
+
+  CreateCollection(this.name, this.color);
+}
+
 abstract class CollectionsState {}
 
 class CollectionsInitial extends CollectionsState {}
@@ -31,6 +38,17 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
     on<GetCollections>((event, emit) async {
       emit(CollectionsLoading());
       try {
+        final collections = await collectionsService.getCollections();
+        emit(CollectionsLoaded(collections));
+      } catch (e) {
+        emit(CollectionsError(e.toString()));
+      }
+    });
+
+    on<CreateCollection>((event, emit) async {
+      emit(CollectionsLoading());
+      try {
+        await collectionsService.createCollection(event.name, event.color);
         final collections = await collectionsService.getCollections();
         emit(CollectionsLoaded(collections));
       } catch (e) {
