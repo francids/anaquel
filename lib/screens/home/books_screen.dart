@@ -4,6 +4,7 @@ import 'package:anaquel/widgets/books/small_book_card.dart';
 import 'package:anaquel/widgets/collection_chip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
@@ -12,15 +13,13 @@ List<String> _collections = [
   "Colección 02",
   "Colección 03",
   "Colección 04",
-  "Colección 05",
 ];
 
 List<String> _collectionsColors = [
-  "#FF8707",
-  "#FF5722",
-  "#E91E63",
-  "#9C27B0",
-  "#3F51B5",
+  "#005799",
+  "#009926",
+  "#99006b",
+  "#A64200",
 ];
 
 class BooksScreen extends StatelessWidget {
@@ -190,31 +189,43 @@ class BooksScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
-              Wrap(
-                spacing: 8,
-                children: List.generate(
-                  _collectionsColors.length,
-                  (index) {
-                    return GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        width: 32,
-                        height: 32,
-                        decoration: BoxDecoration(
-                          color: Color(
-                            int.parse(
-                                  _collectionsColors[index].substring(1),
-                                  radix: 16,
-                                ) +
-                                0xFF000000,
-                          ),
-                          borderRadius: BorderRadius.circular(8),
+              const SizedBox(height: 8),
+              BlockPicker(
+                pickerColor: Colors.red,
+                onColorChanged: (color) {},
+                availableColors: _collectionsColors
+                    .map((e) => Color(
+                          int.parse(e.substring(1), radix: 16),
+                        ))
+                    .toList(),
+                useInShowDialog: true,
+                layoutBuilder: (context, colors, child) {
+                  return Column(
+                    children: [
+                      Wrap(
+                        spacing: 12,
+                        runSpacing: 6,
+                        children: List.generate(
+                          colors.length,
+                          (index) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: colors[index].withOpacity(1),
+                                    blurRadius: 0,
+                                  ),
+                                ],
+                              ),
+                              child: child(colors[index]),
+                            );
+                          },
                         ),
                       ),
-                    );
-                  },
-                ),
+                    ],
+                  );
+                },
               ),
             ],
           ),
