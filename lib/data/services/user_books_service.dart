@@ -1,4 +1,4 @@
-import 'package:anaquel/data/models/book.dart';
+import 'package:anaquel/data/models/user_book.dart';
 import 'package:anaquel/utils/config.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -25,7 +25,7 @@ class UserBooksService {
     );
   }
 
-  Future<List<Book>> getUserBooks() async {
+  Future<List<UserBook>> getUserBooks() async {
     final response = await _dio.get(
       "/books/user",
       queryParameters: {
@@ -34,9 +34,10 @@ class UserBooksService {
     );
 
     if (response.statusCode == 200) {
-      final List<Book> books =
-          (response.data as List).map((book) => Book.fromJson(book)).toList();
-      return books;
+      final List<UserBook> userBooks = (response.data as List)
+          .map((userBook) => UserBook.fromJson(userBook))
+          .toList();
+      return userBooks;
     } else {
       throw Exception('Error al obtener los libros');
     }

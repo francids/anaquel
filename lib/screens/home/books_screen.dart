@@ -157,13 +157,13 @@ class BooksScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(0),
                         separatorBuilder: (context, index) =>
                             const SizedBox(height: 8),
-                        itemCount: state.books.length,
+                        itemCount: state.userBooks.length,
                         itemBuilder: (context, index) {
                           return SmallBookCard(
-                            id: state.books[index].id,
-                            image: state.books[index].coverUrl,
-                            title: state.books[index].title,
-                            author: state.books[index].authors.join(", "),
+                            id: state.userBooks[index].id,
+                            image: state.userBooks[index].coverUrl,
+                            title: state.userBooks[index].title,
+                            author: state.userBooks[index].authors.join(", "),
                           );
                         },
                       ),

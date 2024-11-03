@@ -71,7 +71,7 @@ class PrincipalScreen extends StatelessWidget {
                 );
               }
               if (state is UserBooksLoaded) {
-                if (state.books.isEmpty) {
+                if (state.userBooks.isEmpty) {
                   return const SizedBox(
                     width: double.infinity,
                     height: 200,
@@ -86,11 +86,11 @@ class PrincipalScreen extends StatelessWidget {
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
-                    itemCount: state.books.length,
+                    itemCount: state.userBooks.length,
                     itemBuilder: (context, index) {
                       return MediumBookCard(
-                        id: state.books[index].id,
-                        image: state.books[index].coverUrl,
+                        id: state.userBooks[index].id,
+                        image: state.userBooks[index].coverUrl,
                       );
                     },
                     padding: const EdgeInsets.only(left: 16, right: 16),
@@ -140,7 +140,7 @@ class PrincipalScreen extends StatelessWidget {
                 );
               }
               if (state is UserBooksLoaded) {
-                if (state.books.isEmpty) {
+                if (state.userBooks.isEmpty) {
                   return const SizedBox(
                     width: double.infinity,
                     height: 200,
@@ -155,11 +155,11 @@ class PrincipalScreen extends StatelessWidget {
                   child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     shrinkWrap: true,
-                    itemCount: state.books.length,
+                    itemCount: state.userBooks.length,
                     itemBuilder: (context, index) {
                       return MediumBookCard(
-                        id: state.books[index].id,
-                        image: state.books[index].coverUrl,
+                        id: state.userBooks[index].id,
+                        image: state.userBooks[index].coverUrl,
                       );
                     },
                     padding: const EdgeInsets.only(left: 16, right: 16),

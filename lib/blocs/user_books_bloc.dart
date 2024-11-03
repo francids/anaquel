@@ -1,4 +1,4 @@
-import 'package:anaquel/data/models/book.dart';
+import 'package:anaquel/data/models/user_book.dart';
 import 'package:anaquel/data/services/user_books_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,9 +13,9 @@ class UserBooksInitial extends UserBooksState {}
 class UserBooksLoading extends UserBooksState {}
 
 class UserBooksLoaded extends UserBooksState {
-  final List<Book> books;
+  final List<UserBook> userBooks;
 
-  UserBooksLoaded(this.books);
+  UserBooksLoaded(this.userBooks);
 }
 
 class UserBooksError extends UserBooksState {
@@ -31,8 +31,8 @@ class UserBooksBloc extends Bloc<UserBooksEvent, UserBooksState> {
     on<GetUserBooks>((event, emit) async {
       emit(UserBooksLoading());
       try {
-        final books = await userBooksService.getUserBooks();
-        emit(UserBooksLoaded(books));
+        final userBooks = await userBooksService.getUserBooks();
+        emit(UserBooksLoaded(userBooks));
       } catch (e) {
         emit(UserBooksError(e.toString()));
       }
