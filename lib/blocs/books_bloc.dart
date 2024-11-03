@@ -1,35 +1,22 @@
 import 'package:anaquel/data/models/book.dart';
 import 'package:anaquel/data/services/books_service.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 
-abstract class BooksEvent extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
+abstract class BooksEvent {}
 
 class SearchBooks extends BooksEvent {
   final String title;
 
   SearchBooks(this.title);
-
-  @override
-  List<Object?> get props => [title];
 }
 
 class GetBook extends BooksEvent {
   final int id;
 
   GetBook(this.id);
-
-  @override
-  List<Object?> get props => [id];
 }
 
-abstract class BooksState extends Equatable {
-  @override
-  List<Object?> get props => [];
-}
+abstract class BooksState {}
 
 class BooksInitial extends BooksState {}
 
@@ -39,18 +26,12 @@ class BooksLoaded extends BooksState {
   final List<Book> books;
 
   BooksLoaded(this.books);
-
-  @override
-  List<Object?> get props => [books];
 }
 
 class BooksError extends BooksState {
   final String message;
 
   BooksError(this.message);
-
-  @override
-  List<Object?> get props => [message];
 }
 
 class BooksBloc extends Bloc<BooksEvent, BooksState> {
