@@ -10,7 +10,7 @@ class CollectionsService {
   CollectionsService()
       : _dio = Dio(
           BaseOptions(
-            baseUrl: Config.baseUrl!,
+            baseUrl: Config.baseUrl,
             contentType: Headers.jsonContentType,
           ),
         ) {
