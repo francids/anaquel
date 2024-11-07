@@ -119,6 +119,7 @@ class QuestionnaireScreen extends StatelessWidget {
                         child: FTextField(
                           label: Text(question.question),
                           minLines: 3,
+                          hint: "Escribe tu respuesta aquí",
                         ),
                       );
                     }).toList(),
