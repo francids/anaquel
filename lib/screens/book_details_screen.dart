@@ -1,5 +1,6 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/screens/questionnaire_screen.dart';
+import 'package:anaquel/screens/reading_screen.dart';
 import 'package:anaquel/screens/recommendations_books_screen.dart';
 import 'package:anaquel/widgets/chip.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -125,7 +126,22 @@ class BookDetailsScreen extends StatelessWidget {
             const AChip(label: "Leyendo"),
             const FDivider(),
             FButton(
-              onPress: () {},
+              onPress: () => Navigator.of(context).push(
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      const ReadingScreen(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(1, 0),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    );
+                  },
+                ),
+              ),
               style: FButtonStyle.primary,
               label: const Text("Reanudar lectura"),
             ),
