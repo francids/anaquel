@@ -9,7 +9,7 @@ import 'package:anaquel/screens/auth/log_in_screen.dart';
 import 'package:anaquel/screens/home/home_screen.dart';
 import 'package:anaquel/screens/collection_screen.dart';
 import 'package:anaquel/screens/book_details_screen.dart';
-import 'package:anaquel/screens/register/register_book_details_screen.dart';
+import 'package:anaquel/screens/register_book_details_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/get_started',
