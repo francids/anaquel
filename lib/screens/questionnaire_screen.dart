@@ -1,4 +1,4 @@
-import 'package:anaquel/blocs/questions_bloc.dart';
+import 'package:anaquel/logic/questions_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_popup/flutter_popup.dart';

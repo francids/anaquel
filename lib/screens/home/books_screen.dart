@@ -1,5 +1,5 @@
-import 'package:anaquel/blocs/collections_bloc.dart';
-import 'package:anaquel/blocs/user_books_bloc.dart';
+import 'package:anaquel/logic/collections_bloc.dart';
+import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/screens/register/register_book_screen.dart';
 import 'package:anaquel/widgets/books/small_book_card.dart';
 import 'package:anaquel/widgets/collection_chip.dart';

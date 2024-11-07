@@ -1,4 +1,4 @@
-import 'package:anaquel/blocs/auth_bloc.dart';
+import 'package:anaquel/logic/auth_bloc.dart';
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/user.dart';
 import 'package:anaquel/screens/auth/sign_up_screen.dart';

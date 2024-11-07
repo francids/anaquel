@@ -1,4 +1,4 @@
-import 'package:anaquel/blocs/books_bloc.dart';
+import 'package:anaquel/logic/books_bloc.dart';
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/widgets/chip.dart';
 import 'package:cached_network_image/cached_network_image.dart';

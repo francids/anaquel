@@ -1,4 +1,4 @@
-import 'package:anaquel/blocs/books_bloc.dart';
+import 'package:anaquel/logic/books_bloc.dart';
 import 'package:anaquel/widgets/books/register_small_book_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

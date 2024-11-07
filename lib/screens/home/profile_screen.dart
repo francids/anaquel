@@ -1,5 +1,5 @@
-import 'package:anaquel/blocs/auth_bloc.dart';
-import 'package:anaquel/blocs/user_bloc.dart';
+import 'package:anaquel/logic/auth_bloc.dart';
+import 'package:anaquel/logic/user_bloc.dart';
 import 'package:anaquel/screens/auth/change_password_screen.dart';
 import 'package:anaquel/screens/auth/edit_profile_screen.dart';
 import 'package:anaquel/widgets/chip.dart';

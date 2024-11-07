@@ -4,9 +4,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 
 // Blocs
-import 'package:anaquel/blocs/user_bloc.dart';
-import 'package:anaquel/blocs/user_books_bloc.dart';
-import 'package:anaquel/blocs/collections_bloc.dart';
+import 'package:anaquel/logic/user_bloc.dart';
+import 'package:anaquel/logic/user_books_bloc.dart';
+import 'package:anaquel/logic/collections_bloc.dart';
 
 // Screens
 import 'package:anaquel/screens/home/books_screen.dart';

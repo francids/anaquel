@@ -1,12 +1,12 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 // Blocs
-import 'package:anaquel/blocs/auth_bloc.dart';
-import 'package:anaquel/blocs/books_bloc.dart';
-import 'package:anaquel/blocs/user_bloc.dart';
-import 'package:anaquel/blocs/user_books_bloc.dart';
-import 'package:anaquel/blocs/collections_bloc.dart';
-import 'package:anaquel/blocs/questions_bloc.dart';
+import 'package:anaquel/logic/auth_bloc.dart';
+import 'package:anaquel/logic/books_bloc.dart';
+import 'package:anaquel/logic/user_bloc.dart';
+import 'package:anaquel/logic/user_books_bloc.dart';
+import 'package:anaquel/logic/collections_bloc.dart';
+import 'package:anaquel/logic/questions_bloc.dart';
 
 // Services
 import 'package:anaquel/data/services/auth_service.dart';

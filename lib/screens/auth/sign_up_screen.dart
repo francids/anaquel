@@ -1,4 +1,4 @@
-import 'package:anaquel/blocs/auth_bloc.dart';
+import 'package:anaquel/logic/auth_bloc.dart';
 import 'package:anaquel/data/models/user.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
