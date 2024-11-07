@@ -1,18 +1,13 @@
-[//]: # (# Anaquel)
+[//]: # (![Anaquel]&#40;anaquel_banner.png&#41;)
 
-![Anaquel](anaquel_banner.png)
+# Anaquel
 
-**Anaquel** es una aplicación que te permitirá gestionar tu lectura de manera fácil y concisa. Esta aplicación te
-ayudará a programar tus hábitos de lectura. **Anaquel** es tu asistente para lo que lees.
-
-> **Nota**: Este repositorio contiene el cliente móvil de la aplicación **Anaquel**.
+**Anaquel** es una aplicación que gestiona tus hábitos de lectura, permitiéndote programar y optimizar tu tiempo, y
+facilitando el seguimiento de tus progresos.
 
 ## Funcionalidades
 
-- **Recomendaciones de libros**: Anaquel proporcionará a los usuarios listados de libros parecidos a los que ya tiene
-  registrado.
-- **Planificaciones de lectura**: Anaquel proporcionará a los usuarios la manera de programar sus horarios de lectura.
-  Esta funcionalidad tiene como objetivo notificar al usuario cuando es tiempo de leer y visualizar hábitos de lectura.
-- **Exámenes generalizados sobre lo leído**: Anaquel proporcionará a los usuarios un listado de preguntas por cada libro
-  registrado. Estas preguntas son inespecíficas y servirán para que el usuario pueda almacenar sus anotaciones sobre lo
-  leído.
+- **Gestión de Libros y Colecciones**: Registra los libros que estés leyendo y agrúpalos en colecciones.
+- **Recomendaciones Personalizadas**: Descubre libros similares a los que ya has leído y amplía tu biblioteca.
+- **Planificación de Lectura**: Organiza tus horarios de lectura y recibe notificaciones para mantenerte en el camino.
+- **Exámenes de Comprensión**: Accede a preguntas sobre cada libro registrado para anotar tus pensamientos.
