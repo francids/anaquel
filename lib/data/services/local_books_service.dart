@@ -23,4 +23,13 @@ class LocalBooksService {
         .map((bookJson) => LocalBook.fromJson(jsonDecode(bookJson)))
         .toList();
   }
+
+  Future<void> removeBook(LocalBook book) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String>? booksJson = prefs.getStringList(_booksKey) ?? [];
+
+    booksJson.remove(jsonEncode(book.toJson()));
+
+    await prefs.setStringList(_booksKey, booksJson);
+  }
 }

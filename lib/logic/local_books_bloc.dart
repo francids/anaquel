@@ -14,6 +14,14 @@ class AddLocalBook extends LocalBooksEvent {
   });
 }
 
+class RemoveLocalBook extends LocalBooksEvent {
+  final LocalBook localBook;
+
+  RemoveLocalBook({
+    required this.localBook,
+  });
+}
+
 abstract class LocalBooksState {}
 
 class LocalBooksInitial extends LocalBooksState {}
@@ -50,6 +58,17 @@ class LocalBooksBloc extends Bloc<LocalBooksEvent, LocalBooksState> {
       emit(LocalBooksLoading());
       try {
         await localBooksService.addBook(event.localBook);
+        final localBooks = await localBooksService.getBooks();
+        emit(LocalBooksLoaded(localBooks));
+      } catch (e) {
+        emit(LocalBooksError(e.toString()));
+      }
+    });
+
+    on<RemoveLocalBook>((event, emit) async {
+      emit(LocalBooksLoading());
+      try {
+        await localBooksService.removeBook(event.localBook);
         final localBooks = await localBooksService.getBooks();
         emit(LocalBooksLoaded(localBooks));
       } catch (e) {

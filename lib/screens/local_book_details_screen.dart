@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/local_book.dart';
+import 'package:anaquel/logic/local_books_bloc.dart';
 import 'package:anaquel/screens/reading_screen.dart';
 import 'package:anaquel/widgets/chip.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_popup/flutter_popup.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
@@ -37,7 +39,57 @@ class LocalBookDetailsScreen extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       context.pop();
+                      showAdaptiveDialog(
+                        context: context,
+                        builder: (context) => FDialog(
+                          direction: Axis.vertical,
+                          body: const Padding(
+                            padding: EdgeInsets.only(bottom: 16),
+                            child: Text(
+                              "¿Estás seguro de que deseas eliminar este libro?",
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                          actions: <FButton>[
+                            FButton(
+                              onPress: () {
+                                final File imageFile = File(localBook.coverUrl);
+                                imageFile.exists().then(
+                                  (exists) {
+                                    (exists) ? imageFile.delete() : null;
+                                  },
+                                );
+                                context.read<LocalBooksBloc>().add(
+                                      RemoveLocalBook(localBook: localBook),
+                                    );
+                                context.pop();
+                                context.pop();
+                              },
+                              style: FButtonStyle.destructive,
+                              label: const Text("Eliminar"),
+                            ),
+                            FButton(
+                              onPress: () => context.pop(),
+                              style: FButtonStyle.outline,
+                              label: const Text("Cancelar"),
+                            ),
+                          ],
+                        ),
+                      );
                     },
+                    // onTap: () {
+                    //   context.pop();
+                    //   final File imageFile = File(localBook.coverUrl);
+                    //   imageFile.exists().then(
+                    //     (exists) {
+                    //       (exists) ? imageFile.delete() : null;
+                    //     },
+                    //   );
+                    //   context.read<LocalBooksBloc>().add(
+                    //         RemoveLocalBook(localBook: localBook),
+                    //       );
+                    //   context.pop();
+                    // },
                     child: const Text(
                       "Eliminar libro",
                       style: TextStyle(fontSize: 16),
