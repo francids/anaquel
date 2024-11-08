@@ -147,6 +147,15 @@ class BooksScreen extends StatelessWidget {
                 );
               }
               if (state is UserBooksLoaded) {
+                if (state.userBooks.isEmpty) {
+                  return const SizedBox(
+                    width: double.infinity,
+                    height: 200,
+                    child: Center(
+                      child: Text("No tienes libros aún"),
+                    ),
+                  );
+                }
                 return Column(
                   children: [
                     SizedBox(

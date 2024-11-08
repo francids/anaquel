@@ -27,7 +27,7 @@ class CollectionsService {
 
   Future<List<Collection>> getCollections() async {
     final response = await _dio.get(
-      "/collection/user/${await secureStorage.read(key: "username")}",
+      "/collection/user",
     );
 
     if (response.statusCode == 200) {
