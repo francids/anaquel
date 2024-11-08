@@ -1,6 +1,8 @@
 import 'package:anaquel/logic/collections_bloc.dart';
+import 'package:anaquel/logic/local_books_bloc.dart';
 import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/screens/register_book_screen.dart';
+import 'package:anaquel/widgets/books/local_small_book_card.dart';
 import 'package:anaquel/widgets/books/small_book_card.dart';
 import 'package:anaquel/widgets/collection_chip.dart';
 import 'package:flutter/material.dart';
@@ -173,6 +175,69 @@ class BooksScreen extends StatelessWidget {
                             image: state.userBooks[index].coverUrl,
                             title: state.userBooks[index].title,
                             author: state.userBooks[index].authors.join(", "),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              }
+              return const SizedBox.shrink();
+            },
+          ),
+          const SizedBox(height: 16),
+          const SizedBox(
+            width: double.infinity,
+            child: Text(
+              "Libros locales",
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          BlocBuilder<LocalBooksBloc, LocalBooksState>(
+            builder: (context, state) {
+              if (state is LocalBooksLoading) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              if (state is LocalBooksError) {
+                return FAlert(
+                  icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                  title: const Text("Error al cargar libros locales"),
+                  subtitle: Text(state.message),
+                  style: FAlertStyle.destructive,
+                );
+              }
+              if (state is LocalBooksLoaded) {
+                if (state.localBooks.isEmpty) {
+                  return const SizedBox(
+                    width: double.infinity,
+                    height: 200,
+                    child: Center(
+                      child: Text("No tienes libros locales aún"),
+                    ),
+                  );
+                }
+                return Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.all(0),
+                        separatorBuilder: (context, index) =>
+                            const SizedBox(height: 8),
+                        itemCount: state.localBooks.length,
+                        itemBuilder: (context, index) {
+                          return LocalSmallBookCard(
+                            coverUrl: state.localBooks[index].coverUrl,
+                            title: state.localBooks[index].title,
+                            author: state.localBooks[index].author,
                           );
                         },
                       ),
