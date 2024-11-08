@@ -1,4 +1,5 @@
 import 'package:anaquel/logic/books_bloc.dart';
+import 'package:anaquel/screens/create_book_screen.dart';
 import 'package:anaquel/widgets/books/register_small_book_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,6 +27,27 @@ class RegisterBookScreen extends StatelessWidget {
           padding: const EdgeInsets.all(16),
           child: Column(
             children: [
+              FButton(
+                onPress: () => Navigator.of(context).push(
+                  PageRouteBuilder(
+                    pageBuilder: (context, animation, secondaryAnimation) =>
+                        const CreateBookScreen(),
+                    transitionsBuilder:
+                        (context, animation, secondaryAnimation, child) {
+                      return SlideTransition(
+                        position: Tween<Offset>(
+                          begin: const Offset(1, 0),
+                          end: Offset.zero,
+                        ).animate(animation),
+                        child: child,
+                      );
+                    },
+                  ),
+                ),
+                style: FButtonStyle.outline,
+                label: const Text("Crear libro"),
+              ),
+              const FDivider(),
               FTextField(
                 hint: "Buscar libro",
                 maxLines: 1,
