@@ -1,4 +1,5 @@
 class LocalBook {
+  final String id;
   final String coverUrl;
   final String title;
   final String author;
@@ -6,6 +7,7 @@ class LocalBook {
   final List<String> genres;
 
   LocalBook({
+    required this.id,
     required this.coverUrl,
     required this.title,
     required this.author,
@@ -15,6 +17,7 @@ class LocalBook {
 
   factory LocalBook.fromJson(Map<String, dynamic> json) {
     return LocalBook(
+      id: json['id'],
       coverUrl: json['coverUrl'],
       title: json['title'],
       author: json['author'],
@@ -25,6 +28,7 @@ class LocalBook {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'coverUrl': coverUrl,
       'title': title,
       'author': author,

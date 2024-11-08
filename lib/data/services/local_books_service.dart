@@ -28,7 +28,10 @@ class LocalBooksService {
     final prefs = await SharedPreferences.getInstance();
     List<String>? booksJson = prefs.getStringList(_booksKey) ?? [];
 
-    booksJson.remove(jsonEncode(book.toJson()));
+    booksJson.removeWhere((bookJson) {
+      final existingBook = LocalBook.fromJson(jsonDecode(bookJson));
+      return existingBook.id == book.id;
+    });
 
     await prefs.setStringList(_booksKey, booksJson);
   }

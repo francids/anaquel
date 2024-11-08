@@ -10,6 +10,7 @@ import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:uuid/uuid.dart';
 
 class CreateBookScreen extends StatefulWidget {
   const CreateBookScreen({super.key});
@@ -165,6 +166,7 @@ class _CreateBookScreenState extends State<CreateBookScreen> {
                       context.read<LocalBooksBloc>().add(
                             AddLocalBook(
                               localBook: LocalBook(
+                                id: const Uuid().v4(),
                                 coverUrl: value,
                                 title: _titleController.text,
                                 author: _authorController.text,
