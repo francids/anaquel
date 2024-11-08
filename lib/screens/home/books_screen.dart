@@ -235,9 +235,7 @@ class BooksScreen extends StatelessWidget {
                         itemCount: state.localBooks.length,
                         itemBuilder: (context, index) {
                           return LocalSmallBookCard(
-                            coverUrl: state.localBooks[index].coverUrl,
-                            title: state.localBooks[index].title,
-                            author: state.localBooks[index].author,
+                            localBook: state.localBooks[index],
                           );
                         },
                       ),
