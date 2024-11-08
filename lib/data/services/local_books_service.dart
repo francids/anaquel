@@ -24,6 +24,20 @@ class LocalBooksService {
         .toList();
   }
 
+  Future<void> updateBook(LocalBook book) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String>? booksJson = prefs.getStringList(_booksKey) ?? [];
+
+    booksJson.removeWhere((bookJson) {
+      final existingBook = LocalBook.fromJson(jsonDecode(bookJson));
+      return existingBook.id == book.id;
+    });
+
+    booksJson.add(jsonEncode(book.toJson()));
+
+    await prefs.setStringList(_booksKey, booksJson);
+  }
+
   Future<void> removeBook(LocalBook book) async {
     final prefs = await SharedPreferences.getInstance();
     List<String>? booksJson = prefs.getStringList(_booksKey) ?? [];

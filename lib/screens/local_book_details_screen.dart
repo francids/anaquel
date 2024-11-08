@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/local_book.dart';
 import 'package:anaquel/logic/local_books_bloc.dart';
+import 'package:anaquel/screens/edit_book_screen.dart';
 import 'package:anaquel/screens/reading_screen.dart';
 import 'package:anaquel/widgets/chip.dart';
 import 'package:flutter/material.dart';
@@ -36,6 +37,36 @@ class LocalBookDetailsScreen extends StatelessWidget {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  GestureDetector(
+                    onTap: () => Navigator.of(context)
+                        .push(
+                      PageRouteBuilder(
+                        pageBuilder: (context, animation, secondaryAnimation) =>
+                            EditBookScreen(localBook: localBook),
+                        transitionsBuilder:
+                            (context, animation, secondaryAnimation, child) {
+                          return SlideTransition(
+                            position: Tween<Offset>(
+                              begin: const Offset(1, 0),
+                              end: Offset.zero,
+                            ).animate(animation),
+                            child: child,
+                          );
+                        },
+                      ),
+                    )
+                        .whenComplete(
+                      () {
+                        context.pop();
+                        context.pop();
+                      },
+                    ),
+                    child: const Text(
+                      "Editar libro",
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
                   GestureDetector(
                     onTap: () {
                       context.pop();
@@ -77,19 +108,6 @@ class LocalBookDetailsScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    // onTap: () {
-                    //   context.pop();
-                    //   final File imageFile = File(localBook.coverUrl);
-                    //   imageFile.exists().then(
-                    //     (exists) {
-                    //       (exists) ? imageFile.delete() : null;
-                    //     },
-                    //   );
-                    //   context.read<LocalBooksBloc>().add(
-                    //         RemoveLocalBook(localBook: localBook),
-                    //       );
-                    //   context.pop();
-                    // },
                     child: const Text(
                       "Eliminar libro",
                       style: TextStyle(fontSize: 16),
