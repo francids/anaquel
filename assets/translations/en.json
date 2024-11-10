@@ -1,0 +1,22 @@
+{
+  "books": "Books",
+  "reading_schedules": "Reading schedules",
+  "profile": "Profile",
+  "profile_screen": {
+    "error": "An error occurred while loading the profile data",
+    "edit_profile": "Edit profile",
+    "change_password": "Change password",
+    "change_language": {
+      "title": "Change language",
+      "message": "Select the language you want to use in the application",
+      "spanish": "Spanish",
+      "english": "English"
+    },
+    "favorite_genres": "Favorite genres",
+    "logout": {
+      "title": "Logout",
+      "message": "Are you sure you want to log out?",
+      "cancel": "Cancel"
+    }
+  }
+}

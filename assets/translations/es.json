@@ -1,0 +1,22 @@
+{
+  "books": "Libros",
+  "reading_schedules": "Horarios de lectura",
+  "profile": "Perfil",
+  "profile_screen": {
+    "error": "Se produjo un error al cargar los datos del perfil",
+    "edit_profile": "Editar perfil",
+    "change_password": "Cambiar contraseña",
+    "change_language": {
+      "title": "Cambiar idioma",
+      "message": "Selecciona el idioma que deseas utilizar en la aplicación",
+      "spanish": "Español",
+      "english": "Inglés"
+    },
+    "favorite_genres": "Géneros favoritos",
+    "logout": {
+      "title": "Cerrar sesión",
+      "message": "¿Estás seguro de que deseas cerrar sesión?",
+      "cancel": "Cancelar"
+    }
+  }
+}
