@@ -73,45 +73,49 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     FButton(
-                      onPress: () => Navigator.of(context).push(
-                        PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) =>
-                                  const EditProfileScreen(),
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            return SlideTransition(
-                              position: Tween<Offset>(
-                                begin: const Offset(1, 0),
-                                end: Offset.zero,
-                              ).animate(animation),
-                              child: child,
-                            );
-                          },
-                        ),
-                      ),
+                      onPress: () =>
+                          Navigator.of(context).push(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                              const EditProfileScreen(),
+                              transitionsBuilder:
+                                  (context, animation, secondaryAnimation,
+                                  child) {
+                                return SlideTransition(
+                                  position: Tween<Offset>(
+                                    begin: const Offset(1, 0),
+                                    end: Offset.zero,
+                                  ).animate(animation),
+                                  child: child,
+                                );
+                              },
+                            ),
+                          ),
                       style: FButtonStyle.outline,
                       label: const Text("Editar perfil"),
                     ),
                     const SizedBox(height: 8),
                     FButton(
-                      onPress: () => Navigator.of(context).push(
-                        PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) =>
-                                  const ChangePasswordScreen(),
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            return SlideTransition(
-                              position: Tween<Offset>(
-                                begin: const Offset(1, 0),
-                                end: Offset.zero,
-                              ).animate(animation),
-                              child: child,
-                            );
-                          },
-                        ),
-                      ),
+                      onPress: () =>
+                          Navigator.of(context).push(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                              const ChangePasswordScreen(),
+                              transitionsBuilder:
+                                  (context, animation, secondaryAnimation,
+                                  child) {
+                                return SlideTransition(
+                                  position: Tween<Offset>(
+                                    begin: const Offset(1, 0),
+                                    end: Offset.zero,
+                                  ).animate(animation),
+                                  child: child,
+                                );
+                              },
+                            ),
+                          ),
                       style: FButtonStyle.outline,
                       label: const Text("Cambiar contraseña"),
                     ),
@@ -123,71 +127,38 @@ class ProfileScreen extends StatelessWidget {
           ),
           const SizedBox(height: 8),
           FButton(
-            onPress: () => showAdaptiveDialog(
-              context: context,
-              builder: (context) => FDialog(
-                direction: Axis.vertical,
-                body: const Padding(
-                  padding: EdgeInsets.only(bottom: 16),
-                  child: Text(
-                    "Elige el modo de colores a mostrar de la aplicación:",
-                    textAlign: TextAlign.start,
-                  ),
+            onPress: () =>
+                showAdaptiveDialog(
+                  context: context,
+                  builder: (context) =>
+                      FDialog(
+                        direction: Axis.vertical,
+                        body: const Padding(
+                          padding: EdgeInsets.only(bottom: 16),
+                          child: Text(
+                            "Elige el idioma a mostrar dentro de la aplicación",
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        actions: <FButton>[
+                          FButton(
+                            onPress: () => context.pop(),
+                            style: FButtonStyle.outline,
+                            label: const Text("Predeterminado"),
+                          ),
+                          FButton(
+                            onPress: () => context.pop(),
+                            style: FButtonStyle.outline,
+                            label: const Text("Español"),
+                          ),
+                          FButton(
+                            onPress: () => context.pop(),
+                            style: FButtonStyle.outline,
+                            label: const Text("Inglés"),
+                          ),
+                        ],
+                      ),
                 ),
-                actions: <FButton>[
-                  FButton(
-                    onPress: () => context.pop(),
-                    style: FButtonStyle.outline,
-                    label: const Text("Predeterminado"),
-                  ),
-                  FButton(
-                    onPress: () => context.pop(),
-                    style: FButtonStyle.outline,
-                    label: const Text("Claro"),
-                  ),
-                  FButton(
-                    onPress: () => context.pop(),
-                    style: FButtonStyle.outline,
-                    label: const Text("Oscuro"),
-                  ),
-                ],
-              ),
-            ),
-            style: FButtonStyle.outline,
-            label: const Text("Apariencia de la aplicación"),
-          ),
-          const SizedBox(height: 8),
-          FButton(
-            onPress: () => showAdaptiveDialog(
-              context: context,
-              builder: (context) => FDialog(
-                direction: Axis.vertical,
-                body: const Padding(
-                  padding: EdgeInsets.only(bottom: 16),
-                  child: Text(
-                    "Elige el idioma a mostrar dentro de la aplicación",
-                    textAlign: TextAlign.start,
-                  ),
-                ),
-                actions: <FButton>[
-                  FButton(
-                    onPress: () => context.pop(),
-                    style: FButtonStyle.outline,
-                    label: const Text("Predeterminado"),
-                  ),
-                  FButton(
-                    onPress: () => context.pop(),
-                    style: FButtonStyle.outline,
-                    label: const Text("Español"),
-                  ),
-                  FButton(
-                    onPress: () => context.pop(),
-                    style: FButtonStyle.outline,
-                    label: const Text("Inglés"),
-                  ),
-                ],
-              ),
-            ),
             style: FButtonStyle.outline,
             label: const Text("Idioma de la aplicación"),
           ),
@@ -216,34 +187,37 @@ class ProfileScreen extends StatelessWidget {
           ),
           const FDivider(vertical: false),
           FButton(
-            onPress: () => showAdaptiveDialog(
-              context: context,
-              builder: (context) => FDialog(
-                direction: Axis.vertical,
-                body: const Padding(
-                  padding: EdgeInsets.only(bottom: 16),
-                  child: Text(
-                    "¿Estás seguro de que deseas cerrar sesión?",
-                    textAlign: TextAlign.start,
-                  ),
+            onPress: () =>
+                showAdaptiveDialog(
+                  context: context,
+                  builder: (context) =>
+                      FDialog(
+                        direction: Axis.vertical,
+                        body: const Padding(
+                          padding: EdgeInsets.only(bottom: 16),
+                          child: Text(
+                            "¿Estás seguro de que deseas cerrar sesión?",
+                            textAlign: TextAlign.start,
+                          ),
+                        ),
+                        actions: <FButton>[
+                          FButton(
+                            onPress: () =>
+                            {
+                              context.read<AuthBloc>().add(LogoutEvent()),
+                              context.go('/login'),
+                            },
+                            style: FButtonStyle.destructive,
+                            label: const Text("Cerrar sesión"),
+                          ),
+                          FButton(
+                            onPress: () => context.pop(),
+                            style: FButtonStyle.outline,
+                            label: const Text("Cancelar"),
+                          ),
+                        ],
+                      ),
                 ),
-                actions: <FButton>[
-                  FButton(
-                    onPress: () => {
-                      context.read<AuthBloc>().add(LogoutEvent()),
-                      context.go('/login'),
-                    },
-                    style: FButtonStyle.destructive,
-                    label: const Text("Cerrar sesión"),
-                  ),
-                  FButton(
-                    onPress: () => context.pop(),
-                    style: FButtonStyle.outline,
-                    label: const Text("Cancelar"),
-                  ),
-                ],
-              ),
-            ),
             style: FButtonStyle.destructive,
             label: const Text("Cerrar sesión"),
           ),
