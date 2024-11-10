@@ -2,6 +2,25 @@
   "books": "Libros",
   "reading_schedules": "Horarios de lectura",
   "profile": "Perfil",
+  "books_screen": {
+    "collections": "Colecciones",
+    "error_loading_collections": "Se produjo un error al cargar las colecciones",
+    "no_collections": "No se encontraron colecciones",
+    "create_collection": {
+      "title": "Crear colección",
+      "name": "Nombre",
+      "please_enter_a_name": "Por favor, ingresa un nombre",
+      "color": "Color",
+      "cancel": "Cancelar"
+    },
+    "register_book": "Registrar libro",
+    "books": "Libros",
+    "error_loading_books": "Se produjo un error al cargar los libros",
+    "no_books": "No se encontraron libros",
+    "local_books": "Libros locales",
+    "error_loading_local_books": "Se produjo un error al cargar los libros locales",
+    "no_local_books": "No se encontraron libros locales"
+  },
   "profile_screen": {
     "error": "Se produjo un error al cargar los datos del perfil",
     "edit_profile": "Editar perfil",

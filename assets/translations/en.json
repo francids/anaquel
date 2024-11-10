@@ -2,6 +2,23 @@
   "books": "Books",
   "reading_schedules": "Reading schedules",
   "profile": "Profile",
+  "books_screen": {
+    "collections": "Collections",
+    "error_loading_collections": "An error occurred while loading the collections",
+    "no_collections": "No collections found",
+    "create_collection": {
+      "title": "Create collection",
+      "name": "Name",
+      "color": "Color",
+      "cancel": "Cancel"
+    },
+    "register_book": "Register book",
+    "books": "Books",
+    "error_loading_books": "An error occurred while loading the books",
+    "no_books": "No books found",
+    "local_books": "Local books",
+    "error_loading_local_books": "An error occurred while loading the local books"
+  },
   "profile_screen": {
     "error": "An error occurred while loading the profile data",
     "edit_profile": "Edit profile",

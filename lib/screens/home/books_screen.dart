@@ -5,6 +5,7 @@ import 'package:anaquel/screens/register_book_screen.dart';
 import 'package:anaquel/widgets/books/local_small_book_card.dart';
 import 'package:anaquel/widgets/books/small_book_card.dart';
 import 'package:anaquel/widgets/collection_chip.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -27,15 +28,15 @@ class BooksScreen extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          const SizedBox(
+          SizedBox(
             width: double.infinity,
-            child: Text(
-              "Colecciones",
+            child: const Text(
+              "books_screen.collections",
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
               ),
-            ),
+            ).tr(),
           ),
           const SizedBox(height: 16),
           BlocBuilder<CollectionsBloc, CollectionsState>(
@@ -48,18 +49,19 @@ class BooksScreen extends StatelessWidget {
               if (state is CollectionsError) {
                 return FAlert(
                   icon: FAlertIcon(icon: FAssets.icons.badgeX),
-                  title: const Text("Error al cargar las colecciones"),
+                  title:
+                      const Text("books_screen.error_loading_collections").tr(),
                   subtitle: Text(state.message),
                   style: FAlertStyle.destructive,
                 );
               }
               if (state is CollectionsLoaded) {
                 if (state.collections.isEmpty) {
-                  return const SizedBox(
+                  return SizedBox(
                     width: double.infinity,
                     height: 200,
                     child: Center(
-                      child: Text("No tienes colecciones aún"),
+                      child: const Text("books_screen.no_collections").tr(),
                     ),
                   );
                 }
@@ -98,7 +100,7 @@ class BooksScreen extends StatelessWidget {
           FButton(
             onPress: () => buildCreateCollectionDialog(context),
             style: FButtonStyle.outline,
-            label: const Text("Crear colección"),
+            label: const Text("books_screen.create_collection.title").tr(),
           ),
           const FDivider(),
           FButton(
@@ -119,18 +121,18 @@ class BooksScreen extends StatelessWidget {
               ),
             ),
             style: FButtonStyle.primary,
-            label: const Text("Registrar libro"),
+            label: const Text("books_screen.register_book").tr(),
           ),
           const SizedBox(height: 16),
-          const SizedBox(
+          SizedBox(
             width: double.infinity,
-            child: Text(
-              "Libros",
+            child: const Text(
+              "books_screen.books",
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
               ),
-            ),
+            ).tr(),
           ),
           const SizedBox(height: 16),
           BlocBuilder<UserBooksBloc, UserBooksState>(
@@ -143,18 +145,18 @@ class BooksScreen extends StatelessWidget {
               if (state is UserBooksError) {
                 return FAlert(
                   icon: FAlertIcon(icon: FAssets.icons.badgeX),
-                  title: const Text("Error al cargar libros"),
+                  title: const Text("books_screen.error_loading_books").tr(),
                   subtitle: Text(state.message),
                   style: FAlertStyle.destructive,
                 );
               }
               if (state is UserBooksLoaded) {
                 if (state.userBooks.isEmpty) {
-                  return const SizedBox(
+                  return SizedBox(
                     width: double.infinity,
                     height: 200,
                     child: Center(
-                      child: Text("No tienes libros aún"),
+                      child: const Text("books_screen.no_books").tr(),
                     ),
                   );
                 }
@@ -186,15 +188,15 @@ class BooksScreen extends StatelessWidget {
             },
           ),
           const SizedBox(height: 16),
-          const SizedBox(
+          SizedBox(
             width: double.infinity,
-            child: Text(
-              "Libros locales",
+            child: const Text(
+              "books_screen.local_books",
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
               ),
-            ),
+            ).tr(),
           ),
           const SizedBox(height: 16),
           BlocBuilder<LocalBooksBloc, LocalBooksState>(
@@ -207,18 +209,19 @@ class BooksScreen extends StatelessWidget {
               if (state is LocalBooksError) {
                 return FAlert(
                   icon: FAlertIcon(icon: FAssets.icons.badgeX),
-                  title: const Text("Error al cargar libros locales"),
+                  title:
+                      const Text("books_screen.error_loading_local_books").tr(),
                   subtitle: Text(state.message),
                   style: FAlertStyle.destructive,
                 );
               }
               if (state is LocalBooksLoaded) {
                 if (state.localBooks.isEmpty) {
-                  return const SizedBox(
+                  return SizedBox(
                     width: double.infinity,
                     height: 200,
                     child: Center(
-                      child: Text("No tienes libros locales aún"),
+                      child: const Text("books_screen.no_local_books").tr(),
                     ),
                   );
                 }
@@ -261,7 +264,7 @@ class BooksScreen extends StatelessWidget {
       barrierDismissible: true,
       context: context,
       builder: (context) => FDialog(
-        title: const Text("Crear colección"),
+        title: const Text("books_screen.create_collection.title").tr(),
         direction: Axis.vertical,
         body: Form(
           key: formKey,
@@ -272,26 +275,27 @@ class BooksScreen extends StatelessWidget {
               children: [
                 FTextField(
                   controller: nameController,
-                  label: const Text('Nombre:'),
+                  label: const Text("books_screen.create_collection.name").tr(),
                   maxLines: 1,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return "Por favor ingresa un nombre";
+                      return "books_screen.create_collection.please_enter_a_name"
+                          .tr();
                     }
                     return null;
                   },
                 ),
                 const SizedBox(height: 16),
-                const SizedBox(
+                SizedBox(
                   width: double.infinity,
-                  child: Text(
-                    'Color:',
+                  child: const Text(
+                    'books_screen.create_collection.color',
                     textAlign: TextAlign.start,
                     style: TextStyle(
                       fontSize: 14,
                       fontWeight: FontWeight.w600,
                     ),
-                  ),
+                  ).tr(),
                 ),
                 const SizedBox(height: 8),
                 BlockPicker(
@@ -357,12 +361,12 @@ class BooksScreen extends StatelessWidget {
               context.pop();
             },
             style: FButtonStyle.primary,
-            label: const Text("Crear colección"),
+            label: const Text("books_screen.create_collection.title").tr(),
           ),
           FButton(
             onPress: () => context.pop(),
             style: FButtonStyle.outline,
-            label: const Text("Cancelar"),
+            label: const Text("books_screen.create_collection.cancel").tr(),
           ),
         ],
       ),
