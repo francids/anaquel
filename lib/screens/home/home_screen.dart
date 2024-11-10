@@ -16,13 +16,6 @@ import 'package:anaquel/screens/home/principal_screen.dart';
 import 'package:anaquel/screens/home/profile_screen.dart';
 import 'package:anaquel/screens/home/schedules_screen.dart';
 
-List<String> _titles = [
-  'Anaquel',
-  'books',
-  'reading_schedules',
-  'profile',
-];
-
 List<Widget> _screens = [
   const PrincipalScreen(),
   const BooksScreen(),
@@ -53,7 +46,15 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return FScaffold(
       header: FHeader(
-        title: Text(_titles[index]).tr(),
+        // title: Text(_titles[index]).tr(),
+        title: Text(
+          [
+            'Anaquel',
+            'books',
+            'reading_schedules',
+            'profile',
+          ][index],
+        ).tr(),
         key: ValueKey(index),
         style: FRootHeaderStyle(
           titleTextStyle: TextStyle(
