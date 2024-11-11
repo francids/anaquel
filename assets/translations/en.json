@@ -2,6 +2,15 @@
   "books": "Books",
   "reading_schedules": "Reading schedules",
   "profile": "Profile",
+  "principal_screen": {
+    "reading": "Reading",
+    "error_loading_reading_books": "An error occurred while loading the reading books",
+    "no_reading_books": "You are not reading any book",
+    "to_read": "To read",
+    "error_loading_to_read_books": "An error occurred while loading the to read books",
+    "no_to_read_books": "You have no books to read",
+    "recommendations": "Recommendations"
+  },
   "books_screen": {
     "collections": "Collections",
     "error_loading_collections": "An error occurred while loading the collections",

@@ -2,6 +2,15 @@
   "books": "Libros",
   "reading_schedules": "Horarios de lectura",
   "profile": "Perfil",
+  "principal_screen": {
+    "reading": "Leyendo",
+    "error_loading_reading_books": "Se produjo un error al cargar los libros que estás leyendo",
+    "no_reading_books": "No estás leyendo ningún libro",
+    "to_read": "Por leer",
+    "error_loading_to_read_books": "Se produjo un error al cargar los libros que tienes por leer",
+    "no_to_read_books": "No tienes libros por leer",
+    "recommendations": "Recomendaciones"
+  },
   "books_screen": {
     "collections": "Colecciones",
     "error_loading_collections": "Se produjo un error al cargar las colecciones",

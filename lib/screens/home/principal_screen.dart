@@ -1,6 +1,7 @@
 import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/widgets/books/medium_book_card.dart';
 import 'package:anaquel/widgets/books/small_book_card.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
@@ -39,12 +40,12 @@ class PrincipalScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             width: double.infinity,
             child: const Text(
-              "Leyendo",
+              "principal_screen.reading",
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
               ),
-            ),
+            ).tr(),
           ),
           const SizedBox(height: 12),
           BlocBuilder<UserBooksBloc, UserBooksState>(
@@ -64,7 +65,9 @@ class PrincipalScreen extends StatelessWidget {
                   height: 200,
                   child: FAlert(
                     icon: FAlertIcon(icon: FAssets.icons.badgeX),
-                    title: const Text("Error al cargar libros"),
+                    title: const Text(
+                            "principal_screen.error_loading_reading_books")
+                        .tr(),
                     subtitle: Text(state.message),
                     style: FAlertStyle.destructive,
                   ),
@@ -72,11 +75,12 @@ class PrincipalScreen extends StatelessWidget {
               }
               if (state is UserBooksLoaded) {
                 if (state.userBooks.isEmpty) {
-                  return const SizedBox(
+                  return SizedBox(
                     width: double.infinity,
                     height: 200,
                     child: Center(
-                      child: Text("No hay libros leyendo"),
+                      child:
+                          const Text("principal_screen.no_reading_books").tr(),
                     ),
                   );
                 }
@@ -108,12 +112,12 @@ class PrincipalScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             width: double.infinity,
             child: const Text(
-              "Por leer",
+              "principal_screen.to_read",
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w600,
               ),
-            ),
+            ).tr(),
           ),
           const SizedBox(height: 12),
           BlocBuilder<UserBooksBloc, UserBooksState>(
@@ -133,7 +137,9 @@ class PrincipalScreen extends StatelessWidget {
                   height: 200,
                   child: FAlert(
                     icon: FAlertIcon(icon: FAssets.icons.badgeX),
-                    title: const Text("Error al cargar libros"),
+                    title: const Text(
+                            "principal_screen.error_loading_to_read_books")
+                        .tr(),
                     subtitle: Text(state.message),
                     style: FAlertStyle.destructive,
                   ),
@@ -141,11 +147,12 @@ class PrincipalScreen extends StatelessWidget {
               }
               if (state is UserBooksLoaded) {
                 if (state.userBooks.isEmpty) {
-                  return const SizedBox(
+                  return SizedBox(
                     width: double.infinity,
                     height: 200,
                     child: Center(
-                      child: Text("No hay libros por leer"),
+                      child:
+                          const Text("principal_screen.no_to_read_books").tr(),
                     ),
                   );
                 }
@@ -177,15 +184,15 @@ class PrincipalScreen extends StatelessWidget {
             child: Column(
               children: [
                 const FDivider(),
-                const SizedBox(
+                SizedBox(
                   width: double.infinity,
-                  child: Text(
-                    "Recomendaciones",
+                  child: const Text(
+                    "principal_screen.recommendations",
                     style: TextStyle(
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
                     ),
-                  ),
+                  ).tr(),
                 ),
                 const SizedBox(height: 16),
                 SizedBox(
