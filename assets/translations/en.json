@@ -1,5 +1,7 @@
 {
+  "principal": "Principal",
   "books": "Books",
+  "schedules": "Schedules",
   "reading_schedules": "Reading schedules",
   "profile": "Profile",
   "principal_screen": {
@@ -18,6 +20,7 @@
     "create_collection": {
       "title": "Create collection",
       "name": "Name",
+      "please_enter_a_name": "Please enter a name",
       "color": "Color",
       "cancel": "Cancel"
     },
@@ -26,7 +29,8 @@
     "error_loading_books": "An error occurred while loading the books",
     "no_books": "No books found",
     "local_books": "Local books",
-    "error_loading_local_books": "An error occurred while loading the local books"
+    "error_loading_local_books": "An error occurred while loading the local books",
+    "no_local_books": "No local books found"
   },
   "profile_screen": {
     "error": "An error occurred while loading the profile data",

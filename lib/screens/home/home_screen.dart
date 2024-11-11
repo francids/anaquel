@@ -46,7 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return FScaffold(
       header: FHeader(
-        // title: Text(_titles[index]).tr(),
         title: Text(
           [
             'Anaquel',
@@ -84,19 +83,19 @@ class _HomeScreenState extends State<HomeScreen> {
         items: [
           FBottomNavigationBarItem(
             icon: FAssets.icons.home,
-            label: 'Principal',
+            label: 'principal'.tr(),
           ),
           FBottomNavigationBarItem(
             icon: FAssets.icons.book,
-            label: "Libros",
+            label: "books".tr(),
           ),
           FBottomNavigationBarItem(
             icon: FAssets.icons.alarmClock,
-            label: "Horarios",
+            label: "schedules".tr(),
           ),
           FBottomNavigationBarItem(
             icon: FAssets.icons.user,
-            label: 'Perfil',
+            label: 'profile'.tr(),
           ),
         ],
       ),

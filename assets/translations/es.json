@@ -1,5 +1,7 @@
 {
+  "principal": "Principal",
   "books": "Libros",
+  "schedules": "Horarios",
   "reading_schedules": "Horarios de lectura",
   "profile": "Perfil",
   "principal_screen": {
