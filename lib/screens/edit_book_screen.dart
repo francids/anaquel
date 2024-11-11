@@ -199,7 +199,7 @@ class _EditBookScreenState extends State<EditBookScreen> {
                   context.pop();
                 },
                 style: FButtonStyle.primary,
-                label: const Text("Crear libro"),
+                label: const Text("Editar libro"),
               ),
               const SizedBox(height: 16),
             ],
