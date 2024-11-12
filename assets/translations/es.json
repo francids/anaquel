@@ -1,4 +1,39 @@
 {
+  "auth_screens": {
+    "log_in_screen": {
+      "login": "Iniciar sesión",
+      "username": "Nombre de usuario",
+      "password": "Contraseña",
+      "error": {
+        "title": "Error al iniciar sesión",
+        "message": "Se produjo un error al intentar iniciar sesión"
+      },
+      "other_options": {
+        "message": "O puedes iniciar sesión con:",
+        "google": "Continuar con Google"
+      },
+      "no_account": {
+        "message": "¿No tienes una cuenta? ",
+        "sign_up": "Regístrate"
+      }
+    },
+    "sign_up_screen": {
+      "sign_up": "Regístrate",
+      "username": "Nombre de usuario",
+      "name": "Nombre",
+      "email": "Correo electrónico",
+      "password": "Contraseña",
+      "confirm_password": "Confirmar contraseña",
+      "error": {
+        "title": "Error al registrarse",
+        "message": "Se produjo un error al intentar registrarse"
+      },
+      "other_options": {
+        "message": "O puedes registrarte con:",
+        "google": "Registrarse con Google"
+      }
+    }
+  },
   "principal": "Principal",
   "books": "Libros",
   "schedules": "Horarios",

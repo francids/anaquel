@@ -2,6 +2,7 @@ import 'package:anaquel/logic/auth_bloc.dart';
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/user.dart';
 import 'package:anaquel/screens/auth/sign_up_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,16 +26,28 @@ class LogInScreen extends StatelessWidget {
       child: FScaffold(
         header: Column(
           children: [
-            const FHeader(
-              title: Text(
-                "Iniciar sesión",
+            FHeader(
+              title: const Text(
+                "auth_screens.log_in_screen.login",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   fontSize: 20,
                   height: 1,
                 ),
-              ),
+              ).tr(),
+              actions: [
+                FHeaderAction(
+                  icon: FAssets.icons.languages,
+                  onPress: () {
+                    context.setLocale(
+                      context.locale == const Locale('en')
+                          ? const Locale('es')
+                          : const Locale('en'),
+                    );
+                  },
+                ),
+              ],
             ),
             BlocBuilder<AuthBloc, AuthState>(
               builder: (context, state) {
@@ -53,7 +66,7 @@ class LogInScreen extends StatelessWidget {
             children: [
               FTextField(
                 controller: usernameController,
-                label: const Text('Nombre de usuario'),
+                label: const Text('auth_screens.log_in_screen.username').tr(),
                 maxLines: 1,
                 autofillHints: const [AutofillHints.username],
                 keyboardType: TextInputType.text,
@@ -61,7 +74,7 @@ class LogInScreen extends StatelessWidget {
               const SizedBox(height: 16),
               FTextField(
                 controller: passwordController,
-                label: const Text('Contraseña'),
+                label: const Text('auth_screens.log_in_screen.password').tr(),
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -81,7 +94,7 @@ class LogInScreen extends StatelessWidget {
                   context.read<AuthBloc>().add(LoginEvent(user));
                 },
                 style: FButtonStyle.primary,
-                label: const Text("Iniciar sesión"),
+                label: const Text("auth_screens.log_in_screen.login").tr(),
               ),
               BlocBuilder<AuthBloc, AuthState>(
                 builder: (context, state) {
@@ -91,38 +104,40 @@ class LogInScreen extends StatelessWidget {
                         const SizedBox(height: 16),
                         FAlert(
                           icon: FAlertIcon(icon: FAssets.icons.badgeX),
-                          title: const Text("Error al iniciar sesión"),
+                          title: const Text(
+                                  "auth_screens.log_in_screen.error.title")
+                              .tr(),
                           subtitle: const Text(
-                            "Por favor, verifica tus credenciales e intenta de nuevo.",
-                          ),
+                            "auth_screens.log_in_screen.error.message",
+                          ).tr(),
                           style: FAlertStyle.destructive,
                         ),
                       ],
                     );
                   }
-                  return const SizedBox.shrink(
-                    child: Text("Inicio de sesión exitoso"),
-                  );
+                  return const SizedBox.shrink();
                 },
               ),
               const SizedBox(height: 8),
               const FDivider(vertical: false),
-              const SizedBox(
+              SizedBox(
                 width: double.infinity,
-                child: Text(
-                  "O puedes iniciar sesión con:",
+                child: const Text(
+                  "auth_screens.log_in_screen.other_options.message",
                   style: TextStyle(
                     color: AppColors.eerieBlack,
                     fontSize: 15,
                   ),
-                ),
+                ).tr(),
               ),
               const SizedBox(height: 16),
               FButton(
                 prefix: SvgPicture.asset("assets/google_icon.svg"),
                 onPress: () {},
                 style: FButtonStyle.outline,
-                label: const Text("Continuar con Google"),
+                label: const Text(
+                        "auth_screens.log_in_screen.other_options.google")
+                    .tr(),
               ),
               const SizedBox(height: 8),
               const FDivider(vertical: false),
@@ -145,16 +160,18 @@ class LogInScreen extends StatelessWidget {
                       },
                     ),
                   ),
-                  child: const Row(
+                  child: Row(
                     children: [
-                      Text("¿No tienes una cuenta? "),
-                      Text(
-                        "Crear cuenta",
+                      const Text(
+                              "auth_screens.log_in_screen.no_account.message")
+                          .tr(),
+                      const Text(
+                        "auth_screens.log_in_screen.no_account.sign_up",
                         style: TextStyle(
                           color: AppColors.burgundy,
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
+                      ).tr(),
                     ],
                   ),
                 ),

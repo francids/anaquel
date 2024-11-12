@@ -1,5 +1,6 @@
 import 'package:anaquel/logic/auth_bloc.dart';
 import 'package:anaquel/data/models/user.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,10 +29,22 @@ class SignUpScreen extends StatelessWidget {
         header: Column(
           children: [
             FHeader.nested(
-              title: const Text("Crear cuenta"),
+              title: const Text("auth_screens.sign_up_screen.sign_up").tr(),
               leftActions: [
                 FHeaderAction.back(
                   onPress: () => context.pop(),
+                ),
+              ],
+              rightActions: [
+                FHeaderAction(
+                  icon: FAssets.icons.languages,
+                  onPress: () {
+                    context.setLocale(
+                      context.locale == const Locale('en')
+                          ? const Locale('es')
+                          : const Locale('en'),
+                    );
+                  },
                 ),
               ],
             ),
@@ -57,7 +70,7 @@ class SignUpScreen extends StatelessWidget {
             children: [
               FTextField(
                 controller: usernameController,
-                label: const Text('Nombre de usuario'),
+                label: const Text('auth_screens.sign_up_screen.username').tr(),
                 autofillHints: const [AutofillHints.username],
                 keyboardType: TextInputType.text,
                 maxLines: 1,
@@ -65,7 +78,7 @@ class SignUpScreen extends StatelessWidget {
               const SizedBox(height: 16),
               FTextField(
                 controller: nameController,
-                label: const Text('Nombre'),
+                label: const Text('auth_screens.sign_up_screen.name').tr(),
                 autofillHints: const [AutofillHints.name],
                 keyboardType: TextInputType.name,
                 maxLines: 1,
@@ -73,7 +86,7 @@ class SignUpScreen extends StatelessWidget {
               const SizedBox(height: 16),
               FTextField(
                 controller: emailController,
-                label: const Text('Correo electrónico'),
+                label: const Text("auth_screens.sign_up_screen.email").tr(),
                 autofillHints: const [AutofillHints.email],
                 keyboardType: TextInputType.emailAddress,
                 maxLines: 1,
@@ -81,7 +94,7 @@ class SignUpScreen extends StatelessWidget {
               const SizedBox(height: 16),
               FTextField(
                 controller: passwordController,
-                label: const Text('Contraseña'),
+                label: const Text('auth_screens.sign_up_screen.password').tr(),
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -92,7 +105,9 @@ class SignUpScreen extends StatelessWidget {
               const SizedBox(height: 16),
               FTextField(
                 controller: confirmPasswordController,
-                label: const Text('Confirmar contraseña'),
+                label: const Text(
+                  'auth_screens.sign_up_screen.confirm_password',
+                ).tr(),
                 obscureText: true,
                 enableSuggestions: false,
                 autocorrect: false,
@@ -116,7 +131,7 @@ class SignUpScreen extends StatelessWidget {
                   context.read<AuthBloc>().add(SignUpEvent(user));
                 },
                 style: FButtonStyle.primary,
-                label: const Text("Crear cuenta"),
+                label: const Text("auth_screens.sign_up_screen.sign_up").tr(),
               ),
               BlocBuilder<AuthBloc, AuthState>(
                 builder: (context, state) {
@@ -126,37 +141,39 @@ class SignUpScreen extends StatelessWidget {
                         const SizedBox(height: 16),
                         FAlert(
                           icon: FAlertIcon(icon: FAssets.icons.badgeX),
-                          title: const Text("Error al iniciar sesión"),
+                          title: const Text(
+                            "auth_screens.sign_up_screen.error.title",
+                          ).tr(),
                           subtitle: const Text(
-                            "Por favor, verifica tus credenciales e intenta de nuevo.",
-                          ),
+                            "auth_screens.sign_up_screen.error.message",
+                          ).tr(),
                           style: FAlertStyle.destructive,
                         ),
                       ],
                     );
                   }
-                  return const SizedBox.shrink(
-                    child: Text("Inicio de sesión exitoso"),
-                  );
+                  return const SizedBox.shrink();
                 },
               ),
               const SizedBox(height: 8),
               const FDivider(vertical: false),
-              const SizedBox(
+              SizedBox(
                 width: double.infinity,
-                child: Text(
-                  "O puedes registrarte con:",
+                child: const Text(
+                  "auth_screens.sign_up_screen.other_options.message",
                   style: TextStyle(
                     fontSize: 15,
                   ),
-                ),
+                ).tr(),
               ),
               const SizedBox(height: 16),
               FButton(
                 prefix: SvgPicture.asset("assets/google_icon.svg"),
                 onPress: () {},
                 style: FButtonStyle.outline,
-                label: const Text("Registrarse con Google"),
+                label: const Text(
+                  "auth_screens.sign_up_screen.other_options.google",
+                ).tr(),
               ),
               const SizedBox(height: 16),
             ],

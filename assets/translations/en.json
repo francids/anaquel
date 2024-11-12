@@ -1,4 +1,39 @@
 {
+  "auth_screens": {
+    "log_in_screen": {
+      "login": "Login",
+      "username": "Username",
+      "password": "Password",
+      "error": {
+        "title": "Error logging in",
+        "message": "An error occurred while trying to log in"
+      },
+      "other_options": {
+        "message": "Or you can log in with:",
+        "google": "Continue with Google"
+      },
+      "no_account": {
+        "message": "Don't have an account? ",
+        "sign_up": "Sign up"
+      }
+    },
+    "sign_up_screen": {
+      "sign_up": "Sign up",
+      "username": "Username",
+      "name": "Name",
+      "email": "Email",
+      "password": "Password",
+      "confirm_password": "Confirm password",
+      "error": {
+        "title": "Error signing up",
+        "message": "An error occurred while trying to sign up"
+      },
+      "other_options": {
+        "message": "Or you can sign up with:",
+        "google": "Sign up with Google"
+      }
+    }
+  },
   "principal": "Principal",
   "books": "Books",
   "schedules": "Schedules",
