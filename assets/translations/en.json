@@ -6,7 +6,8 @@
       "password": "Password",
       "error": {
         "title": "Error logging in",
-        "message": "An error occurred while trying to log in"
+        "message": "An error occurred while trying to log in",
+        "empty_field": "This field is required"
       },
       "other_options": {
         "message": "Or you can log in with:",
@@ -26,7 +27,9 @@
       "confirm_password": "Confirm password",
       "error": {
         "title": "Error signing up",
-        "message": "An error occurred while trying to sign up"
+        "message": "An error occurred while trying to sign up",
+        "empty_field": "This field is required",
+        "password_mismatch": "Passwords do not match"
       },
       "other_options": {
         "message": "Or you can sign up with:",

@@ -6,7 +6,8 @@
       "password": "Contraseña",
       "error": {
         "title": "Error al iniciar sesión",
-        "message": "Se produjo un error al intentar iniciar sesión"
+        "message": "Se produjo un error al intentar iniciar sesión",
+        "empty_field": "Este campo es requerido"
       },
       "other_options": {
         "message": "O puedes iniciar sesión con:",
@@ -26,7 +27,9 @@
       "confirm_password": "Confirmar contraseña",
       "error": {
         "title": "Error al registrarse",
-        "message": "Se produjo un error al intentar registrarse"
+        "message": "Se produjo un error al intentar registrarse",
+        "empty_field": "Este campo es requerido",
+        "password_mismatch": "Las contraseñas no coinciden"
       },
       "other_options": {
         "message": "O puedes registrarte con:",
