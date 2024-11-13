@@ -39,7 +39,7 @@ class LogInScreen extends StatelessWidget {
               ).tr(),
               actions: [
                 FHeaderAction(
-                  icon: FAssets.icons.languages,
+                  icon: FAssets.icons.languages(),
                   onPress: () {
                     context.setLocale(
                       context.locale == const Locale('en')
@@ -128,7 +128,7 @@ class LogInScreen extends StatelessWidget {
                         children: [
                           const SizedBox(height: 16),
                           FAlert(
-                            icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                            icon: FAssets.icons.badgeX(),
                             title: const Text(
                                     "auth_screens.log_in_screen.error.title")
                                 .tr(),
@@ -144,7 +144,7 @@ class LogInScreen extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 8),
-                const FDivider(vertical: false),
+                const FDivider(),
                 SizedBox(
                   width: double.infinity,
                   child: const Text(
@@ -165,7 +165,7 @@ class LogInScreen extends StatelessWidget {
                       .tr(),
                 ),
                 const SizedBox(height: 8),
-                const FDivider(vertical: false),
+                const FDivider(),
                 SizedBox(
                   width: double.infinity,
                   child: GestureDetector(

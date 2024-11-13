@@ -22,12 +22,12 @@ class LocalBookDetailsScreen extends StatelessWidget {
     return FScaffold(
       header: FHeader.nested(
         title: const Text("Libro local"),
-        leftActions: [
+        prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
           ),
         ],
-        rightActions: [
+        suffixActions: [
           CustomPopup(
             content: Padding(
               padding: const EdgeInsets.symmetric(

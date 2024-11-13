@@ -10,7 +10,7 @@ class ChangePasswordScreen extends StatelessWidget {
     return FScaffold(
       header: FHeader.nested(
         title: const Text("Cambiar contraseña"),
-        leftActions: [
+        prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
           ),
@@ -50,7 +50,7 @@ class ChangePasswordScreen extends StatelessWidget {
               autofillHints: [AutofillHints.password],
               keyboardType: TextInputType.visiblePassword,
             ),
-            const FDivider(vertical: false),
+            const FDivider(),
             FButton(
               onPress: () {},
               style: FButtonStyle.primary,

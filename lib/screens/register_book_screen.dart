@@ -16,7 +16,7 @@ class RegisterBookScreen extends StatelessWidget {
       child: FScaffold(
         header: FHeader.nested(
           title: const Text("Registrando libro"),
-          leftActions: [
+          prefixActions: [
             FHeaderAction.back(
               onPress: () => context.pop(),
             ),

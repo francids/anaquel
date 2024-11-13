@@ -10,7 +10,7 @@ class EditProfileScreen extends StatelessWidget {
     return FScaffold(
       header: FHeader.nested(
         title: const Text("Editar perfil"),
-        leftActions: [
+        prefixActions: [
           FHeaderAction.back(onPress: () => context.pop()),
         ],
       ),

@@ -80,22 +80,22 @@ class _HomeScreenState extends State<HomeScreen> {
       footer: FBottomNavigationBar(
         index: index,
         onChange: (index) => setState(() => this.index = index),
-        items: [
+        children: [
           FBottomNavigationBarItem(
-            icon: FAssets.icons.home,
-            label: 'principal'.tr(),
+            icon: FAssets.icons.house(),
+            label: const Text("principal").tr(),
           ),
           FBottomNavigationBarItem(
-            icon: FAssets.icons.book,
-            label: "books".tr(),
+            icon: FAssets.icons.book(),
+            label: const Text("books").tr(),
           ),
           FBottomNavigationBarItem(
-            icon: FAssets.icons.alarmClock,
-            label: "schedules".tr(),
+            icon: FAssets.icons.alarmClock(),
+            label: const Text("schedules").tr(),
           ),
           FBottomNavigationBarItem(
-            icon: FAssets.icons.user,
-            label: 'profile'.tr(),
+            icon: FAssets.icons.user(),
+            label: const Text("profile").tr(),
           ),
         ],
       ),

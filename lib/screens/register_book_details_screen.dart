@@ -18,7 +18,7 @@ class RegisterBookDetailsScreen extends StatelessWidget {
     return FScaffold(
       header: FHeader.nested(
         title: const Text("Registrando libro"),
-        leftActions: [
+        prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
           ),
@@ -37,7 +37,7 @@ class RegisterBookDetailsScreen extends StatelessWidget {
             return Column(
               children: [
                 FAlert(
-                  icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                  icon: FAssets.icons.badgeX(),
                   title: const Text("Error al cargar libro"),
                   subtitle: Text(state.message),
                   style: FAlertStyle.destructive,

@@ -34,7 +34,7 @@ class SchedulesScreen extends StatelessWidget {
             shrinkWrap: true,
             padding: const EdgeInsets.symmetric(vertical: 16),
             separatorBuilder: (context, index) {
-              return const SizedBox(height: 8);
+              return const SizedBox(height: 12);
             },
           ),
           const SizedBox(

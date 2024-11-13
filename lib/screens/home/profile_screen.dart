@@ -41,7 +41,7 @@ class ProfileScreen extends StatelessWidget {
                 return Column(
                   children: [
                     FAlert(
-                      icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                      icon: FAssets.icons.badgeX(),
                       title: const Text("profile_screen.error").tr(),
                       subtitle: Text(state.message),
                       style: FAlertStyle.destructive,
@@ -160,7 +160,7 @@ class ProfileScreen extends StatelessWidget {
             style: FButtonStyle.outline,
             label: const Text("profile_screen.change_language.title").tr(),
           ),
-          const FDivider(vertical: false),
+          const FDivider(),
           SizedBox(
             width: double.infinity,
             child: const Text(
@@ -183,7 +183,7 @@ class ProfileScreen extends StatelessWidget {
               ],
             ),
           ),
-          const FDivider(vertical: false),
+          const FDivider(),
           FButton(
             onPress: () => showAdaptiveDialog(
               context: context,

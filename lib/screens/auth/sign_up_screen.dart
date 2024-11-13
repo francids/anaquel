@@ -31,14 +31,14 @@ class SignUpScreen extends StatelessWidget {
           children: [
             FHeader.nested(
               title: const Text("auth_screens.sign_up_screen.sign_up").tr(),
-              leftActions: [
+              prefixActions: [
                 FHeaderAction.back(
                   onPress: () => context.pop(),
                 ),
               ],
-              rightActions: [
+              suffixActions: [
                 FHeaderAction(
-                  icon: FAssets.icons.languages,
+                  icon: FAssets.icons.languages(),
                   onPress: () {
                     context.setLocale(
                       context.locale == const Locale('en')
@@ -183,7 +183,7 @@ class SignUpScreen extends StatelessWidget {
                         children: [
                           const SizedBox(height: 16),
                           FAlert(
-                            icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                            icon: FAssets.icons.badgeX(),
                             title: const Text(
                               "auth_screens.sign_up_screen.error.title",
                             ).tr(),
@@ -199,7 +199,7 @@ class SignUpScreen extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 8),
-                const FDivider(vertical: false),
+                const FDivider(),
                 SizedBox(
                   width: double.infinity,
                   child: const Text(

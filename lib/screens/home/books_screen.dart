@@ -48,7 +48,7 @@ class BooksScreen extends StatelessWidget {
               }
               if (state is CollectionsError) {
                 return FAlert(
-                  icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                  icon: FAssets.icons.badgeX(),
                   title:
                       const Text("books_screen.error_loading_collections").tr(),
                   subtitle: Text(state.message),
@@ -144,7 +144,7 @@ class BooksScreen extends StatelessWidget {
               }
               if (state is UserBooksError) {
                 return FAlert(
-                  icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                  icon: FAssets.icons.badgeX(),
                   title: const Text("books_screen.error_loading_books").tr(),
                   subtitle: Text(state.message),
                   style: FAlertStyle.destructive,
@@ -208,7 +208,7 @@ class BooksScreen extends StatelessWidget {
               }
               if (state is LocalBooksError) {
                 return FAlert(
-                  icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                  icon: FAssets.icons.badgeX(),
                   title:
                       const Text("books_screen.error_loading_local_books").tr(),
                   subtitle: Text(state.message),

@@ -52,7 +52,7 @@ class _ReadingScreenState extends State<ReadingScreen> {
     return FScaffold(
       header: FHeader.nested(
         title: const Text("Leyendo"),
-        leftActions: [
+        prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
           ),

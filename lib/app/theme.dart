@@ -19,10 +19,10 @@ class AnaquelTheme extends StatelessWidget {
         background: AppColors.white,
         foreground: AppColors.black,
       ),
-      style: const FStyle(
-        borderRadius: BorderRadius.all(Radius.circular(8)),
-        borderWidth: 1,
-      ),
+      // style: FStyle(
+      //   borderRadius: BorderRadius.all(Radius.circular(8)),
+      //   borderWidth: 1,
+      // ),
     ).copyWith(
       headerStyle: FHeaderStyles(
         rootStyle: FRootHeaderStyle(
@@ -53,11 +53,11 @@ class AnaquelTheme extends StatelessWidget {
         ),
       ),
       dividerStyles: FDividerStyles(
-        horizontal: FDividerStyle(
+        horizontalStyle: FDividerStyle(
           padding: const EdgeInsets.symmetric(vertical: 20),
           color: AppColors.timberwolf.withOpacity(0.5),
         ),
-        vertical: FDividerStyle(
+        verticalStyle: FDividerStyle(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           color: AppColors.timberwolf.withOpacity(0.5),
         ),
@@ -67,7 +67,7 @@ class AnaquelTheme extends StatelessWidget {
           horizontal: 20,
           vertical: 8,
         ),
-        item: FBottomNavigationBarItemStyle(
+        itemStyle: FBottomNavigationBarItemStyle(
           activeIconColor: AppColors.black,
           activeTextStyle: const TextStyle(
             fontWeight: FontWeight.w600,

@@ -30,12 +30,12 @@ class CollectionScreen extends StatelessWidget {
     return FScaffold(
       header: FHeader.nested(
         title: Text("$collectionId"),
-        leftActions: [
+        prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
           ),
         ],
-        rightActions: [
+        suffixActions: [
           CustomPopup(
             content: Padding(
               padding: const EdgeInsets.symmetric(

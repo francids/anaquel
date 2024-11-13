@@ -64,7 +64,7 @@ class PrincipalScreen extends StatelessWidget {
                   width: double.infinity,
                   height: 200,
                   child: FAlert(
-                    icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                    icon: FAssets.icons.badgeX(),
                     title: const Text(
                             "principal_screen.error_loading_reading_books")
                         .tr(),
@@ -136,7 +136,7 @@ class PrincipalScreen extends StatelessWidget {
                   width: double.infinity,
                   height: 200,
                   child: FAlert(
-                    icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                    icon: FAssets.icons.badgeX(),
                     title: const Text(
                             "principal_screen.error_loading_to_read_books")
                         .tr(),

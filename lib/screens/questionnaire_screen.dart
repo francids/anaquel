@@ -22,12 +22,12 @@ class QuestionnaireScreen extends StatelessWidget {
     return FScaffold(
       header: FHeader.nested(
         title: Text(bookTitle),
-        leftActions: [
+        prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
           ),
         ],
-        rightActions: [
+        suffixActions: [
           CustomPopup(
             content: Padding(
               padding: const EdgeInsets.symmetric(
@@ -105,7 +105,7 @@ class QuestionnaireScreen extends StatelessWidget {
                 }
                 if (state is QuestionsError) {
                   return FAlert(
-                    icon: FAlertIcon(icon: FAssets.icons.badgeX),
+                    icon: FAssets.icons.badgeX(),
                     title: const Text("Error al cargar el cuestionario"),
                     subtitle: Text(state.message),
                     style: FAlertStyle.destructive,

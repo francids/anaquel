@@ -44,7 +44,7 @@ class _CreateBookScreenState extends State<CreateBookScreen> {
     return FScaffold(
       header: FHeader.nested(
         title: const Text("Creando libro"),
-        leftActions: [
+        prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
           ),
@@ -148,7 +148,7 @@ class _CreateBookScreenState extends State<CreateBookScreen> {
                 label: const Text('Géneros'),
                 hint: "Géneros",
                 maxLines: 1,
-                help: const Text("Separados por coma"),
+                description: const Text("Separados por coma"),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return "Los géneros son requeridos";

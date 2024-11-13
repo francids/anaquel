@@ -15,14 +15,14 @@ class RecommendationsBooksScreen extends StatelessWidget {
     return FScaffold(
       header: FHeader.nested(
         title: const Text("really good, actually"),
-        leftActions: [
+        prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
           ),
         ],
-        rightActions: [
+        suffixActions: [
           FHeaderAction(
-            icon: FAssets.icons.rotateCcw,
+            icon: FAssets.icons.rotateCcw(),
             onPress: () {},
           ),
         ],
