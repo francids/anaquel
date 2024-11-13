@@ -59,7 +59,7 @@ class SignUpScreen extends StatelessWidget {
             )
           ],
         ),
-        contentPad: true,
+        contentPad: false,
         content: SingleChildScrollView(
           padding: EdgeInsets.only(
             top: 16,

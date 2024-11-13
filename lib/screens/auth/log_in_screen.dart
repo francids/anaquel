@@ -60,9 +60,14 @@ class LogInScreen extends StatelessWidget {
             )
           ],
         ),
-        contentPad: true,
+        contentPad: false,
         content: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
+          padding: EdgeInsets.only(
+            top: 16,
+            left: 16,
+            right: 16,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+          ),
           child: Form(
             key: _formKey,
             child: Column(
