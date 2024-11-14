@@ -1,4 +1,5 @@
 import 'package:anaquel/constants/colors.dart';
+import 'package:anaquel/data/models/user_book.dart';
 import 'package:anaquel/screens/questionnaire_screen.dart';
 import 'package:anaquel/screens/reading_screen.dart';
 import 'package:anaquel/screens/recommendations_books_screen.dart';
@@ -9,30 +10,27 @@ import 'package:flutter_popup/flutter_popup.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
-final List<String> _genres = [
-  "Fiction",
-  "Contemporary",
-  "Romance",
-  "Humor",
-  "Adult",
-];
-
 class BookDetailsScreen extends StatelessWidget {
-  const BookDetailsScreen({super.key, required this.lookId});
+  const BookDetailsScreen({super.key, required this.userBook});
 
-  final String lookId;
-  final String _image =
-      "https://images.squarespace-cdn.com/content/v1/624da83e75ca872f189ffa42/aa45e942-f55d-432d-8217-17c7d98105ce/image001.jpg";
-  final String _title = "really good, actually";
-  final String _author = "Monica Heisey";
-  final String _description =
-      "A hilarious and painfully relatable debut novel about one woman’s messy search for joy and meaning in the wake of an unexpected breakup, from comedian, essayist, and award-winning screenwriter Monica Heisey";
+  final UserBook userBook;
+
+  String convertStatus(UserBookStatus status) {
+    switch (status) {
+      case UserBookStatus.reading:
+        return "Leyendo";
+      case UserBookStatus.read:
+        return "Leído";
+      case UserBookStatus.notRead:
+        return "No leído";
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return FScaffold(
       header: FHeader.nested(
-        title: Text(lookId),
+        title: const Text("Detalles del libro"),
         prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
@@ -63,7 +61,7 @@ class BookDetailsScreen extends StatelessWidget {
                       context.pop();
                     },
                     child: const Text(
-                      "Eliminar libro",
+                      "Borrar libro",
                       style: TextStyle(fontSize: 16),
                     ),
                   ),
@@ -97,7 +95,7 @@ class BookDetailsScreen extends StatelessWidget {
                     errorWidget: (context, url, error) => Center(
                       child: FAssets.icons.circleX(),
                     ),
-                    imageUrl: _image,
+                    imageUrl: userBook.coverUrl,
                     fit: BoxFit.cover,
                     width: 150,
                     height: 240,
@@ -107,7 +105,7 @@ class BookDetailsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              _title,
+              userBook.title,
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
@@ -115,7 +113,7 @@ class BookDetailsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              _author,
+              userBook.authors.join(", "),
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
@@ -123,7 +121,10 @@ class BookDetailsScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 16),
-            const AChip(label: "Leyendo"),
+            FBadge(
+              label: Text(convertStatus(userBook.status)),
+              style: FBadgeStyle.secondary,
+            ),
             const FDivider(),
             FButton(
               onPress: () => Navigator.of(context).push(
@@ -151,9 +152,9 @@ class BookDetailsScreen extends StatelessWidget {
                 PageRouteBuilder(
                   pageBuilder: (context, animation, secondaryAnimation) =>
                       QuestionnaireScreen(
-                    bookId: int.parse(lookId),
-                    bookTitle: _title,
-                    bookAuthor: _author,
+                    bookId: userBook.id,
+                    bookTitle: userBook.title,
+                    bookAuthor: userBook.authors.join(", "),
                   ),
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {
@@ -204,7 +205,7 @@ class BookDetailsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              _description,
+              userBook.description,
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -230,7 +231,7 @@ class BookDetailsScreen extends StatelessWidget {
                 spacing: 8,
                 runSpacing: 8,
                 children: [
-                  for (final genre in _genres) AChip(label: genre),
+                  for (final genre in userBook.genres) AChip(label: genre),
                 ],
               ),
             ),

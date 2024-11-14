@@ -37,20 +37,6 @@ class UserBooksService {
       final List<UserBook> userBooks = (response.data as List)
           .map((userBook) => UserBook.fromJson(userBook))
           .toList();
-
-      // Imprimir todas las propiedades
-      userBooks.forEach((userBook) {
-        print(userBook.id);
-        print(userBook.title);
-        print(userBook.description);
-        print(userBook.coverUrl);
-        print(userBook.isbn);
-        print(userBook.genres);
-        print(userBook.authors);
-        print(userBook.status);
-        print(userBook.rating);
-      });
-
       return userBooks;
     } else {
       throw Exception('Error al obtener los libros');

@@ -1,24 +1,37 @@
 import 'package:anaquel/constants/colors.dart';
+import 'package:anaquel/data/models/user_book.dart';
+import 'package:anaquel/screens/book_details_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
-import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
 class MediumBookCard extends StatelessWidget {
   const MediumBookCard({
     super.key,
-    required this.id,
-    required this.image,
+    required this.userBook,
   });
 
-  final int id;
-  final String image;
+  final UserBook userBook;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => context.push("/book/$id"),
+      onTap: () => Navigator.of(context).push(
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) =>
+              BookDetailsScreen(userBook: userBook),
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(1, 0),
+                end: Offset.zero,
+              ).animate(animation),
+              child: child,
+            );
+          },
+        ),
+      ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
         child: Column(
@@ -36,7 +49,7 @@ class MediumBookCard extends StatelessWidget {
               errorWidget: (context, url, error) => Center(
                 child: FAssets.icons.circleX(),
               ),
-              imageUrl: image,
+              imageUrl: userBook.coverUrl,
               fit: BoxFit.cover,
               width: 125,
               height: 200,

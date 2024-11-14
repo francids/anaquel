@@ -1,37 +1,23 @@
 import 'package:anaquel/constants/colors.dart';
-import 'package:anaquel/data/models/user_book.dart';
-import 'package:anaquel/screens/book_details_screen.dart';
+import 'package:anaquel/data/models/recommendation_book.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:go_router/go_router.dart';
 
-class SmallBookCard extends StatelessWidget {
-  const SmallBookCard({
+class RecommendationBookCard extends StatelessWidget {
+  const RecommendationBookCard({
     super.key,
-    required this.userBook,
+    required this.book,
   });
 
-  final UserBook userBook;
+  final RecommendationBook book;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(
-        PageRouteBuilder(
-          pageBuilder: (context, animation, secondaryAnimation) =>
-              BookDetailsScreen(userBook: userBook),
-          transitionsBuilder: (context, animation, secondaryAnimation, child) {
-            return SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(1, 0),
-                end: Offset.zero,
-              ).animate(animation),
-              child: child,
-            );
-          },
-        ),
-      ),
+      onTap: () => context.push("/register_book/${book.id}"),
       child: Container(
         height: 90,
         padding: const EdgeInsets.all(8),
@@ -59,7 +45,7 @@ class SmallBookCard extends StatelessWidget {
                     errorWidget: (context, url, error) => Center(
                       child: FAssets.icons.circleX(),
                     ),
-                    imageUrl: userBook.coverUrl,
+                    imageUrl: book.coverUrl,
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -72,7 +58,7 @@ class SmallBookCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    userBook.title,
+                    book.title,
                     style: const TextStyle(
                       color: AppColors.eerieBlack,
                       fontSize: 20,
@@ -83,7 +69,7 @@ class SmallBookCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 2),
                   Text(
-                    userBook.authors.join(", "),
+                    book.authors.join(", "),
                     textAlign: TextAlign.start,
                     style: const TextStyle(
                       color: AppColors.eerieBlack,

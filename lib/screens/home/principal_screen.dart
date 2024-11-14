@@ -1,38 +1,19 @@
+import 'package:anaquel/data/models/recommendation_book.dart';
 import 'package:anaquel/data/models/user_book.dart';
 import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/widgets/books/medium_book_card.dart';
-import 'package:anaquel/widgets/books/small_book_card.dart';
+import 'package:anaquel/widgets/books/recommendation_book_card.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
-
-List<String> _bookCovers = [
-  "https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg",
-  "https://images.squarespace-cdn.com/content/v1/624da83e75ca872f189ffa42/aa45e942-f55d-432d-8217-17c7d98105ce/image001.jpg",
-  "https://images.squarespace-cdn.com/content/v1/5fc7868e04dc9f2855c99940/32f738d4-e4b9-4c61-bfc0-e813699cdd3c/laura-barrett-illustrator-beloved-girls-book-cover.jpg",
-  "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/yellow-the-mind-of-a-leader-book-cover-design-template-f3cc2996f5f381d3d2d092e2d67337a4_screen.jpg"
-];
-
-List<String> _bookTitles = [
-  "SOUL",
-  "really good, actually",
-  "The Beloved Girls",
-  "The Mind of a Leader",
-];
-
-List<String> _bookAuthors = [
-  "Olivia Wilson",
-  "Monica Heisey",
-  "Harriet Evans",
-  "Nouah Schumacher",
-];
 
 class PrincipalScreen extends StatelessWidget {
   const PrincipalScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    List<RecommendationBook> recommendations = [];
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
@@ -125,8 +106,7 @@ class PrincipalScreen extends StatelessWidget {
                               itemCount: state.userBooks.length,
                               itemBuilder: (context, index) {
                                 return MediumBookCard(
-                                  id: state.userBooks[index].id,
-                                  image: state.userBooks[index].coverUrl,
+                                  userBook: state.userBooks[index],
                                 );
                               },
                               padding:
@@ -173,8 +153,7 @@ class PrincipalScreen extends StatelessWidget {
                               itemCount: state.userBooks.length,
                               itemBuilder: (context, index) {
                                 return MediumBookCard(
-                                  id: state.userBooks[index].id,
-                                  image: state.userBooks[index].coverUrl,
+                                  userBook: state.userBooks[index],
                                 );
                               },
                               padding:
@@ -216,13 +195,10 @@ class PrincipalScreen extends StatelessWidget {
                     padding: const EdgeInsets.all(0),
                     separatorBuilder: (context, index) =>
                         const SizedBox(height: 8),
-                    itemCount: _bookTitles.length,
+                    itemCount: recommendations.length,
                     itemBuilder: (context, index) {
-                      return SmallBookCard(
-                        id: index,
-                        image: _bookCovers[index],
-                        title: _bookTitles[index],
-                        author: _bookAuthors[index],
+                      return RecommendationBookCard(
+                        book: recommendations[index],
                       );
                     },
                   ),

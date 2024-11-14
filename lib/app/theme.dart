@@ -14,7 +14,7 @@ class AnaquelTheme extends StatelessWidget {
         brightness: Brightness.light,
         primary: AppColors.night,
         primaryForeground: AppColors.white,
-        secondary: AppColors.puce,
+        secondary: AppColors.antiFlashWhite,
         secondaryForeground: AppColors.night,
         background: AppColors.white,
         foreground: AppColors.black,

@@ -173,10 +173,7 @@ class BooksScreen extends StatelessWidget {
                         itemCount: state.userBooks.length,
                         itemBuilder: (context, index) {
                           return SmallBookCard(
-                            id: state.userBooks[index].id,
-                            image: state.userBooks[index].coverUrl,
-                            title: state.userBooks[index].title,
-                            author: state.userBooks[index].authors.join(", "),
+                            userBook: state.userBooks[index],
                           );
                         },
                       ),

@@ -1,3 +1,4 @@
+import 'package:anaquel/data/models/user_book.dart';
 import 'package:anaquel/logic/collections_bloc.dart';
 import 'package:anaquel/widgets/books/large_book_card.dart';
 import 'package:flutter/material.dart';
@@ -6,20 +7,6 @@ import 'package:flutter_popup/flutter_popup.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
-List<String> _bookCovers = [
-  "https://marketplace.canva.com/EAFutLMZJKs/1/0/1003w/canva-portada-libro-novela-suspenso-elegante-negro-wxuYB_sJtMw.jpg",
-  "https://marketplace.canva.com/EAFjNCKkDPI/1/0/1003w/canva-portada-de-libro-de-fantas%C3%ADa-dram%C3%A1tico-verde-Ct1fLal3ekY.jpg",
-  "https://edit.org/images/cat/portadas-libros-big-2019101610.jpg",
-  "https://marketplace.canva.com/EAFI171fL0M/1/0/1003w/canva-portada-de-libro-de-novela-ilustrado-color-azul-aqua-PQeWaiiK0aA.jpg",
-];
-
-List<String> _bookTitles = [
-  "Cruce de Caminos",
-  "Reyes Caídos",
-  "Mi Portada de Libro Mi Portada de Libro Mi Portada de Libro",
-  "Hasta que el verano se acabe",
-];
-
 class CollectionScreen extends StatelessWidget {
   const CollectionScreen({super.key, required this.collectionId});
 
@@ -27,6 +14,7 @@ class CollectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<UserBook> books = [];
     return FScaffold(
       header: FHeader.nested(
         title: Text("$collectionId"),
@@ -113,14 +101,13 @@ class CollectionScreen extends StatelessWidget {
                 spacing: 12,
                 runSpacing: 24,
                 children: List.generate(
-                  _bookTitles.length,
+                  books.length,
                   (index) {
                     return SizedBox(
                       width: MediaQuery.of(context).size.width / 2 - 32,
                       child: LargeBookCard(
-                        id: index.toString(),
-                        image: _bookCovers[index],
-                        title: _bookTitles[index],
+                        key: ValueKey(books[index].id),
+                        userBook: books[index],
                       ),
                     );
                   },

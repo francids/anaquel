@@ -1,17 +1,15 @@
-import 'package:anaquel/widgets/books/small_book_card.dart';
+import 'package:anaquel/data/models/recommendation_book.dart';
+import 'package:anaquel/widgets/books/recommendation_book_card.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-
-List<String> _bookCovers = [];
-List<String> _bookTitles = [];
-List<String> _bookAuthors = [];
 
 class RecommendationsBooksScreen extends StatelessWidget {
   const RecommendationsBooksScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    List<RecommendationBook> recommendations = [];
     return FScaffold(
       header: FHeader.nested(
         title: const Text("really good, actually"),
@@ -49,13 +47,10 @@ class RecommendationsBooksScreen extends StatelessWidget {
                 physics: const NeverScrollableScrollPhysics(),
                 padding: const EdgeInsets.all(0),
                 separatorBuilder: (context, index) => const SizedBox(height: 8),
-                itemCount: _bookTitles.length,
+                itemCount: recommendations.length,
                 itemBuilder: (context, index) {
-                  return SmallBookCard(
-                    id: index,
-                    image: _bookCovers[index],
-                    title: _bookTitles[index],
-                    author: _bookAuthors[index],
+                  return RecommendationBookCard(
+                    book: recommendations[index],
                   );
                 },
               ),
