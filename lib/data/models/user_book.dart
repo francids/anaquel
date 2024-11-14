@@ -1,7 +1,13 @@
 import 'package:anaquel/data/models/book.dart';
 
+enum UserBookStatus {
+  notRead,
+  reading,
+  read,
+}
+
 class UserBook extends Book {
-  final String status;
+  final UserBookStatus status;
   final double rating;
 
   UserBook({
@@ -25,8 +31,13 @@ class UserBook extends Book {
       isbn: json['isbn'],
       genres: List<String>.from(json['genres']),
       authors: List<String>.from(json['authors']),
-      status: json['status'],
-      rating: json['rating'],
+      status: UserBookStatus.values.firstWhere(
+        (e) =>
+            e.toString().toLowerCase() ==
+            json['status'].toString().toLowerCase().replaceAll(' ', ''),
+        orElse: () => UserBookStatus.notRead,
+      ),
+      rating: json['rating'] ?? 0.0,
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:anaquel/logic/books_bloc.dart';
 import 'package:anaquel/constants/colors.dart';
+import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/widgets/chip.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -139,9 +140,15 @@ class RegisterBookDetailsScreen extends StatelessWidget {
                   ),
                   const FDivider(),
                   FButton(
-                    onPress: () {},
+                    onPress: () {
+                      context
+                          .read<UserBooksBloc>()
+                          .add(AddUserBook(book.id.toString()));
+                      context.read<UserBooksBloc>().add(GetUserBooks());
+                      context.go('/');
+                    },
                     style: FButtonStyle.primary,
-                    label: const Text("Registrar lectura"),
+                    label: const Text("Registrar libro"),
                   ),
                 ],
               ),

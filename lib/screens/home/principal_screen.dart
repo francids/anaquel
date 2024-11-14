@@ -1,3 +1,4 @@
+import 'package:anaquel/data/models/user_book.dart';
 import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/widgets/books/medium_book_card.dart';
 import 'package:anaquel/widgets/books/small_book_card.dart';
@@ -98,69 +99,93 @@ class PrincipalScreen extends StatelessWidget {
                 }
                 return Column(
                   children: [
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      width: double.infinity,
-                      child: const Text(
-                        "principal_screen.reading",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ).tr(),
-                    ),
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 200,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: state.userBooks.length,
-                        itemBuilder: (context, index) {
-                          return MediumBookCard(
-                            id: state.userBooks[index].id,
-                            image: state.userBooks[index].coverUrl,
-                          );
-                        },
-                        padding: const EdgeInsets.only(left: 16, right: 16),
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(width: 12);
-                        },
+                    if (state.userBooks.any(
+                      (userBook) => userBook.status == UserBookStatus.reading,
+                    ))
+                      Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            width: double.infinity,
+                            child: const Text(
+                              "principal_screen.reading",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ).tr(),
+                          ),
+                          const SizedBox(height: 12),
+                          SizedBox(
+                            width: double.infinity,
+                            height: 200,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: state.userBooks.length,
+                              itemBuilder: (context, index) {
+                                return MediumBookCard(
+                                  id: state.userBooks[index].id,
+                                  image: state.userBooks[index].coverUrl,
+                                );
+                              },
+                              padding:
+                                  const EdgeInsets.only(left: 16, right: 16),
+                              separatorBuilder: (context, index) {
+                                return const SizedBox(width: 12);
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
-                    const FDivider(),
-                    Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      width: double.infinity,
-                      child: const Text(
-                        "principal_screen.to_read",
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ).tr(),
-                    ),
-                    const SizedBox(height: 12),
-                    SizedBox(
-                      width: double.infinity,
-                      height: 200,
-                      child: ListView.separated(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: state.userBooks.length,
-                        itemBuilder: (context, index) {
-                          return MediumBookCard(
-                            id: state.userBooks[index].id,
-                            image: state.userBooks[index].coverUrl,
-                          );
-                        },
-                        padding: const EdgeInsets.only(left: 16, right: 16),
-                        separatorBuilder: (context, index) {
-                          return const SizedBox(width: 12);
-                        },
+                    if (state.userBooks.any(
+                          (userBook) =>
+                              userBook.status == UserBookStatus.notRead,
+                        ) &&
+                        state.userBooks.any(
+                          (userBook) =>
+                              userBook.status == UserBookStatus.reading,
+                        ))
+                      const FDivider(),
+                    if (state.userBooks.any(
+                      (userBook) => userBook.status == UserBookStatus.notRead,
+                    ))
+                      Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 16),
+                            width: double.infinity,
+                            child: const Text(
+                              "principal_screen.to_read",
+                              style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ).tr(),
+                          ),
+                          const SizedBox(height: 12),
+                          SizedBox(
+                            width: double.infinity,
+                            height: 200,
+                            child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              itemCount: state.userBooks.length,
+                              itemBuilder: (context, index) {
+                                return MediumBookCard(
+                                  id: state.userBooks[index].id,
+                                  image: state.userBooks[index].coverUrl,
+                                );
+                              },
+                              padding:
+                                  const EdgeInsets.only(left: 16, right: 16),
+                              separatorBuilder: (context, index) {
+                                return const SizedBox(width: 12);
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                    ),
                   ],
                 );
               }
