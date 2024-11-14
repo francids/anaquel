@@ -21,7 +21,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
       onTap: () => Navigator.of(context).push(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              EditScheduleScreen(),
+              const EditScheduleScreen(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: Tween<Offset>(

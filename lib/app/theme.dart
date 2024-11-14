@@ -19,10 +19,6 @@ class AnaquelTheme extends StatelessWidget {
         background: AppColors.white,
         foreground: AppColors.black,
       ),
-      // style: FStyle(
-      //   borderRadius: BorderRadius.all(Radius.circular(8)),
-      //   borderWidth: 1,
-      // ),
     ).copyWith(
       headerStyle: FHeaderStyles(
         rootStyle: FRootHeaderStyle(
