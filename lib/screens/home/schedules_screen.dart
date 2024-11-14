@@ -45,6 +45,23 @@ class SchedulesScreen extends StatelessWidget {
   }
 
   Future<dynamic> buildCreateScheduleDialog(BuildContext context) {
+    TextEditingController _labelController = TextEditingController();
+    TimeOfDay selectedTime = const TimeOfDay(hour: 8, minute: 0);
+    TextEditingController _timeController = TextEditingController(
+      text: selectedTime.format(context),
+    );
+
+    Future<void> _selectTime(BuildContext context) async {
+      final TimeOfDay? picked = await showTimePicker(
+        context: context,
+        initialTime: selectedTime,
+      );
+      if (picked != null && picked != selectedTime) {
+        selectedTime = picked;
+        _timeController.text = selectedTime.format(context);
+      }
+    }
+
     return showAdaptiveDialog(
       context: context,
       builder: (context) => FDialog(
@@ -52,32 +69,22 @@ class SchedulesScreen extends StatelessWidget {
         direction: Axis.vertical,
         body: Column(
           children: [
-            const Text(
-              "Selecciona la hora:",
-              textAlign: TextAlign.start,
-            ),
             const SizedBox(height: 16),
-            const FTextField(
-              label: Text('Etiqueta:'),
+            FTextField(
+              label: const Text('Etiqueta:'),
               hint: "Opcional",
               maxLines: 1,
+              controller: _labelController,
             ),
             const SizedBox(height: 16),
             GestureDetector(
-              onTap: () async {
-                TimeOfDay? pickedTime = await showTimePicker(
-                  context: context,
-                  initialTime: TimeOfDay.now(),
-                );
-                if (pickedTime != null) {
-                  print(pickedTime.format(context));
-                }
-              },
-              child: const FTextField(
-                label: Text('Hora:'),
-                maxLines: 1,
-                readOnly: true,
-                enabled: false,
+              onTap: () => _selectTime(context),
+              child: AbsorbPointer(
+                child: FTextField(
+                  label: const Text('Hora:'),
+                  maxLines: 1,
+                  controller: _timeController,
+                ),
               ),
             ),
             const SizedBox(height: 12),
@@ -85,7 +92,11 @@ class SchedulesScreen extends StatelessWidget {
         ),
         actions: <FButton>[
           FButton(
-            onPress: () => context.pop(),
+            onPress: () {
+              print("Etiqueta creada: ${_labelController.text}");
+              print("Hora de lectura creada: ${selectedTime.format(context)}");
+              context.pop();
+            },
             style: FButtonStyle.primary,
             label: const Text("Crear hora de lectura"),
           ),

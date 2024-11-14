@@ -49,6 +49,41 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
             onPress: () => context.pop(),
           ),
         ],
+        suffixActions: [
+          FHeaderAction(
+            icon: FAssets.icons.delete(),
+            onPress: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return FDialog(
+                    title: const Text("Eliminar horario"),
+                    body: const Text(
+                      "¿Estás seguro de que deseas eliminar este horario?",
+                    ),
+                    actions: [
+                      FButton(
+                        onPress: () {
+                          context.pop();
+                          context.pop();
+                        },
+                        style: FButtonStyle.destructive,
+                        label: const Text("Eliminar"),
+                      ),
+                      FButton(
+                        onPress: () {
+                          context.pop();
+                        },
+                        style: FButtonStyle.outline,
+                        label: const Text("Cancelar"),
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+          ),
+        ],
       ),
       contentPad: false,
       content: SingleChildScrollView(
