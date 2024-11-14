@@ -65,6 +65,14 @@ class RegisterBookScreen extends StatelessWidget {
                   if (state is BooksLoading) {
                     return const LinearProgressIndicator();
                   }
+                  if (state is BooksError) {
+                    return FAlert(
+                      icon: FAssets.icons.badgeAlert(),
+                      title: const Text("Error al buscar libros"),
+                      subtitle: Text(state.message),
+                      style: FAlertStyle.destructive,
+                    );
+                  }
                   if (state is BooksLoaded) {
                     return SizedBox(
                       width: double.infinity,

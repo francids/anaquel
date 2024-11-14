@@ -9,16 +9,16 @@ class UserBooksService {
 
   UserBooksService()
       : _dio = Dio(
-          BaseOptions(
-            baseUrl: Config.baseUrl,
-            contentType: Headers.jsonContentType,
-          ),
-        ) {
+    BaseOptions(
+      baseUrl: Config.baseUrl,
+      contentType: Headers.jsonContentType,
+    ),
+  ) {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          String? token = await secureStorage.read(key: 'access_token');
-          options.headers["Authorization"] = "Bearer $token";
+          String? cookie = await secureStorage.read(key: 'cookie');
+          options.headers["Cookie"] = cookie;
           return handler.next(options);
         },
       ),

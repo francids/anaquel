@@ -30,9 +30,8 @@ final GoRouter appRouter = GoRouter(
       path: "/login",
       redirect: (context, state) async {
         final authService = AuthService();
-        final token = await authService.getToken();
-        final tokenType = await authService.getTokenType();
-        if (token != null && tokenType != null) {
+        final cookie = await authService.getCookie();
+        if (cookie != null) {
           return '/';
         }
         return null;

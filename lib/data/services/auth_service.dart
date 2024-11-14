@@ -26,29 +26,19 @@ class AuthService {
     );
 
     if (response.statusCode == 200) {
-      final loginResponse = LoginResponse.fromJson(response.data);
+      String? cookie = response.headers.map['Set-Cookie']?.first;
       await secureStorage.write(
-        key: "username",
-        value: user.username,
+        key: "cookie",
+        value: cookie,
       );
-      await secureStorage.write(
-        key: 'access_token',
-        value: loginResponse.accessToken,
-      );
-      await secureStorage.write(
-        key: 'token_type',
-        value: loginResponse.tokenType,
-      );
-      return loginResponse;
+      return LoginResponse(cookie: cookie!);
     } else {
       throw Exception('Error al iniciar sesión');
     }
   }
 
   Future<void> logout() async {
-    await secureStorage.delete(key: 'username');
-    await secureStorage.delete(key: 'access_token');
-    await secureStorage.delete(key: 'token_type');
+    await secureStorage.delete(key: 'cookie');
   }
 
   Future signUp(User user) async {
@@ -69,11 +59,7 @@ class AuthService {
     }
   }
 
-  Future<String?> getToken() async {
-    return await secureStorage.read(key: 'access_token');
-  }
-
-  Future<String?> getTokenType() async {
-    return await secureStorage.read(key: 'token_type');
+  Future<String?> getCookie() async {
+    return await secureStorage.read(key: 'cookie');
   }
 }

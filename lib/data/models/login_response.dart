@@ -1,16 +1,7 @@
 class LoginResponse {
-  final String accessToken;
-  final String tokenType;
+  final String cookie;
 
   LoginResponse({
-    required this.accessToken,
-    required this.tokenType,
+    required this.cookie,
   });
-
-  factory LoginResponse.fromJson(Map<String, dynamic> json) {
-    return LoginResponse(
-      accessToken: json['accessToken'],
-      tokenType: json['tokenType'],
-    );
-  }
 }

@@ -14,8 +14,8 @@ class QuestionsService {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest: (options, handler) async {
-          String? token = await secureStorage.read(key: 'access_token');
-          options.headers["Authorization"] = "Bearer $token";
+          String? cookie = await secureStorage.read(key: 'cookie');
+          options.headers["Cookie"] = cookie;
           return handler.next(options);
         },
       ),
