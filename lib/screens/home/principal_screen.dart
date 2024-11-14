@@ -36,18 +36,6 @@ class PrincipalScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            width: double.infinity,
-            child: const Text(
-              "principal_screen.reading",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-              ),
-            ).tr(),
-          ),
-          const SizedBox(height: 12),
           BlocBuilder<UserBooksBloc, UserBooksState>(
             builder: (context, state) {
               if (state is UserBooksLoading) {
@@ -75,105 +63,105 @@ class PrincipalScreen extends StatelessWidget {
               }
               if (state is UserBooksLoaded) {
                 if (state.userBooks.isEmpty) {
-                  return SizedBox(
-                    width: double.infinity,
-                    height: 200,
-                    child: Center(
-                      child:
-                          const Text("principal_screen.no_reading_books").tr(),
-                    ),
+                  return Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        width: double.infinity,
+                        child: const Text(
+                          "principal_screen.reading",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ).tr(),
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: FAlert(
+                            icon: FAssets.icons.badgeInfo(),
+                            title:
+                                const Text("principal_screen.no_reading_books")
+                                    .tr(),
+                            subtitle:
+                                const Text("principal_screen.no_to_read_books")
+                                    .tr(),
+                            style: FAlertStyle.primary,
+                          ),
+                        ),
+                      ),
+                    ],
                   );
                 }
-                return SizedBox(
-                  width: double.infinity,
-                  height: 200,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: state.userBooks.length,
-                    itemBuilder: (context, index) {
-                      return MediumBookCard(
-                        id: state.userBooks[index].id,
-                        image: state.userBooks[index].coverUrl,
-                      );
-                    },
-                    padding: const EdgeInsets.only(left: 16, right: 16),
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(width: 12);
-                    },
-                  ),
-                );
-              }
-              return const SizedBox.shrink();
-            },
-          ),
-          const FDivider(),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            width: double.infinity,
-            child: const Text(
-              "principal_screen.to_read",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-              ),
-            ).tr(),
-          ),
-          const SizedBox(height: 12),
-          BlocBuilder<UserBooksBloc, UserBooksState>(
-            builder: (context, state) {
-              if (state is UserBooksLoading) {
-                return const SizedBox(
-                  width: double.infinity,
-                  height: 200,
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                );
-              }
-              if (state is UserBooksError) {
-                return SizedBox(
-                  width: double.infinity,
-                  height: 200,
-                  child: FAlert(
-                    icon: FAssets.icons.badgeX(),
-                    title: const Text(
-                            "principal_screen.error_loading_to_read_books")
-                        .tr(),
-                    subtitle: Text(state.message),
-                    style: FAlertStyle.destructive,
-                  ),
-                );
-              }
-              if (state is UserBooksLoaded) {
-                if (state.userBooks.isEmpty) {
-                  return SizedBox(
-                    width: double.infinity,
-                    height: 200,
-                    child: Center(
-                      child:
-                          const Text("principal_screen.no_to_read_books").tr(),
+                return Column(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      width: double.infinity,
+                      child: const Text(
+                        "principal_screen.reading",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ).tr(),
                     ),
-                  );
-                }
-                return SizedBox(
-                  width: double.infinity,
-                  height: 200,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: state.userBooks.length,
-                    itemBuilder: (context, index) {
-                      return MediumBookCard(
-                        id: state.userBooks[index].id,
-                        image: state.userBooks[index].coverUrl,
-                      );
-                    },
-                    padding: const EdgeInsets.only(left: 16, right: 16),
-                    separatorBuilder: (context, index) {
-                      return const SizedBox(width: 12);
-                    },
-                  ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 200,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: state.userBooks.length,
+                        itemBuilder: (context, index) {
+                          return MediumBookCard(
+                            id: state.userBooks[index].id,
+                            image: state.userBooks[index].coverUrl,
+                          );
+                        },
+                        padding: const EdgeInsets.only(left: 16, right: 16),
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(width: 12);
+                        },
+                      ),
+                    ),
+                    const FDivider(),
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      width: double.infinity,
+                      child: const Text(
+                        "principal_screen.to_read",
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ).tr(),
+                    ),
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      width: double.infinity,
+                      height: 200,
+                      child: ListView.separated(
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                        itemCount: state.userBooks.length,
+                        itemBuilder: (context, index) {
+                          return MediumBookCard(
+                            id: state.userBooks[index].id,
+                            image: state.userBooks[index].coverUrl,
+                          );
+                        },
+                        padding: const EdgeInsets.only(left: 16, right: 16),
+                        separatorBuilder: (context, index) {
+                          return const SizedBox(width: 12);
+                        },
+                      ),
+                    ),
+                  ],
                 );
               }
               return const SizedBox.shrink();

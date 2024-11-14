@@ -48,6 +48,50 @@ class AnaquelTheme extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
       ),
+      alertStyles: FAlertStyles(
+        primary: FAlertCustomStyle(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          decoration: BoxDecoration(
+            color: AppColors.antiFlashWhite,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          iconSize: 24,
+          iconColor: AppColors.night,
+          titleTextStyle: const TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: AppColors.eerieBlack,
+          ),
+          subtitleTextStyle: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w300,
+            color: AppColors.eerieBlack,
+          ),
+        ),
+        destructive: FAlertCustomStyle(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: AppColors.burgundy,
+              width: 1,
+            ),
+            color: Colors.transparent,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          iconSize: 24,
+          iconColor: AppColors.burgundy,
+          titleTextStyle: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w500,
+            color: AppColors.burgundy,
+          ),
+          subtitleTextStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w300,
+            color: AppColors.burgundy,
+          ),
+        ),
+      ),
       switchStyle: FSwitchStyle(
         focusColor: AppColors.night,
         labelLayoutStyle: const FLabelLayoutStyle(
