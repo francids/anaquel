@@ -5,9 +5,6 @@ import 'package:go_router/go_router.dart';
 
 List<String> _times = [
   '08:00 AM',
-  '12:00 PM',
-  '02:00 PM',
-  '06:00 PM',
 ];
 
 class SchedulesScreen extends StatelessWidget {
@@ -39,7 +36,7 @@ class SchedulesScreen extends StatelessWidget {
           ),
           const SizedBox(
             width: double.infinity,
-            child: Text("Para modificar una hora, mantéenla presionada."),
+            child: Text("Selecciona una hora para editar o eliminar"),
           ),
           const SizedBox(height: 16),
         ],

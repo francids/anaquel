@@ -48,6 +48,58 @@ class AnaquelTheme extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         ),
       ),
+      switchStyle: FSwitchStyle(
+        focusColor: AppColors.night,
+        labelLayoutStyle: const FLabelLayoutStyle(
+          labelPadding: EdgeInsets.only(left: 8),
+          descriptionPadding: EdgeInsets.only(left: 8),
+        ),
+        enabledStyle: FSwitchStateStyle(
+          checkedColor: AppColors.burgundy,
+          uncheckedColor: AppColors.timberwolf,
+          thumbColor: AppColors.white,
+          labelTextStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+            color: AppColors.black,
+          ),
+          descriptionTextStyle: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: AppColors.eerieBlack,
+          ),
+        ),
+        disabledStyle: FSwitchStateStyle(
+          checkedColor: AppColors.timberwolf,
+          uncheckedColor: AppColors.timberwolf,
+          thumbColor: AppColors.timberwolf,
+          labelTextStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+          ),
+          descriptionTextStyle: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+        errorStyle: FSwitchErrorStyle(
+          labelTextStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: AppColors.burgundy,
+          ),
+          descriptionTextStyle: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: AppColors.burgundy,
+          ),
+          errorTextStyle: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: AppColors.burgundy,
+          ),
+        ),
+      ),
       dividerStyles: FDividerStyles(
         horizontalStyle: FDividerStyle(
           padding: const EdgeInsets.symmetric(vertical: 20),

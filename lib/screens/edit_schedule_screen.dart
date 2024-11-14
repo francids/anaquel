@@ -22,6 +22,7 @@ class EditScheduleScreen extends StatefulWidget {
 
 class _EditScheduleScreenState extends State<EditScheduleScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  bool isSwitched = false;
   final TextEditingController _labelController = TextEditingController();
   TimeOfDay selectedTime = const TimeOfDay(hour: 8, minute: 0);
   List<bool> selectedDays = List.generate(days.length, (index) => false);
@@ -61,6 +62,19 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
           key: _formKey,
           child: Column(
             children: [
+              FCard(
+                child: FSwitch(
+                  label: const Text("Activar horario"),
+                  value: isSwitched,
+                  onChange: (bool? newValue) {
+                    setState(() {
+                      isSwitched = newValue ?? false;
+                    });
+                  },
+                  enabled: true,
+                ),
+              ),
+              const FDivider(),
               FTextField(
                 label: const Text("Etiqueta"),
                 description: const Text("Ejemplo: Club de lectura"),

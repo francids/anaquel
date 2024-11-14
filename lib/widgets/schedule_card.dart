@@ -75,54 +75,36 @@ class _ScheduleCardState extends State<ScheduleCard> {
                 ),
                 const FSwitch(
                   enabled: true,
-                  // style: FSwitchStyle(
-                  //   checkedColor: AppColors.burgundy,
-                  //   uncheckedColor: AppColors.timberwolf,
-                  //   focusColor: AppColors.burgundy,
-                  //   thumbColor: AppColors.white,
-                  // ),
                 ),
               ],
             ),
             const SizedBox(height: 12),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: List.generate(isSelected.length, (index) {
-                return GestureDetector(
-                  onTap: () {
-                    setState(() => isSelected[index] = !isSelected[index]);
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: isSelected[index]
-                          ? AppColors.burgundy
-                          : AppColors.white,
-                      borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(
-                        color: isSelected[index]
-                            ? AppColors.burgundy
-                            : AppColors.timberwolf,
-                        width: 1,
-                      ),
-                    ),
-                    width: 40,
-                    height: 40,
-                    child: Center(
-                      child: Text(
-                        ['L', 'M', 'M', 'J', 'V', 'S', 'D'][index],
-                        style: TextStyle(
-                          color: isSelected[index]
-                              ? AppColors.white
-                              : AppColors.night,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
+              children: [
+                Text(
+                  [
+                    "Lunes",
+                    "Martes",
+                    "Miércoles",
+                    "Jueves",
+                    "Viernes",
+                    "Sábado",
+                    "Domingo"
+                  ]
+                      .asMap()
+                      .entries
+                      .map((entry) => isSelected[entry.key] ? entry.value : '')
+                      .where((day) => day.isNotEmpty)
+                      .join(', '),
+                  style: const TextStyle(
+                    color: AppColors.eerieBlack,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 16,
                   ),
-                );
-              }),
-            )
+                ),
+              ],
+            ),
           ],
         ),
       ),
