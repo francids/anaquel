@@ -43,6 +43,8 @@
   "reading_schedules": "Reading schedules",
   "profile": "Profile",
   "principal_screen": {
+    "welcome": "Welcome!",
+    "message": "What do you want to read today?",
     "reading": "Reading",
     "error_loading_reading_books": "An error occurred while loading the reading books",
     "no_reading_books": "You are not reading any book",

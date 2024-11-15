@@ -43,6 +43,8 @@
   "reading_schedules": "Horarios de lectura",
   "profile": "Perfil",
   "principal_screen": {
+    "welcome": "¡Bienvenido!",
+    "message": "¿Qué quieres leer hoy?",
     "reading": "Leyendo",
     "error_loading_reading_books": "Se produjo un error al cargar los libros que estás leyendo",
     "no_reading_books": "No estás leyendo ningún libro",
