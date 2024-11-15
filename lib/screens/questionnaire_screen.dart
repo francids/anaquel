@@ -1,11 +1,10 @@
 import 'package:anaquel/logic/questions_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_popup/flutter_popup.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
-class QuestionnaireScreen extends StatelessWidget {
+class QuestionnaireScreen extends StatefulWidget {
   const QuestionnaireScreen({
     super.key,
     required this.bookId,
@@ -18,57 +17,66 @@ class QuestionnaireScreen extends StatelessWidget {
   final String bookAuthor;
 
   @override
+  State<QuestionnaireScreen> createState() => _QuestionnaireScreenState();
+}
+
+class _QuestionnaireScreenState extends State<QuestionnaireScreen>
+    with SingleTickerProviderStateMixin {
+  late FPopoverController popoverController;
+
+  @override
+  initState() {
+    popoverController = FPopoverController(vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    popoverController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FScaffold(
       header: FHeader.nested(
-        title: Text(bookTitle),
+        title: Text(widget.bookTitle),
         prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
           ),
         ],
         suffixActions: [
-          CustomPopup(
-            content: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 8,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+          FPopoverMenu.tappable(
+            controller: popoverController,
+            menuAnchor: Alignment.topRight,
+            childAnchor: Alignment.bottomRight,
+            ignoreDirectionalPadding: true,
+            hideOnTapOutside: true,
+            menu: [
+              FTileGroup(
                 children: [
-                  GestureDetector(
-                    onTap: () {
+                  FTile(
+                    prefixIcon: FIcon(FAssets.icons.alignLeft),
+                    title: const Text("Generar cuestionario"),
+                    onPress: () {
                       context.read<QuestionsBloc>().add(
                             GenerateQuestions(
-                              bookTitle: bookTitle,
-                              bookAuthor: bookAuthor,
+                              bookTitle: widget.bookTitle,
+                              bookAuthor: widget.bookAuthor,
                             ),
                           );
-                      context.pop();
                     },
-                    child: const Text(
-                      "Generar cuestionario",
-                      style: TextStyle(fontSize: 16),
-                    ),
                   ),
-                  const SizedBox(height: 24),
-                  GestureDetector(
-                    onTap: () {
-                      context.pop();
-                    },
-                    child: const Text(
-                      "Guardar",
-                      style: TextStyle(fontSize: 16),
-                    ),
+                  FTile(
+                    prefixIcon: FIcon(FAssets.icons.save),
+                    title: const Text("Guardar"),
+                    onPress: () {},
                   ),
                 ],
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: FAssets.icons.ellipsisVertical(),
-            ),
+            ],
+            child: FIcon(FAssets.icons.ellipsisVertical),
           ),
         ],
       ),

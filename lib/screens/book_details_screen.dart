@@ -78,47 +78,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                 ],
               ),
             ],
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: FAssets.icons.ellipsisVertical(),
-            ),
+            child: FIcon(FAssets.icons.ellipsisVertical),
           ),
-          // CustomPopup(
-          //   content: Padding(
-          //     padding: const EdgeInsets.symmetric(
-          //       horizontal: 16,
-          //       vertical: 8,
-          //     ),
-          //     child: Column(
-          //       mainAxisSize: MainAxisSize.min,
-          //       children: [
-          //         GestureDetector(
-          //           onTap: () {
-          //             context.pop();
-          //           },
-          //           child: const Text(
-          //             "Colecciones",
-          //             style: TextStyle(fontSize: 16),
-          //           ),
-          //         ),
-          //         const SizedBox(height: 24),
-          //         GestureDetector(
-          //           onTap: () {
-          //             context.pop();
-          //           },
-          //           child: const Text(
-          //             "Borrar libro",
-          //             style: TextStyle(fontSize: 16),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          //   child: Padding(
-          //     padding: const EdgeInsets.symmetric(horizontal: 8),
-          //     child: FAssets.icons.ellipsisVertical(),
-          //   ),
-          // ),
         ],
       ),
       contentPad: false,

@@ -3,39 +3,59 @@ import 'package:anaquel/logic/collections_bloc.dart';
 import 'package:anaquel/widgets/books/large_book_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_popup/flutter_popup.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
-class CollectionScreen extends StatelessWidget {
+class CollectionScreen extends StatefulWidget {
   const CollectionScreen({super.key, required this.collectionId});
 
   final int collectionId;
+
+  @override
+  State<CollectionScreen> createState() => _CollectionScreenState();
+}
+
+class _CollectionScreenState extends State<CollectionScreen>
+    with SingleTickerProviderStateMixin {
+  late FPopoverController popoverController;
+
+  @override
+  initState() {
+    popoverController = FPopoverController(vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    popoverController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     List<UserBook> books = [];
     return FScaffold(
       header: FHeader.nested(
-        title: Text("$collectionId"),
+        title: Text("${widget.collectionId}"),
         prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
           ),
         ],
         suffixActions: [
-          CustomPopup(
-            content: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 8,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+          FPopoverMenu.tappable(
+            controller: popoverController,
+            menuAnchor: Alignment.topRight,
+            childAnchor: Alignment.bottomRight,
+            ignoreDirectionalPadding: true,
+            hideOnTapOutside: true,
+            menu: [
+              FTileGroup(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      context.pop();
+                  FTile(
+                    prefixIcon: FIcon(FAssets.icons.trash),
+                    title: const Text("Eliminar colección"),
+                    onPress: () {
                       showAdaptiveDialog(
                         context: context,
                         builder: (context) => FDialog(
@@ -52,7 +72,7 @@ class CollectionScreen extends StatelessWidget {
                               onPress: () => {
                                 context.read<CollectionsBloc>().add(
                                       DeleteCollection(
-                                        collectionId.toString(),
+                                        widget.collectionId.toString(),
                                       ),
                                     ),
                                 context.pop(),
@@ -70,18 +90,11 @@ class CollectionScreen extends StatelessWidget {
                         ),
                       );
                     },
-                    child: const Text(
-                      "Eliminar colección",
-                      style: TextStyle(fontSize: 16),
-                    ),
                   ),
                 ],
               ),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: FAssets.icons.ellipsisVertical(),
-            ),
+            ],
+            child: FIcon(FAssets.icons.ellipsisVertical),
           ),
         ],
       ),

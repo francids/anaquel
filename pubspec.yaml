@@ -15,7 +15,6 @@ dependencies:
   flutter_bloc: ^8.1.6
   flutter_colorpicker: ^1.1.0
   flutter_dotenv: ^5.2.1
-  flutter_popup: ^3.3.0
   flutter_secure_storage: ^9.2.2
   flutter_svg: ^2.0.10+1
   forui: ^0.7.0
