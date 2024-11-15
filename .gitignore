@@ -1,3 +1,10 @@
+# Environment
+*.env
+*.env.local
+*.env.development
+*.env.test
+*.env.production
+
 # Miscellaneous
 *.class
 *.log

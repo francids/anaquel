@@ -1,13 +1,19 @@
 import 'dart:io';
 
-class Config {
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
+abstract class Config {
   static String get baseUrl {
-    return Platform.environment["ANAQUEL_BACKEND_URL"] ??
-        "http://10.0.0.77:8080";
+    String? base = dotenv.env["ANAQUEL_BACKEND_URL"];
+    base ??=
+        (Platform.isAndroid) ? "http://10.0.2.2:8080" : "http://localhost:8080";
+    return base;
   }
 
   static String get baseIntelligenceUrl {
-    return Platform.environment["ANAQUEL_INTELLIGENCE_URL"] ??
-        "http://10.0.0.77:3600";
+    String? base = dotenv.env["ANAQUEL_INTELLIGENCE_URL"];
+    base ??=
+        (Platform.isAndroid) ? "http://10.0.2.2:3600" : "http://localhost:3600";
+    return base;
   }
 }
