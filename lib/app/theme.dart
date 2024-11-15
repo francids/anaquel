@@ -27,6 +27,10 @@ class AnaquelTheme extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
           actionStyle: FHeaderActionStyle(
+            focusedOutlineStyle: FFocusedOutlineStyle(
+              color: AppColors.burgundy,
+              borderRadius: BorderRadius.circular(8),
+            ),
             enabledColor: AppColors.night,
             disabledColor: AppColors.timberwolf,
             size: 24,
@@ -40,6 +44,10 @@ class AnaquelTheme extends StatelessWidget {
             height: 1,
           ),
           actionStyle: FHeaderActionStyle(
+            focusedOutlineStyle: FFocusedOutlineStyle(
+              color: AppColors.burgundy,
+              borderRadius: BorderRadius.circular(8),
+            ),
             enabledColor: AppColors.night,
             disabledColor: AppColors.timberwolf,
             size: 24,
@@ -155,6 +163,10 @@ class AnaquelTheme extends StatelessWidget {
         ),
       ),
       bottomNavigationBarStyle: FBottomNavigationBarStyle(
+        focusedOutlineStyle: FFocusedOutlineStyle(
+          color: AppColors.burgundy,
+          borderRadius: BorderRadius.circular(8),
+        ),
         padding: const EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 8,

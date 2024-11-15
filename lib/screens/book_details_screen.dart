@@ -6,14 +6,33 @@ import 'package:anaquel/screens/recommendations_books_screen.dart';
 import 'package:anaquel/widgets/chip.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_popup/flutter_popup.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
-class BookDetailsScreen extends StatelessWidget {
+class BookDetailsScreen extends StatefulWidget {
   const BookDetailsScreen({super.key, required this.userBook});
 
   final UserBook userBook;
+
+  @override
+  State<BookDetailsScreen> createState() => _BookDetailsScreenState();
+}
+
+class _BookDetailsScreenState extends State<BookDetailsScreen>
+    with SingleTickerProviderStateMixin {
+  late FPopoverController popoverController;
+
+  @override
+  initState() {
+    popoverController = FPopoverController(vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    popoverController.dispose();
+    super.dispose();
+  }
 
   String convertStatus(UserBookStatus status) {
     switch (status) {
@@ -37,42 +56,69 @@ class BookDetailsScreen extends StatelessWidget {
           ),
         ],
         suffixActions: [
-          CustomPopup(
-            content: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 16,
-                vertical: 8,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
+          FPopoverMenu.tappable(
+            controller: popoverController,
+            menuAnchor: Alignment.topRight,
+            childAnchor: Alignment.bottomRight,
+            ignoreDirectionalPadding: true,
+            hideOnTapOutside: true,
+            menu: [
+              FTileGroup(
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      context.pop();
-                    },
-                    child: const Text(
-                      "Colecciones",
-                      style: TextStyle(fontSize: 16),
-                    ),
+                  FTile(
+                    prefixIcon: FIcon(FAssets.icons.trash),
+                    title: const Text("Borrar libro"),
+                    onPress: () {},
                   ),
-                  const SizedBox(height: 24),
-                  GestureDetector(
-                    onTap: () {
-                      context.pop();
-                    },
-                    child: const Text(
-                      "Borrar libro",
-                      style: TextStyle(fontSize: 16),
-                    ),
+                  FTile(
+                    prefixIcon: FIcon(FAssets.icons.library),
+                    title: const Text("Colecciones"),
+                    onPress: () {},
                   ),
                 ],
               ),
-            ),
+            ],
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8),
               child: FAssets.icons.ellipsisVertical(),
             ),
           ),
+          // CustomPopup(
+          //   content: Padding(
+          //     padding: const EdgeInsets.symmetric(
+          //       horizontal: 16,
+          //       vertical: 8,
+          //     ),
+          //     child: Column(
+          //       mainAxisSize: MainAxisSize.min,
+          //       children: [
+          //         GestureDetector(
+          //           onTap: () {
+          //             context.pop();
+          //           },
+          //           child: const Text(
+          //             "Colecciones",
+          //             style: TextStyle(fontSize: 16),
+          //           ),
+          //         ),
+          //         const SizedBox(height: 24),
+          //         GestureDetector(
+          //           onTap: () {
+          //             context.pop();
+          //           },
+          //           child: const Text(
+          //             "Borrar libro",
+          //             style: TextStyle(fontSize: 16),
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          //   child: Padding(
+          //     padding: const EdgeInsets.symmetric(horizontal: 8),
+          //     child: FAssets.icons.ellipsisVertical(),
+          //   ),
+          // ),
         ],
       ),
       contentPad: false,
@@ -95,7 +141,7 @@ class BookDetailsScreen extends StatelessWidget {
                     errorWidget: (context, url, error) => Center(
                       child: FAssets.icons.circleX(),
                     ),
-                    imageUrl: userBook.coverUrl,
+                    imageUrl: widget.userBook.coverUrl,
                     fit: BoxFit.cover,
                     width: 150,
                     height: 240,
@@ -105,7 +151,7 @@ class BookDetailsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             Text(
-              userBook.title,
+              widget.userBook.title,
               style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.w700,
@@ -113,7 +159,7 @@ class BookDetailsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              userBook.authors.join(", "),
+              widget.userBook.authors.join(", "),
               style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
@@ -122,7 +168,7 @@ class BookDetailsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             FBadge(
-              label: Text(convertStatus(userBook.status)),
+              label: Text(convertStatus(widget.userBook.status)),
               style: FBadgeStyle.secondary,
             ),
             const FDivider(),
@@ -152,9 +198,9 @@ class BookDetailsScreen extends StatelessWidget {
                 PageRouteBuilder(
                   pageBuilder: (context, animation, secondaryAnimation) =>
                       QuestionnaireScreen(
-                    bookId: userBook.id,
-                    bookTitle: userBook.title,
-                    bookAuthor: userBook.authors.join(", "),
+                    bookId: widget.userBook.id,
+                    bookTitle: widget.userBook.title,
+                    bookAuthor: widget.userBook.authors.join(", "),
                   ),
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {
@@ -205,7 +251,7 @@ class BookDetailsScreen extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              userBook.description,
+              widget.userBook.description,
               style: const TextStyle(
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
@@ -231,7 +277,8 @@ class BookDetailsScreen extends StatelessWidget {
                 spacing: 8,
                 runSpacing: 8,
                 children: [
-                  for (final genre in userBook.genres) AChip(label: genre),
+                  for (final genre in widget.userBook.genres)
+                    AChip(label: genre),
                 ],
               ),
             ),

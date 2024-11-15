@@ -1,17 +1,16 @@
-import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
-List<String> days = [
-  'Lunes',
-  'Martes',
-  'Miércoles',
-  'Jueves',
-  'Viernes',
-  'Sábado',
-  'Domingo',
-];
+enum ScheduleDay {
+  monday,
+  tuesday,
+  wednesday,
+  thursday,
+  friday,
+  saturday,
+  sunday,
+}
 
 class EditScheduleScreen extends StatefulWidget {
   const EditScheduleScreen({super.key});
@@ -24,8 +23,9 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   bool isSwitched = false;
   final TextEditingController _labelController = TextEditingController();
+  final FMultiSelectGroupController<ScheduleDay> _daysController =
+      FMultiSelectGroupController();
   TimeOfDay selectedTime = const TimeOfDay(hour: 8, minute: 0);
-  List<bool> selectedDays = List.generate(days.length, (index) => false);
 
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
@@ -142,61 +142,55 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
                 ),
               ),
               const FDivider(),
-              const SizedBox(
-                width: double.infinity,
-                child: Text(
-                  "Días",
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+              FSelectTileGroup(
+                controller: _daysController,
+                label: const Text("Días"),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "Debes seleccionar al menos un día";
+                  }
+                  return null;
+                },
+                children: [
+                  FSelectTile(
+                    title: const Text("Lunes"),
+                    value: ScheduleDay.monday,
                   ),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Column(
-                children: List.generate(days.length, (index) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6),
-                    child: FCheckbox(
-                      label: Text(days[index]),
-                      value: selectedDays[index],
-                      onChange: (bool? newValue) {
-                        setState(() {
-                          selectedDays[index] = newValue ?? false;
-                        });
-                      },
-                    ),
-                  );
-                }),
-              ),
-              // Validación de días
-              if (selectedDays.every((element) => !element))
-                const SizedBox(
-                  width: double.infinity,
-                  child: Padding(
-                    padding: EdgeInsets.only(top: 8),
-                    child: Text(
-                      "Debes seleccionar al menos un día",
-                      style: TextStyle(
-                        color: AppColors.eerieBlack,
-                        fontSize: 12,
-                      ),
-                    ),
+                  FSelectTile(
+                    title: const Text("Martes"),
+                    value: ScheduleDay.tuesday,
                   ),
-                ),
+                  FSelectTile(
+                    title: const Text("Miércoles"),
+                    value: ScheduleDay.wednesday,
+                  ),
+                  FSelectTile(
+                    title: const Text("Jueves"),
+                    value: ScheduleDay.thursday,
+                  ),
+                  FSelectTile(
+                    title: const Text("Viernes"),
+                    value: ScheduleDay.friday,
+                  ),
+                  FSelectTile(
+                    title: const Text("Sábado"),
+                    value: ScheduleDay.saturday,
+                  ),
+                  FSelectTile(
+                    title: const Text("Domingo"),
+                    value: ScheduleDay.sunday,
+                  ),
+                ],
+              ),
               const FDivider(),
               FButton(
                 onPress: () {
                   if (!_formKey.currentState!.validate()) {
                     return;
                   }
-                  if (selectedDays.every((element) => !element)) {
-                    return;
-                  }
                   print("Título: ${_labelController.text}");
                   print("Hora: ${selectedTime.format(context)}");
-                  print("Días seleccionados: ${selectedDays}");
+                  print("Días seleccionados: ${_daysController.values}");
                 },
                 style: FButtonStyle.primary,
                 label: const Text('Guardar'),

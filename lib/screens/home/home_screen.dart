@@ -63,6 +63,10 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           actionSpacing: 16,
           actionStyle: FHeaderActionStyle(
+            focusedOutlineStyle: FFocusedOutlineStyle(
+              color: AppColors.burgundy,
+              borderRadius: BorderRadius.circular(8),
+            ),
             disabledColor: AppColors.black,
             enabledColor: AppColors.black,
             size: 22,
