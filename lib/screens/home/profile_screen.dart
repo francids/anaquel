@@ -73,48 +73,54 @@ class ProfileScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    FButton(
-                      onPress: () => Navigator.of(context).push(
-                        PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) =>
-                                  const EditProfileScreen(),
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            return SlideTransition(
-                              position: Tween<Offset>(
-                                begin: const Offset(1, 0),
-                                end: Offset.zero,
-                              ).animate(animation),
-                              child: child,
-                            );
-                          },
+                    FTileGroup(
+                      children: [
+                        FTile(
+                          onPress: () => Navigator.of(context).push(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      const EditProfileScreen(),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                return SlideTransition(
+                                  position: Tween<Offset>(
+                                    begin: const Offset(1, 0),
+                                    end: Offset.zero,
+                                  ).animate(animation),
+                                  child: child,
+                                );
+                              },
+                            ),
+                          ),
+                          prefixIcon: FIcon(FAssets.icons.user),
+                          title: const Text("profile_screen.edit_profile").tr(),
+                          suffixIcon: FIcon(FAssets.icons.chevronRight),
                         ),
-                      ),
-                      style: FButtonStyle.outline,
-                      label: const Text("profile_screen.edit_profile").tr(),
-                    ),
-                    const SizedBox(height: 8),
-                    FButton(
-                      onPress: () => Navigator.of(context).push(
-                        PageRouteBuilder(
-                          pageBuilder:
-                              (context, animation, secondaryAnimation) =>
-                                  const ChangePasswordScreen(),
-                          transitionsBuilder:
-                              (context, animation, secondaryAnimation, child) {
-                            return SlideTransition(
-                              position: Tween<Offset>(
-                                begin: const Offset(1, 0),
-                                end: Offset.zero,
-                              ).animate(animation),
-                              child: child,
-                            );
-                          },
+                        FTile(
+                          onPress: () => Navigator.of(context).push(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      const ChangePasswordScreen(),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                return SlideTransition(
+                                  position: Tween<Offset>(
+                                    begin: const Offset(1, 0),
+                                    end: Offset.zero,
+                                  ).animate(animation),
+                                  child: child,
+                                );
+                              },
+                            ),
+                          ),
+                          prefixIcon: FIcon(FAssets.icons.lock),
+                          title:
+                              const Text("profile_screen.change_password").tr(),
+                          suffixIcon: FIcon(FAssets.icons.chevronRight),
                         ),
-                      ),
-                      style: FButtonStyle.outline,
-                      label: const Text("profile_screen.change_password").tr(),
+                      ],
                     ),
                   ],
                 );
@@ -122,8 +128,9 @@ class ProfileScreen extends StatelessWidget {
               return const SizedBox.shrink();
             },
           ),
-          const SizedBox(height: 8),
-          FButton(
+          // const SizedBox(height: 12),
+          const FDivider(),
+          FTile(
             onPress: () => showAdaptiveDialog(
               context: context,
               builder: (context) => FDialog(
@@ -157,8 +164,14 @@ class ProfileScreen extends StatelessWidget {
                 ],
               ),
             ),
-            style: FButtonStyle.outline,
-            label: const Text("profile_screen.change_language.title").tr(),
+            prefixIcon: FIcon(FAssets.icons.languages),
+            title: const Text("profile_screen.change_language.title").tr(),
+            details: Text(
+              context.locale.languageCode == "es"
+                  ? "profile_screen.change_language.spanish".tr()
+                  : "profile_screen.change_language.english".tr(),
+            ),
+            suffixIcon: FIcon(FAssets.icons.chevronRight),
           ),
           const FDivider(),
           SizedBox(
