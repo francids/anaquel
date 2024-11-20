@@ -16,13 +16,6 @@ import 'package:anaquel/screens/home/principal_screen.dart';
 import 'package:anaquel/screens/home/profile_screen.dart';
 import 'package:anaquel/screens/home/schedules_screen.dart';
 
-List<Widget> _screens = [
-  const PrincipalScreen(),
-  const BooksScreen(),
-  const SchedulesScreen(),
-  const ProfileScreen(),
-];
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -33,8 +26,18 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int index = 0;
 
+  void goToBooks() => setState(() => index = 1);
+
+  List<Widget> _screens = [];
+
   @override
   void initState() {
+    _screens = [
+      PrincipalScreen(onShowAllBooks: goToBooks),
+      const BooksScreen(),
+      const SchedulesScreen(),
+      const ProfileScreen(),
+    ];
     context.read<UserBloc>().add(GetUser());
     context.read<UserBooksBloc>().add(GetUserBooks());
     context.read<CollectionsBloc>().add(GetCollections());

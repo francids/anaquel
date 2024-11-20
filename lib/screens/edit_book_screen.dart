@@ -190,7 +190,10 @@ class _EditBookScreenState extends State<EditBookScreen> {
                                 title: _titleController.text,
                                 author: _authorController.text,
                                 description: _descriptionController.text,
-                                genres: _genresController.text.split(","),
+                                genres: _genresController.text
+                                    .split(",")
+                                    .map((e) => e.trim())
+                                    .toList(),
                               ),
                             ),
                           );

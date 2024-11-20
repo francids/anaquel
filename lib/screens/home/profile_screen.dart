@@ -1,5 +1,6 @@
 import 'package:anaquel/logic/auth_bloc.dart';
 import 'package:anaquel/logic/user_bloc.dart';
+import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/screens/auth/change_password_screen.dart';
 import 'package:anaquel/screens/auth/edit_profile_screen.dart';
 import 'package:anaquel/widgets/chip.dart';
@@ -11,16 +12,6 @@ import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
-
-  static final List<String> _favoritesGenres = [
-    'Ciencia ficción',
-    'Fantasía',
-    'Terror',
-    'Romance',
-    'Aventura',
-    'Misterio',
-    'Drama',
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -174,29 +165,47 @@ class ProfileScreen extends StatelessWidget {
             suffixIcon: FIcon(FAssets.icons.chevronRight),
           ),
           const FDivider(),
-          SizedBox(
-            width: double.infinity,
-            child: const Text(
-              "profile_screen.favorite_genres",
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w600,
-              ),
-            ).tr(),
+          BlocBuilder<UserBooksBloc, UserBooksState>(
+            builder: (context, state) {
+              if (state is UserBooksLoaded) {
+                List<String> favoritesGenres = state.userBooks
+                    .map(
+                      (e) => e.genres,
+                    )
+                    .expand((e) => e)
+                    .toList();
+                return Column(
+                  children: [
+                    SizedBox(
+                      width: double.infinity,
+                      child: const Text(
+                        "profile_screen.favorite_genres",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ).tr(),
+                    ),
+                    const SizedBox(height: 8),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Wrap(
+                        alignment: WrapAlignment.start,
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          for (final genre in favoritesGenres)
+                            AChip(label: genre),
+                        ],
+                      ),
+                    ),
+                    const FDivider(),
+                  ],
+                );
+              }
+              return const SizedBox.shrink();
+            },
           ),
-          const SizedBox(height: 8),
-          SizedBox(
-            width: double.infinity,
-            child: Wrap(
-              alignment: WrapAlignment.start,
-              spacing: 8,
-              runSpacing: 8,
-              children: [
-                for (final genre in _favoritesGenres) AChip(label: genre),
-              ],
-            ),
-          ),
-          const FDivider(),
           FButton(
             onPress: () => showAdaptiveDialog(
               context: context,

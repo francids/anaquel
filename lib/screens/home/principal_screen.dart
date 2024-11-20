@@ -1,7 +1,6 @@
 import 'package:anaquel/data/models/recommendation_book.dart';
 import 'package:anaquel/data/models/user_book.dart';
 import 'package:anaquel/logic/user_books_bloc.dart';
-import 'package:anaquel/screens/register_book_screen.dart';
 import 'package:anaquel/widgets/books/medium_book_card.dart';
 import 'package:anaquel/widgets/books/recommendation_book_card.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -10,7 +9,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 
 class PrincipalScreen extends StatelessWidget {
-  const PrincipalScreen({super.key});
+  const PrincipalScreen({super.key, required this.onShowAllBooks});
+
+  final VoidCallback onShowAllBooks;
 
   @override
   Widget build(BuildContext context) {
@@ -49,23 +50,7 @@ class PrincipalScreen extends StatelessWidget {
                           ),
                         ).tr(),
                         FButton.icon(
-                          onPress: () => Navigator.of(context).push(
-                            PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      const RegisterBookScreen(),
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                return SlideTransition(
-                                  position: Tween<Offset>(
-                                    begin: const Offset(1, 0),
-                                    end: Offset.zero,
-                                  ).animate(animation),
-                                  child: child,
-                                );
-                              },
-                            ),
-                          ),
+                          onPress: onShowAllBooks,
                           child: FIcon(FAssets.icons.chevronRight),
                         ),
                       ],

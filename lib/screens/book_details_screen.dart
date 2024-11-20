@@ -70,7 +70,36 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                   FTile(
                     prefixIcon: FIcon(FAssets.icons.trash),
                     title: const Text("Borrar libro"),
-                    onPress: () {},
+                    onPress: () {
+                      showAdaptiveDialog(
+                        context: context,
+                        builder: (context) => FDialog(
+                          direction: Axis.vertical,
+                          body: const Padding(
+                            padding: EdgeInsets.only(bottom: 16),
+                            child: Text(
+                              "¿Estás seguro de que deseas eliminar este libro?",
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                          actions: <FButton>[
+                            FButton(
+                              onPress: () => {
+                                context.pop(),
+                                context.pop(),
+                              },
+                              style: FButtonStyle.destructive,
+                              label: const Text("Eliminar"),
+                            ),
+                            FButton(
+                              onPress: () => context.pop(),
+                              style: FButtonStyle.outline,
+                              label: const Text("Cancelar"),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                   FTile(
                     prefixIcon: FIcon(FAssets.icons.library),
@@ -82,6 +111,19 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                           return BlocBuilder<CollectionsBloc, CollectionsState>(
                             builder: (context, state) {
                               if (state is CollectionsLoaded) {
+                                if (state.collections.isEmpty) {
+                                  return FDialog(
+                                    title: const Text("Colecciones"),
+                                    body: const Text("No tienes colecciones"),
+                                    actions: [
+                                      FButton(
+                                        onPress: () => context.pop(),
+                                        style: FButtonStyle.outline,
+                                        label: const Text("Cancelar"),
+                                      ),
+                                    ],
+                                  );
+                                }
                                 FMultiSelectGroupController<int> controller =
                                     FMultiSelectGroupController(
                                   values: {
@@ -104,7 +146,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                           width: 16,
                                           height: 16,
                                           decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
+                                            borderRadius:
+                                                BorderRadius.circular(4),
                                             color: Color(
                                               int.parse(
                                                 "0xFF${collection.color.replaceAll("#", "")}",
@@ -122,9 +165,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                             controller.values;
                                         for (final collectionId
                                             in selectedCollections) {
-                                          context
-                                              .read<CollectionsBloc>()
-                                              .add(
+                                          context.read<CollectionsBloc>().add(
                                                 AddBookToCollection(
                                                   collectionId.toString(),
                                                   widget.userBook.id.toString(),
