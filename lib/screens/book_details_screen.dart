@@ -1,11 +1,13 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/user_book.dart';
+import 'package:anaquel/logic/collections_bloc.dart';
 import 'package:anaquel/screens/questionnaire_screen.dart';
 import 'package:anaquel/screens/reading_screen.dart';
 import 'package:anaquel/screens/recommendations_books_screen.dart';
 import 'package:anaquel/widgets/chip.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
@@ -73,7 +75,81 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                   FTile(
                     prefixIcon: FIcon(FAssets.icons.library),
                     title: const Text("Colecciones"),
-                    onPress: () {},
+                    onPress: () {
+                      showAdaptiveDialog(
+                        context: context,
+                        builder: (context) {
+                          return BlocBuilder<CollectionsBloc, CollectionsState>(
+                            builder: (context, state) {
+                              if (state is CollectionsLoaded) {
+                                FMultiSelectGroupController<int> controller =
+                                    FMultiSelectGroupController(
+                                  values: {
+                                    for (final collection in state.collections)
+                                      for (final book in collection.books)
+                                        if (book.id == widget.userBook.id)
+                                          collection.id,
+                                  },
+                                );
+                                return FDialog(
+                                  title: const Text("Colecciones"),
+                                  body: FSelectTileGroup<int>(
+                                    controller: controller,
+                                    children:
+                                        state.collections.map((collection) {
+                                      return FSelectTile(
+                                        title: Text(collection.name),
+                                        value: collection.id,
+                                        suffixIcon: Container(
+                                          width: 16,
+                                          height: 16,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Color(
+                                              int.parse(
+                                                "0xFF${collection.color.replaceAll("#", "")}",
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    }).toList(),
+                                  ),
+                                  actions: [
+                                    FButton(
+                                      onPress: () {
+                                        final selectedCollections =
+                                            controller.values;
+                                        for (final collectionId
+                                            in selectedCollections) {
+                                          context
+                                              .read<CollectionsBloc>()
+                                              .add(
+                                                AddBookToCollection(
+                                                  collectionId.toString(),
+                                                  widget.userBook.id.toString(),
+                                                ),
+                                              );
+                                        }
+                                        context.pop();
+                                      },
+                                      style: FButtonStyle.primary,
+                                      label: const Text("Guardar"),
+                                    ),
+                                    FButton(
+                                      onPress: () => context.pop(),
+                                      style: FButtonStyle.outline,
+                                      label: const Text("Cancelar"),
+                                    ),
+                                  ],
+                                );
+                              }
+                              return const SizedBox.shrink();
+                            },
+                          );
+                        },
+                      );
+                    },
                   ),
                 ],
               ),

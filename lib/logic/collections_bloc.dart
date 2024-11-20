@@ -13,6 +13,13 @@ class CreateCollection extends CollectionsEvent {
   CreateCollection(this.name, this.color);
 }
 
+class AddBookToCollection extends CollectionsEvent {
+  final String collectionId;
+  final String bookId;
+
+  AddBookToCollection(this.collectionId, this.bookId);
+}
+
 class DeleteCollection extends CollectionsEvent {
   final String id;
 
@@ -44,7 +51,7 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
     on<GetCollections>((event, emit) async {
       emit(CollectionsLoading());
       try {
-        final collections = await collectionsService.getCollections();
+        final collections = await collectionsService.getCollectionsWithBooks();
         emit(CollectionsLoaded(collections));
       } catch (e) {
         emit(CollectionsError(e.toString()));
@@ -55,7 +62,21 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
       emit(CollectionsLoading());
       try {
         await collectionsService.createCollection(event.name, event.color);
-        final collections = await collectionsService.getCollections();
+        final collections = await collectionsService.getCollectionsWithBooks();
+        emit(CollectionsLoaded(collections));
+      } catch (e) {
+        emit(CollectionsError(e.toString()));
+      }
+    });
+
+    on<AddBookToCollection>((event, emit) async {
+      emit(CollectionsLoading());
+      try {
+        await collectionsService.addBookToCollection(
+          event.collectionId,
+          event.bookId,
+        );
+        final collections = await collectionsService.getCollectionsWithBooks();
         emit(CollectionsLoaded(collections));
       } catch (e) {
         emit(CollectionsError(e.toString()));
@@ -66,7 +87,7 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
       emit(CollectionsLoading());
       try {
         await collectionsService.deleteCollection(event.id);
-        final collections = await collectionsService.getCollections();
+        final collections = await collectionsService.getCollectionsWithBooks();
         emit(CollectionsLoaded(collections));
       } catch (e) {
         emit(CollectionsError(e.toString()));

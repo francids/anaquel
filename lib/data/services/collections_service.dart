@@ -1,3 +1,4 @@
+import 'package:anaquel/data/models/book.dart';
 import 'package:anaquel/data/models/collection.dart';
 import 'package:anaquel/utils/config.dart';
 import 'package:dio/dio.dart';
@@ -40,6 +41,29 @@ class CollectionsService {
     }
   }
 
+  Future<List<Book>> getBooksFromCollection(String collectionId) async {
+    final response = await _dio.get(
+      "/collection/books/$collectionId",
+    );
+
+    if (response.statusCode == 200) {
+      final List<Book> books =
+          (response.data as List).map((book) => Book.fromJson(book)).toList();
+      return books;
+    } else {
+      throw Exception(response.statusMessage);
+    }
+  }
+
+  Future<List<Collection>> getCollectionsWithBooks() async {
+    final collections = await getCollections();
+    for (var collection in collections) {
+      final books = await getBooksFromCollection(collection.id.toString());
+      collection.books = books;
+    }
+    return collections;
+  }
+
   Future<void> createCollection(String name, String color) async {
     final response = await _dio.post(
       "/collection",
@@ -47,6 +71,20 @@ class CollectionsService {
         "username": await secureStorage.read(key: "username"),
         "name": name,
         "color": color,
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception(response.statusMessage);
+    }
+  }
+
+  Future<void> addBookToCollection(String collectionId, String bookId) async {
+    final response = await _dio.post(
+      "/collection/book",
+      data: {
+        "bookId": bookId,
+        "collectionId": collectionId,
       },
     );
 
