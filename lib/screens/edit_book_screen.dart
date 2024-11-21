@@ -194,6 +194,7 @@ class _EditBookScreenState extends State<EditBookScreen> {
                                     .split(",")
                                     .map((e) => e.trim())
                                     .toList(),
+                                status: widget.localBook.status,
                               ),
                             ),
                           );

@@ -24,9 +24,12 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
     with SingleTickerProviderStateMixin {
   late FPopoverController popoverController;
 
+  int status = 0;
+
   @override
   initState() {
     popoverController = FPopoverController(vsync: this);
+    status = widget.localBook.status;
     super.initState();
   }
 
@@ -169,9 +172,29 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
               ),
             ),
             const SizedBox(height: 16),
-            FBadge(
-              label: const Text("Leyendo"),
-              style: FBadgeStyle.secondary,
+            GestureDetector(
+              onTap: () {
+                buildUpdateStatusDialog(context).then((value) {
+                  if (value != null) {
+                    setState(() => status = value);
+                  }
+                });
+              },
+              child: FBadge(
+                label: Text(
+                  status == 0
+                      ? "Por leer"
+                      : status == 1
+                          ? "Leyendo"
+                          : "Leído",
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.eerieBlack,
+                  ),
+                ),
+                style: FBadgeStyle.secondary,
+              ),
             ),
             const FDivider(),
             FButton(
@@ -244,6 +267,57 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
             const SizedBox(height: 16),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<dynamic> buildUpdateStatusDialog(BuildContext context) {
+    FRadioSelectGroupController<int> controller =
+        FRadioSelectGroupController<int>(value: status);
+    return showAdaptiveDialog(
+      context: context,
+      builder: (context) => FDialog(
+        direction: Axis.vertical,
+        title: const Text("Actualizar estado"),
+        body: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: 16,
+            horizontal: 8,
+          ),
+          child: FSelectTileGroup<int>(
+            controller: controller,
+            children: [
+              FSelectTile(
+                title: const Text("Por leer"),
+                value: 0,
+              ),
+              FSelectTile(
+                title: const Text("Leyendo"),
+                value: 1,
+              ),
+              FSelectTile(
+                title: const Text("Leído"),
+                value: 2,
+              ),
+            ],
+          ),
+        ),
+        actions: <FButton>[
+          FButton(
+            onPress: () {
+              context.read<LocalBooksBloc>().add(
+                    UpdateLocalBook(
+                      localBook: widget.localBook.copyWith(
+                        status: controller.values.first,
+                      ),
+                    ),
+                  );
+              context.pop(controller.values.first);
+            },
+            style: FButtonStyle.primary,
+            label: const Text("Guardar"),
+          ),
+        ],
       ),
     );
   }

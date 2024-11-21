@@ -175,6 +175,7 @@ class _CreateBookScreenState extends State<CreateBookScreen> {
                                     .split(",")
                                     .map((e) => e.trim())
                                     .toList(),
+                                status: 0,
                               ),
                             ),
                           );

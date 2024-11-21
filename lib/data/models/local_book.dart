@@ -5,6 +5,7 @@ class LocalBook {
   final String author;
   final String description;
   final List<String> genres;
+  final int status;
 
   LocalBook({
     required this.id,
@@ -13,6 +14,7 @@ class LocalBook {
     required this.author,
     required this.description,
     required this.genres,
+    required this.status,
   });
 
   factory LocalBook.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class LocalBook {
       author: json['author'],
       description: json['description'],
       genres: List<String>.from(json['genres']),
+      status: json['status'],
     );
   }
 
@@ -34,6 +37,27 @@ class LocalBook {
       'author': author,
       'description': description,
       'genres': genres,
+      'status': status,
     };
+  }
+
+  LocalBook copyWith({
+    String? id,
+    String? coverUrl,
+    String? title,
+    String? author,
+    String? description,
+    List<String>? genres,
+    int? status,
+  }) {
+    return LocalBook(
+      id: id ?? this.id,
+      coverUrl: coverUrl ?? this.coverUrl,
+      title: title ?? this.title,
+      author: author ?? this.author,
+      description: description ?? this.description,
+      genres: genres ?? this.genres,
+      status: status ?? this.status,
+    );
   }
 }
