@@ -169,7 +169,10 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
               ),
             ),
             const SizedBox(height: 16),
-            const AChip(label: "Leyendo"),
+            FBadge(
+              label: const Text("Leyendo"),
+              style: FBadgeStyle.secondary,
+            ),
             const FDivider(),
             FButton(
               onPress: () => Navigator.of(context).push(

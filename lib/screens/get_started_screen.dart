@@ -1,5 +1,6 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -7,17 +8,27 @@ import 'package:shared_preferences/shared_preferences.dart';
 class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
 
+  Future<void> saveHasSeenGetStarted() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool("has_seen_get_started", true);
+  }
+
+  void goToLogin(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+    saveHasSeenGetStarted().then((_) => context.push("/login"));
+  }
+
   @override
   Widget build(BuildContext context) {
-    Future<void> saveHasSeenGetStarted() async {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setBool("has_seen_get_started", true);
-    }
-
-    void goToLogin() {
-      saveHasSeenGetStarted().then((_) => context.push("/login"));
-    }
-
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.light,
+      ),
+    );
     return IntroductionScreen(
       key: GlobalKey<IntroductionScreenState>(),
       allowImplicitScrolling: true,
@@ -88,13 +99,17 @@ class GetStartedScreen extends StatelessWidget {
       showNextButton: true,
       showSkipButton: true,
       showDoneButton: true,
-      onDone: () => goToLogin(),
-      onSkip: () => goToLogin(),
+      onDone: () => goToLogin(context),
+      onSkip: () => goToLogin(context),
       next: const Text("Siguiente"),
       skip: const Text("Saltar"),
       done: const Text("Iniciar"),
-      baseBtnStyle: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(AppColors.antiFlashWhite),
+      baseBtnStyle: TextButton.styleFrom(
+        backgroundColor: Colors.transparent,
+        foregroundColor: AppColors.antiFlashWhite,
+        textStyle: const TextStyle(
+          fontWeight: FontWeight.bold,
+        ),
       ),
       controlsMargin: const EdgeInsets.all(16),
     );
