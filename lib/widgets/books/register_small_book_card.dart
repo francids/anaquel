@@ -1,6 +1,7 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_touch_ripple/flutter_touch_ripple.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
@@ -21,7 +22,8 @@ class RegisterSmallBookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return TouchRipple(
+      rippleBorderRadius: BorderRadius.circular(8),
       onTap: () => context.push("/register_book/$id"),
       child: Container(
         height: 90,

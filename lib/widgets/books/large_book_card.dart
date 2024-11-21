@@ -3,6 +3,7 @@ import 'package:anaquel/data/models/user_book.dart';
 import 'package:anaquel/screens/book_details_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_touch_ripple/flutter_touch_ripple.dart';
 import 'package:forui/forui.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -16,7 +17,8 @@ class LargeBookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return TouchRipple(
+      rippleBorderRadius: BorderRadius.circular(8),
       onTap: () => Navigator.of(context).push(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>

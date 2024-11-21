@@ -1,5 +1,6 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_touch_ripple/flutter_touch_ripple.dart';
 
 class CollectionChip extends StatelessWidget {
   const CollectionChip(
@@ -14,7 +15,8 @@ class CollectionChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return TouchRipple(
+      rippleBorderRadius: BorderRadius.circular(8),
       onTap: () => onPress(),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),

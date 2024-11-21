@@ -400,6 +400,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_touch_ripple:
+    dependency: "direct main"
+    description:
+      name: flutter_touch_ripple
+      sha256: "6960cebd0c3a0a7945e739d4796a513acccc09563dc03e3c42611496940649da"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.31"
   flutter_web_plugins:
     dependency: transitive
     description: flutter
@@ -1099,5 +1107,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.5.0 <4.0.0"
+  dart: ">=3.5.1 <4.0.0"
   flutter: ">=3.24.0"

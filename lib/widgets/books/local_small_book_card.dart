@@ -4,6 +4,7 @@ import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/local_book.dart';
 import 'package:anaquel/screens/local_book_details_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_touch_ripple/flutter_touch_ripple.dart';
 
 class LocalSmallBookCard extends StatelessWidget {
   const LocalSmallBookCard({
@@ -15,7 +16,8 @@ class LocalSmallBookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return TouchRipple(
+      rippleBorderRadius: BorderRadius.circular(8),
       onTap: () => Navigator.of(context).push(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>

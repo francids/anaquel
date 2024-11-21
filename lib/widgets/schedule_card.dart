@@ -1,6 +1,7 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/screens/edit_schedule_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_touch_ripple/flutter_touch_ripple.dart';
 import 'package:forui/forui.dart';
 
 class ScheduleCard extends StatefulWidget {
@@ -17,7 +18,8 @@ class _ScheduleCardState extends State<ScheduleCard> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return TouchRipple(
+      rippleBorderRadius: BorderRadius.circular(8),
       onTap: () => Navigator.of(context).push(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
@@ -37,7 +39,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           color: AppColors.antiFlashWhite,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(8),
         ),
         child: Column(
           children: [

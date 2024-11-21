@@ -2,6 +2,7 @@ import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/recommendation_book.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_touch_ripple/flutter_touch_ripple.dart';
 import 'package:forui/forui.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:go_router/go_router.dart';
@@ -16,7 +17,8 @@ class RecommendationBookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return TouchRipple(
+      rippleBorderRadius: BorderRadius.circular(8),
       onTap: () => context.push("/register_book/${book.id}"),
       child: Container(
         height: 90,
