@@ -9,7 +9,7 @@ import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
 class RegisterBookDetailsScreen extends StatelessWidget {
-  RegisterBookDetailsScreen({super.key, required this.bookId});
+  const RegisterBookDetailsScreen({super.key, required this.bookId});
 
   final int bookId;
 
@@ -139,16 +139,32 @@ class RegisterBookDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   const FDivider(),
-                  FButton(
-                    onPress: () {
-                      context
-                          .read<UserBooksBloc>()
-                          .add(AddUserBook(book.id.toString()));
-                      context.read<UserBooksBloc>().add(GetUserBooks());
-                      context.go('/');
+                  BlocBuilder<UserBooksBloc, UserBooksState>(
+                    builder: (context, state) {
+                      if (state is UserBooksLoaded) {
+                        if (state.userBooks
+                            .any((userBook) => userBook.id == book.id)) {
+                          return FButton(
+                            onPress: null,
+                            style: FButtonStyle.primary,
+                            label: const Text("Libro ya registrado"),
+                          );
+                        } else {
+                          return FButton(
+                            onPress: () {
+                              context
+                                  .read<UserBooksBloc>()
+                                  .add(AddUserBook(book.id.toString()));
+                              context.read<UserBooksBloc>().add(GetUserBooks());
+                              context.go('/');
+                            },
+                            style: FButtonStyle.primary,
+                            label: const Text("Registrar libro"),
+                          );
+                        }
+                      }
+                      return const SizedBox.shrink();
                     },
-                    style: FButtonStyle.primary,
-                    label: const Text("Registrar libro"),
                   ),
                 ],
               ),

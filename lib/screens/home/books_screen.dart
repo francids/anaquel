@@ -312,30 +312,26 @@ class BooksScreen extends StatelessWidget {
                       .toList(),
                   useInShowDialog: true,
                   layoutBuilder: (context, colors, child) {
-                    return Column(
-                      children: [
-                        Wrap(
-                          spacing: 12,
-                          runSpacing: 6,
-                          children: List.generate(
-                            colors.length,
-                            (index) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(8),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: colors[index].withOpacity(1),
-                                      blurRadius: 0,
-                                    ),
-                                  ],
+                    return Wrap(
+                      spacing: 12,
+                      runSpacing: 6,
+                      children: List.generate(
+                        colors.length,
+                        (index) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: colors[index].withOpacity(1),
+                                  blurRadius: 0,
                                 ),
-                                child: child(colors[index]),
-                              );
-                            },
-                          ),
-                        ),
-                      ],
+                              ],
+                            ),
+                            child: child(colors[index]),
+                          );
+                        },
+                      ),
                     );
                   },
                 ),
