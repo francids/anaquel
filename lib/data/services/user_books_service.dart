@@ -55,4 +55,17 @@ class UserBooksService {
       throw Exception('Error al agregar el libro');
     }
   }
+
+  Future<void> removeUserBook(String bookId) async {
+    final response = await _dio.delete(
+      "/books/users",
+      queryParameters: {
+        "book": bookId,
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Error al eliminar el libro');
+    }
+  }
 }

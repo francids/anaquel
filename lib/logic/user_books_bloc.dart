@@ -12,6 +12,12 @@ class AddUserBook extends UserBooksEvent {
   AddUserBook(this.bookId);
 }
 
+class RemoveUserBook extends UserBooksEvent {
+  final String bookId;
+
+  RemoveUserBook(this.bookId);
+}
+
 abstract class UserBooksState {}
 
 class UserBooksInitial extends UserBooksState {}
@@ -47,6 +53,15 @@ class UserBooksBloc extends Bloc<UserBooksEvent, UserBooksState> {
     on<AddUserBook>((event, emit) async {
       try {
         await userBooksService.addUserBook(event.bookId);
+        add(GetUserBooks());
+      } catch (e) {
+        emit(UserBooksError(e.toString()));
+      }
+    });
+
+    on<RemoveUserBook>((event, emit) async {
+      try {
+        await userBooksService.removeUserBook(event.bookId);
         add(GetUserBooks());
       } catch (e) {
         emit(UserBooksError(e.toString()));

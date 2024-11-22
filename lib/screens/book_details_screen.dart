@@ -1,6 +1,7 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/user_book.dart';
 import 'package:anaquel/logic/collections_bloc.dart';
+import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/screens/questionnaire_screen.dart';
 import 'package:anaquel/screens/reading_screen.dart';
 import 'package:anaquel/screens/recommendations_books_screen.dart';
@@ -78,15 +79,23 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                           body: const Padding(
                             padding: EdgeInsets.only(bottom: 16),
                             child: Text(
-                              "¿Estás seguro de que deseas eliminar este libro?",
+                              "¿Estás seguro de que deseas eliminar este libro? Esto eliminará el libro de tus colecciones y no podrás recuperarlo.",
                               textAlign: TextAlign.start,
                             ),
                           ),
                           actions: <FButton>[
                             FButton(
-                              onPress: () => {
-                                context.pop(),
-                                context.pop(),
+                              onPress: () {
+                                context
+                                    .read<UserBooksBloc>()
+                                    .add(RemoveUserBook(
+                                      widget.userBook.id.toString(),
+                                    ));
+                                context
+                                    .read<CollectionsBloc>()
+                                    .add(GetCollections());
+                                context.pop();
+                                context.pop();
                               },
                               style: FButtonStyle.destructive,
                               label: const Text("Eliminar"),
