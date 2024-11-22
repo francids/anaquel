@@ -27,7 +27,7 @@ class UserBooksService {
 
   Future<List<UserBook>> getUserBooks() async {
     final response = await _dio.get(
-      "/books/user",
+      "/books/users",
       queryParameters: {
         "username": await secureStorage.read(key: "username"),
       },
@@ -45,7 +45,7 @@ class UserBooksService {
 
   Future<void> addUserBook(String bookId) async {
     final response = await _dio.post(
-      "/books/user",
+      "/books/users",
       queryParameters: {
         "book": bookId,
       },

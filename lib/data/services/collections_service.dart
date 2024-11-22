@@ -28,7 +28,7 @@ class CollectionsService {
 
   Future<List<Collection>> getCollections() async {
     final response = await _dio.get(
-      "/collection/user",
+      "/collections/users",
     );
 
     if (response.statusCode == 200) {
@@ -43,7 +43,7 @@ class CollectionsService {
 
   Future<List<Book>> getBooksFromCollection(String collectionId) async {
     final response = await _dio.get(
-      "/collection/books/$collectionId",
+      "/collections/books/$collectionId",
     );
 
     if (response.statusCode == 200) {
@@ -66,7 +66,7 @@ class CollectionsService {
 
   Future<void> createCollection(String name, String color) async {
     final response = await _dio.post(
-      "/collection",
+      "/collections",
       data: {
         "username": await secureStorage.read(key: "username"),
         "name": name,
@@ -81,7 +81,7 @@ class CollectionsService {
 
   Future<void> addBookToCollection(String collectionId, String bookId) async {
     final response = await _dio.post(
-      "/collection/book",
+      "/collections/books",
       data: {
         "bookId": bookId,
         "collectionId": collectionId,
@@ -95,7 +95,10 @@ class CollectionsService {
 
   Future<void> deleteCollection(String id) async {
     final response = await _dio.delete(
-      "/collection/$id",
+      "/collections/users",
+      queryParameters: {
+        "collection": id,
+      },
     );
 
     if (response.statusCode != 200) {

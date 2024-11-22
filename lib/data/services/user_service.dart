@@ -27,7 +27,7 @@ class UserService {
 
   Future<User> getUser() async {
     final response = await _dio.get(
-      "/user",
+      "/users",
       queryParameters: {
         "username": await secureStorage.read(key: "username"),
       },

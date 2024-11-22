@@ -73,16 +73,18 @@ class PrincipalScreen extends StatelessWidget {
                 );
               }
               if (state is UserBooksError) {
-                return SizedBox(
-                  width: double.infinity,
-                  height: 200,
-                  child: FAlert(
-                    icon: FAssets.icons.badgeX(),
-                    title: const Text(
-                            "principal_screen.error_loading_reading_books")
-                        .tr(),
-                    subtitle: Text(state.message),
-                    style: FAlertStyle.destructive,
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: FAlert(
+                      icon: FAssets.icons.badgeX(),
+                      title: const Text(
+                              "principal_screen.error_loading_reading_books")
+                          .tr(),
+                      subtitle: Text(state.message),
+                      style: FAlertStyle.destructive,
+                    ),
                   ),
                 );
               }
