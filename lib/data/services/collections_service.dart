@@ -93,6 +93,21 @@ class CollectionsService {
     }
   }
 
+  Future<void> removeBookFromCollection(
+      String collectionId, String bookId) async {
+    final response = await _dio.delete(
+      "/collections/books",
+      queryParameters: {
+        "book": bookId,
+        "collection": collectionId,
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception(response.statusMessage);
+    }
+  }
+
   Future<void> deleteCollection(String id) async {
     final response = await _dio.delete(
       "/collections/users",

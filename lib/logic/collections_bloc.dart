@@ -20,6 +20,13 @@ class AddBookToCollection extends CollectionsEvent {
   AddBookToCollection(this.collectionId, this.bookId);
 }
 
+class RemoveBookFromCollection extends CollectionsEvent {
+  final String collectionId;
+  final String bookId;
+
+  RemoveBookFromCollection(this.collectionId, this.bookId);
+}
+
 class DeleteCollection extends CollectionsEvent {
   final String id;
 
@@ -73,6 +80,20 @@ class CollectionsBloc extends Bloc<CollectionsEvent, CollectionsState> {
       emit(CollectionsLoading());
       try {
         await collectionsService.addBookToCollection(
+          event.collectionId,
+          event.bookId,
+        );
+        final collections = await collectionsService.getCollectionsWithBooks();
+        emit(CollectionsLoaded(collections));
+      } catch (e) {
+        emit(CollectionsError(e.toString()));
+      }
+    });
+
+    on<RemoveBookFromCollection>((event, emit) async {
+      emit(CollectionsLoading());
+      try {
+        await collectionsService.removeBookFromCollection(
           event.collectionId,
           event.bookId,
         );

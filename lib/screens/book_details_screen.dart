@@ -124,13 +124,18 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                     ],
                                   );
                                 }
+
+                                var originalValues = {
+                                  for (final collection in state.collections)
+                                    for (final book in collection.books)
+                                      if (book.id == widget.userBook.id)
+                                        collection.id,
+                                };
+
                                 FMultiSelectGroupController<int> controller =
                                     FMultiSelectGroupController(
                                   values: {
-                                    for (final collection in state.collections)
-                                      for (final book in collection.books)
-                                        if (book.id == widget.userBook.id)
-                                          collection.id,
+                                    for (final value in originalValues) value,
                                   },
                                 );
                                 return FDialog(
@@ -163,14 +168,33 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                       onPress: () {
                                         final selectedCollections =
                                             controller.values;
+                                        // Adding books
                                         for (final collectionId
                                             in selectedCollections) {
-                                          context.read<CollectionsBloc>().add(
-                                                AddBookToCollection(
-                                                  collectionId.toString(),
-                                                  widget.userBook.id.toString(),
-                                                ),
-                                              );
+                                          if (!originalValues
+                                              .contains(collectionId)) {
+                                            context.read<CollectionsBloc>().add(
+                                                  AddBookToCollection(
+                                                    collectionId.toString(),
+                                                    widget.userBook.id
+                                                        .toString(),
+                                                  ),
+                                                );
+                                          }
+                                        }
+                                        // Removing books
+                                        for (final collectionId
+                                            in originalValues) {
+                                          if (!selectedCollections
+                                              .contains(collectionId)) {
+                                            context.read<CollectionsBloc>().add(
+                                                  RemoveBookFromCollection(
+                                                    collectionId.toString(),
+                                                    widget.userBook.id
+                                                        .toString(),
+                                                  ),
+                                                );
+                                          }
                                         }
                                         context.pop();
                                       },
