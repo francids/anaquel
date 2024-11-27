@@ -43,24 +43,36 @@ class ProfileScreen extends StatelessWidget {
               if (state is UserLoaded) {
                 return Column(
                   children: [
-                    FAvatar(
-                      image: const NetworkImage(''),
-                      size: 150,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      state.user.name,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        state.user.name,
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 4),
-                    Text(
-                      "(${state.user.username}) - ${state.user.email}",
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w300,
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        "(${state.user.username})",
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Text(
+                        state.user.email,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w300,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 16),
