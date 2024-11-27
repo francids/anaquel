@@ -3,7 +3,6 @@ import 'package:anaquel/data/models/user.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
@@ -197,26 +196,6 @@ class SignUpScreen extends StatelessWidget {
                     }
                     return const SizedBox.shrink();
                   },
-                ),
-                const SizedBox(height: 8),
-                const FDivider(),
-                SizedBox(
-                  width: double.infinity,
-                  child: const Text(
-                    "auth_screens.sign_up_screen.other_options.message",
-                    style: TextStyle(
-                      fontSize: 15,
-                    ),
-                  ).tr(),
-                ),
-                const SizedBox(height: 16),
-                FButton(
-                  prefix: SvgPicture.asset("assets/google_icon.svg"),
-                  onPress: () {},
-                  style: FButtonStyle.outline,
-                  label: const Text(
-                    "auth_screens.sign_up_screen.other_options.google",
-                  ).tr(),
                 ),
                 const SizedBox(height: 16),
               ],
