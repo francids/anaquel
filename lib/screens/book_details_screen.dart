@@ -1,6 +1,7 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/user_book.dart';
 import 'package:anaquel/logic/collections_bloc.dart';
+import 'package:anaquel/logic/summary_bloc.dart';
 import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/screens/questionnaire_screen.dart';
 import 'package:anaquel/screens/reading_screen.dart';
@@ -219,6 +220,48 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                 );
                               }
                               return const SizedBox.shrink();
+                            },
+                          );
+                        },
+                      );
+                    },
+                  ),
+                  FTile(
+                    prefixIcon: FIcon(FAssets.icons.fileText),
+                    title: const Text("Generar resumen"),
+                    onPress: () {
+                      context.read<SummaryBloc>().add(
+                            GenerateSummary(
+                              bookTitle: widget.userBook.title,
+                              bookAuthor: widget.userBook.authors.join(", "),
+                            ),
+                          );
+                      showAdaptiveDialog(
+                        context: context,
+                        builder: (context) {
+                          return BlocBuilder<SummaryBloc, SummaryState>(
+                            builder: (context, state) {
+                              return FDialog(
+                                title: const Text("Resumen"),
+                                body: state is SummaryLoaded
+                                    ? Text(
+                                        state.summary,
+                                        textAlign: TextAlign.start,
+                                        style: const TextStyle(
+                                          color: AppColors.eerieBlack,
+                                        ),
+                                      )
+                                    : state is SummaryError
+                                        ? Text(state.message)
+                                        : const CircularProgressIndicator(),
+                                actions: [
+                                  FButton(
+                                    onPress: () => context.pop(),
+                                    style: FButtonStyle.outline,
+                                    label: const Text("Cerrar"),
+                                  ),
+                                ],
+                              );
                             },
                           );
                         },
