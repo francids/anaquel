@@ -1,10 +1,11 @@
+import 'package:anaquel/screens/create_schedule_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:anaquel/widgets/schedule_card.dart';
-import 'package:go_router/go_router.dart';
 
 List<String> _times = [
   '08:00 AM',
+  '05:00 PM',
 ];
 
 class SchedulesScreen extends StatelessWidget {
@@ -17,7 +18,24 @@ class SchedulesScreen extends StatelessWidget {
       child: Column(
         children: [
           FButton(
-            onPress: () => buildCreateScheduleDialog(context),
+            onPress: () {
+              Navigator.of(context).push(
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      const CreateScheduleScreen(),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(0, 1),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    );
+                  },
+                ),
+              );
+            },
             style: FButtonStyle.primary,
             label: const Text("Crear hora de lectura"),
           ),
@@ -39,72 +57,6 @@ class SchedulesScreen extends StatelessWidget {
             child: Text("Selecciona una hora para editar o eliminar"),
           ),
           const SizedBox(height: 16),
-        ],
-      ),
-    );
-  }
-
-  Future<dynamic> buildCreateScheduleDialog(BuildContext context) {
-    TextEditingController _labelController = TextEditingController();
-    TimeOfDay selectedTime = const TimeOfDay(hour: 8, minute: 0);
-    TextEditingController _timeController = TextEditingController(
-      text: selectedTime.format(context),
-    );
-
-    Future<void> _selectTime(BuildContext context) async {
-      final TimeOfDay? picked = await showTimePicker(
-        context: context,
-        initialTime: selectedTime,
-      );
-      if (picked != null && picked != selectedTime) {
-        selectedTime = picked;
-        _timeController.text = selectedTime.format(context);
-      }
-    }
-
-    return showAdaptiveDialog(
-      context: context,
-      builder: (context) => FDialog(
-        title: const Text("Crear hora de lectura"),
-        direction: Axis.vertical,
-        body: Column(
-          children: [
-            const SizedBox(height: 16),
-            FTextField(
-              label: const Text('Etiqueta:'),
-              hint: "Opcional",
-              maxLines: 1,
-              controller: _labelController,
-            ),
-            const SizedBox(height: 16),
-            GestureDetector(
-              onTap: () => _selectTime(context),
-              child: AbsorbPointer(
-                child: FTextField(
-                  label: const Text('Hora:'),
-                  maxLines: 1,
-                  controller: _timeController,
-                ),
-              ),
-            ),
-            const SizedBox(height: 12),
-          ],
-        ),
-        actions: <FButton>[
-          FButton(
-            onPress: () {
-              print("Etiqueta creada: ${_labelController.text}");
-              print("Hora de lectura creada: ${selectedTime.format(context)}");
-              context.pop();
-            },
-            style: FButtonStyle.primary,
-            label: const Text("Crear hora de lectura"),
-          ),
-          FButton(
-            onPress: () => context.pop(),
-            style: FButtonStyle.outline,
-            label: const Text("Cancelar"),
-          ),
         ],
       ),
     );

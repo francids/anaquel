@@ -12,14 +12,14 @@ enum ScheduleDay {
   sunday,
 }
 
-class EditScheduleScreen extends StatefulWidget {
-  const EditScheduleScreen({super.key});
+class CreateScheduleScreen extends StatefulWidget {
+  const CreateScheduleScreen({super.key});
 
   @override
-  State<EditScheduleScreen> createState() => _EditScheduleScreenState();
+  State<CreateScheduleScreen> createState() => _CreateScheduleScreenState();
 }
 
-class _EditScheduleScreenState extends State<EditScheduleScreen> {
+class _CreateScheduleScreenState extends State<CreateScheduleScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _labelController = TextEditingController();
   final FMultiSelectGroupController<ScheduleDay> _daysController =
@@ -42,45 +42,10 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
   Widget build(BuildContext context) {
     return FScaffold(
       header: FHeader.nested(
-        title: const Text("Editando horario"),
+        title: const Text("Creando horario"),
         prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
-          ),
-        ],
-        suffixActions: [
-          FHeaderAction(
-            icon: FAssets.icons.delete(),
-            onPress: () {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return FDialog(
-                    title: const Text("Eliminar horario"),
-                    body: const Text(
-                      "¿Estás seguro de que deseas eliminar este horario?",
-                    ),
-                    actions: [
-                      FButton(
-                        onPress: () {
-                          context.pop();
-                          context.pop();
-                        },
-                        style: FButtonStyle.destructive,
-                        label: const Text("Eliminar"),
-                      ),
-                      FButton(
-                        onPress: () {
-                          context.pop();
-                        },
-                        style: FButtonStyle.outline,
-                        label: const Text("Cancelar"),
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
           ),
         ],
       ),
@@ -179,7 +144,7 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
                   print("Días seleccionados: ${_daysController.values}");
                 },
                 style: FButtonStyle.primary,
-                label: const Text('Guardar'),
+                label: const Text('Crear horario'),
               ),
             ],
           ),
