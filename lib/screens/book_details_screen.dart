@@ -244,7 +244,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                               return FDialog(
                                 title: const Text("Resumen"),
                                 body: state is SummaryLoaded
-                                    ? Text(
+                                    ? SelectableText(
                                         state.summary,
                                         textAlign: TextAlign.start,
                                         style: const TextStyle(
