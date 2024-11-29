@@ -15,7 +15,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
+    return Padding(
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
@@ -218,37 +218,49 @@ class ProfileScreen extends StatelessWidget {
               return const SizedBox.shrink();
             },
           ),
-          FButton(
-            onPress: () => showAdaptiveDialog(
-              context: context,
-              builder: (context) => FDialog(
-                direction: Axis.vertical,
-                body: Padding(
-                  padding: const EdgeInsets.only(bottom: 16),
-                  child: const Text(
-                    "profile_screen.logout.message",
-                    textAlign: TextAlign.start,
-                  ).tr(),
-                ),
-                actions: <FButton>[
-                  FButton(
-                    onPress: () => {
-                      context.read<AuthBloc>().add(LogoutEvent()),
-                      context.go('/login'),
-                    },
-                    style: FButtonStyle.destructive,
-                    label: const Text("profile_screen.logout.title").tr(),
-                  ),
-                  FButton(
-                    onPress: () => context.pop(),
-                    style: FButtonStyle.outline,
-                    label: const Text("profile_screen.logout.cancel").tr(),
-                  ),
-                ],
+          const Spacer(),
+          const FDivider(),
+          BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is AuthInitial) {
+                context.go('/login');
+              }
+            },
+            child: FButton(
+              onPress: () => showAdaptiveDialog(
+                context: context,
+                builder: (context) {
+                  return FDialog(
+                    direction: Axis.vertical,
+                    body: Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: const Text(
+                        "profile_screen.logout.message",
+                        textAlign: TextAlign.start,
+                      ).tr(),
+                    ),
+                    actions: <FButton>[
+                      FButton(
+                        onPress: () {
+                          context.read<AuthBloc>().add(LogoutEvent());
+                        },
+                        style: FButtonStyle.destructive,
+                        label: const Text("profile_screen.logout.title").tr(),
+                      ),
+                      FButton(
+                        onPress: () {
+                          context.pop();
+                        },
+                        style: FButtonStyle.outline,
+                        label: const Text("profile_screen.logout.cancel").tr(),
+                      ),
+                    ],
+                  );
+                },
               ),
+              style: FButtonStyle.destructive,
+              label: const Text("profile_screen.logout.title").tr(),
             ),
-            style: FButtonStyle.destructive,
-            label: const Text("profile_screen.logout.title").tr(),
           ),
         ],
       ),
