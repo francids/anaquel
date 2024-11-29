@@ -6,6 +6,7 @@ import 'package:anaquel/logic/local_books_bloc.dart';
 import 'package:anaquel/screens/edit_book_screen.dart';
 import 'package:anaquel/screens/reading_screen.dart';
 import 'package:anaquel/widgets/chip.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
@@ -43,7 +44,7 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
   Widget build(BuildContext context) {
     return FScaffold(
       header: FHeader.nested(
-        title: const Text("Libro local"),
+        title: const Text("local_books_screens.details.title").tr(),
         prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
@@ -61,7 +62,8 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
                 children: [
                   FTile(
                     prefixIcon: FIcon(FAssets.icons.pencil),
-                    title: const Text("Editar libro"),
+                    title: const Text("local_books_screens.details.menu.edit")
+                        .tr(),
                     onPress: () => Navigator.of(context)
                         .push(
                       PageRouteBuilder(
@@ -88,17 +90,18 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
                   ),
                   FTile(
                     prefixIcon: FIcon(FAssets.icons.trash),
-                    title: const Text("Eliminar libro"),
+                    title: const Text("local_books_screens.details.menu.remove")
+                        .tr(),
                     onPress: () => showAdaptiveDialog(
                       context: context,
                       builder: (context) => FDialog(
                         direction: Axis.vertical,
-                        body: const Padding(
-                          padding: EdgeInsets.only(bottom: 16),
-                          child: Text(
-                            "¿Estás seguro de que deseas eliminar este libro?",
+                        body: Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: const Text(
+                            "local_books_screens.details.menu.remove_body",
                             textAlign: TextAlign.start,
-                          ),
+                          ).tr(),
                         ),
                         actions: <FButton>[
                           FButton(
@@ -118,12 +121,16 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
                               context.pop();
                             },
                             style: FButtonStyle.destructive,
-                            label: const Text("Eliminar"),
+                            label: const Text(
+                                    "local_books_screens.details.menu.remove")
+                                .tr(),
                           ),
                           FButton(
                             onPress: () => context.pop(),
                             style: FButtonStyle.outline,
-                            label: const Text("Cancelar"),
+                            label: const Text(
+                                    "local_books_screens.details.menu.cancel")
+                                .tr(),
                           ),
                         ],
                       ),
@@ -183,10 +190,10 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
               child: FBadge(
                 label: Text(
                   status == 0
-                      ? "Por leer"
+                      ? "local_books_screens.details.status.not_read".tr()
                       : status == 1
-                          ? "Leyendo"
-                          : "Leído",
+                          ? "local_books_screens.details.status.reading".tr()
+                          : "local_books_screens.details.status.read".tr(),
                   style: const TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.w400,
@@ -215,18 +222,19 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
                 ),
               ),
               style: FButtonStyle.primary,
-              label: const Text("Reanudar lectura"),
+              label:
+                  const Text("local_books_screens.details.resume_reading").tr(),
             ),
             const FDivider(),
-            const SizedBox(
+            SizedBox(
               width: double.infinity,
-              child: Text(
-                "Descripción",
+              child: const Text(
+                "local_books_screens.details.description",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ),
-              ),
+              ).tr(),
             ),
             const SizedBox(height: 8),
             SizedBox(
@@ -241,15 +249,15 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
               ),
             ),
             const FDivider(),
-            const SizedBox(
+            SizedBox(
               width: double.infinity,
-              child: Text(
-                "Géneros",
+              child: const Text(
+                "local_books_screens.details.genres",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ),
-              ),
+              ).tr(),
             ),
             const SizedBox(height: 8),
             SizedBox(
@@ -278,7 +286,8 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
       context: context,
       builder: (context) => FDialog(
         direction: Axis.vertical,
-        title: const Text("Actualizar estado"),
+        title:
+            const Text("local_books_screens.details.status.update_status").tr(),
         body: Padding(
           padding: const EdgeInsets.symmetric(
             vertical: 16,
@@ -288,15 +297,18 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
             controller: controller,
             children: [
               FSelectTile(
-                title: const Text("Por leer"),
+                title: const Text("local_books_screens.details.status.not_read")
+                    .tr(),
                 value: 0,
               ),
               FSelectTile(
-                title: const Text("Leyendo"),
+                title: const Text("local_books_screens.details.status.reading")
+                    .tr(),
                 value: 1,
               ),
               FSelectTile(
-                title: const Text("Leído"),
+                title:
+                    const Text("local_books_screens.details.status.read").tr(),
                 value: 2,
               ),
             ],
@@ -315,7 +327,12 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
               context.pop(controller.values.first);
             },
             style: FButtonStyle.primary,
-            label: const Text("Guardar"),
+            label: const Text("local_books_screens.details.status.save").tr(),
+          ),
+          FButton(
+            onPress: () => context.pop(),
+            style: FButtonStyle.outline,
+            label: const Text("local_books_screens.details.status.cancel").tr(),
           ),
         ],
       ),

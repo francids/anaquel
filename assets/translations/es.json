@@ -138,6 +138,26 @@
     }
   },
   "local_books_screens": {
+    "details": {
+      "title": "Detalles del libro local",
+      "menu": {
+        "edit": "Editar libro",
+        "remove": "Eliminar libro",
+        "remove_body": "¿Estás seguro de que deseas eliminar este libro?",
+        "cancel": "Cancelar"
+      },
+      "status": {
+        "update_status": "Actualizar estado",
+        "not_read": "No leído",
+        "reading": "Leyendo",
+        "read": "Leído",
+        "save": "Guardar",
+        "cancel": "Cancelar"
+      },
+      "resume_reading": "Reanudar lectura",
+      "description": "Descripción",
+      "genres": "Géneros"
+    },
     "create": {
       "title": "Creando libro",
       "fields": {

@@ -138,6 +138,26 @@
     }
   },
   "local_books_screens": {
+    "details": {
+      "title": "Local book details",
+      "menu": {
+        "edit": "Edit book",
+        "remove": "Remove book",
+        "remove_body": "Are you sure you want to remove this book?",
+        "cancel": "Cancel"
+      },
+      "status": {
+        "update_status": "Update status",
+        "not_read": "Not read",
+        "reading": "Reading",
+        "read": "Read",
+        "save": "Save",
+        "cancel": "Cancel"
+      },
+      "resume_reading": "Resume reading",
+      "description": "Description",
+      "genres": "Genres"
+    },
     "create": {
       "title": "Create book",
       "fields": {
