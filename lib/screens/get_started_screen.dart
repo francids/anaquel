@@ -1,9 +1,11 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:forui/forui.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class GetStartedScreen extends StatelessWidget {
   const GetStartedScreen({super.key});
@@ -33,7 +35,29 @@ class GetStartedScreen extends StatelessWidget {
       key: GlobalKey<IntroductionScreenState>(),
       allowImplicitScrolling: true,
       globalBackgroundColor: AppColors.burgundy,
-      globalHeader: const SizedBox(height: 16),
+      globalHeader: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 32),
+            child: FButton.icon(
+              style: FButtonStyle.secondary,
+              child: FIcon(
+                FAssets.icons.languages,
+                color: AppColors.burgundy,
+              ),
+              onPress: () {
+                context.setLocale(
+                  context.locale == const Locale('en')
+                      ? const Locale('es')
+                      : const Locale('en'),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
       globalFooter: const SizedBox(height: 16),
       dotsDecorator: const DotsDecorator(
         color: AppColors.puce,
@@ -49,9 +73,8 @@ class GetStartedScreen extends StatelessWidget {
       resizeToAvoidBottomInset: true,
       pages: [
         PageViewModel(
-          title: "Bienvenido a Anaquel",
-          body:
-              "Una aplicación que te permite gestionar su lectura de manera fácil y concisa.",
+          title: "get_started.0.title".tr(),
+          body: "get_started.0.body".tr(),
           image: Image.asset("assets/get_started/logo.png"),
           decoration: const PageDecoration(
             imageAlignment: Alignment.bottomCenter,
@@ -72,9 +95,8 @@ class GetStartedScreen extends StatelessWidget {
           ),
         ),
         PageViewModel(
-          title: "Un asistente para ti",
-          body:
-              "Anaquel te permite gestionar tus libros, agruparlos en colecciones, planificar tus horarios de lectura y generar cuestionarios.",
+          title: "get_started.1.title".tr(),
+          body: "get_started.1.body".tr(),
           image: Image.asset("assets/get_started/illustration.png"),
           decoration: const PageDecoration(
             imageAlignment: Alignment.bottomCenter,
@@ -101,9 +123,9 @@ class GetStartedScreen extends StatelessWidget {
       showDoneButton: true,
       onDone: () => goToLogin(context),
       onSkip: () => goToLogin(context),
-      next: const Text("Siguiente"),
-      skip: const Text("Saltar"),
-      done: const Text("Iniciar"),
+      next: const Text("get_started.next").tr(),
+      skip: const Text("get_started.skip").tr(),
+      done: const Text("get_started.done").tr(),
       baseBtnStyle: TextButton.styleFrom(
         backgroundColor: Colors.transparent,
         foregroundColor: AppColors.antiFlashWhite,

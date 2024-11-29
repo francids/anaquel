@@ -1,4 +1,17 @@
 {
+  "get_started": {
+    "skip": "Skip",
+    "next": "Next",
+    "done": "Start",
+    "0": {
+      "title": "Welcome to Anaquel!",
+      "body": "An application that allows you to manage your reading in an easy and concise way."
+    },
+    "1": {
+      "title": "An assistant for you",
+      "body": "Anaquel allows you to manage your books, group them into collections, plan your reading schedules, and generate quizzes."
+    }
+  },
   "auth_screens": {
     "log_in_screen": {
       "login": "Login",

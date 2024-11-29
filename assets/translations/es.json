@@ -1,4 +1,17 @@
 {
+  "get_started": {
+    "skip": "Omitir",
+    "next": "Siguiente",
+    "done": "Iniciar",
+    "0": {
+      "title": "¡Bienvenido a Anaquel!",
+      "body": "Una aplicación que te permite gestionar su lectura de manera fácil y concisa."
+    },
+    "1": {
+      "title": "Un asistente para ti",
+      "body": "Anaquel te permite gestionar tus libros, agruparlos en colecciones, planificar tus horarios de lectura y generar cuestionarios."
+    }
+  },
   "auth_screens": {
     "log_in_screen": {
       "login": "Iniciar sesión",
