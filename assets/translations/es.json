@@ -152,6 +152,21 @@
         "genres_description": "Separados por comas"
       },
       "create": "Crear libro"
+    },
+    "edit": {
+      "title": "Editando libro",
+      "fields": {
+        "title": "Título",
+        "title_required": "El título es requerido",
+        "author": "Autor",
+        "author_required": "El autor es requerido",
+        "description": "Descripción",
+        "description_required": "La descripción es requerida",
+        "genres": "Géneros",
+        "genres_required": "Los géneros son requeridos",
+        "genres_description": "Separados por comas"
+      },
+      "save": "Guardar"
     }
   }
 }

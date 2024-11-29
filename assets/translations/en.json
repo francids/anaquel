@@ -152,6 +152,21 @@
         "genres_description": "Separate genres with commas"
       },
       "create": "Create book"
+    },
+    "edit": {
+      "title": "Edit book",
+      "fields": {
+        "title": "Title",
+        "title_required": "The title is required",
+        "author": "Author",
+        "author_required": "The author is required",
+        "description": "Description",
+        "description_required": "The description is required",
+        "genres": "Genres",
+        "genres_required": "Genres are required",
+        "genres_description": "Separate genres with commas"
+      },
+      "save": "Save"
     }
   }
 }

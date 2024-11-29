@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:anaquel/data/models/local_book.dart';
 import 'package:anaquel/logic/local_books_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
@@ -71,7 +72,7 @@ class _EditBookScreenState extends State<EditBookScreen> {
   Widget build(BuildContext context) {
     return FScaffold(
       header: FHeader.nested(
-        title: const Text("Editando libro"),
+        title: const Text("local_books_screens.edit.title").tr(),
         prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
@@ -124,12 +125,13 @@ class _EditBookScreenState extends State<EditBookScreen> {
               const SizedBox(height: 16),
               FTextField(
                 controller: _titleController,
-                label: const Text('Título'),
-                hint: "Título",
+                label: const Text("local_books_screens.edit.fields.title").tr(),
+                hint: "local_books_screens.edit.fields.title".tr(),
                 maxLines: 1,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "El título es requerido";
+                    return "local_books_screens.edit.fields.title_required"
+                        .tr();
                   }
                   return null;
                 },
@@ -137,12 +139,14 @@ class _EditBookScreenState extends State<EditBookScreen> {
               const SizedBox(height: 16),
               FTextField(
                 controller: _authorController,
-                label: const Text('Autor'),
-                hint: "Autor",
+                label:
+                    const Text("local_books_screens.edit.fields.author").tr(),
+                hint: "local_books_screens.edit.fields.author".tr(),
                 maxLines: 1,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "El autor es requerido";
+                    return "local_books_screens.edit.fields.author_required"
+                        .tr();
                   }
                   return null;
                 },
@@ -150,13 +154,15 @@ class _EditBookScreenState extends State<EditBookScreen> {
               const SizedBox(height: 16),
               FTextField(
                 controller: _descriptionController,
-                label: const Text('Descripción'),
-                hint: "Descripción",
+                label: const Text("local_books_screens.edit.fields.description")
+                    .tr(),
+                hint: "local_books_screens.edit.fields.description".tr(),
                 minLines: 3,
                 maxLines: 6,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "La descripción es requerida";
+                    return "local_books_screens.edit.fields.description_required"
+                        .tr();
                   }
                   return null;
                 },
@@ -164,13 +170,17 @@ class _EditBookScreenState extends State<EditBookScreen> {
               const SizedBox(height: 16),
               FTextField(
                 controller: _genresController,
-                label: const Text('Géneros'),
-                hint: "Géneros",
+                label:
+                    const Text("local_books_screens.edit.fields.genres").tr(),
+                hint: "local_books_screens.edit.fields.genres".tr(),
                 maxLines: 1,
-                description: const Text("Separados por coma"),
+                description: const Text(
+                        "local_books_screens.edit.fields.genres_description")
+                    .tr(),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return "Los géneros son requeridos";
+                    return "local_books_screens.edit.fields.genres_required"
+                        .tr();
                   }
                   return null;
                 },
@@ -203,7 +213,7 @@ class _EditBookScreenState extends State<EditBookScreen> {
                   context.pop();
                 },
                 style: FButtonStyle.primary,
-                label: const Text("Editar libro"),
+                label: const Text("local_books_screens.edit.save").tr(),
               ),
               const SizedBox(height: 16),
             ],
