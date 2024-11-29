@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class BookDetailsScreen extends StatefulWidget {
   const BookDetailsScreen({super.key, required this.userBook});
@@ -41,11 +42,11 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
   String convertStatus(UserBookStatus status) {
     switch (status) {
       case UserBookStatus.reading:
-        return "Leyendo";
+        return "book_details_screen.status.reading".tr();
       case UserBookStatus.read:
-        return "Leído";
+        return "book_details_screen.status.read".tr();
       case UserBookStatus.notRead:
-        return "No leído";
+        return "book_details_screen.status.not_read".tr();
     }
   }
 
@@ -53,7 +54,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
   Widget build(BuildContext context) {
     return FScaffold(
       header: FHeader.nested(
-        title: const Text("Detalles del libro"),
+        title: const Text("book_details_screen.title").tr(),
         prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
@@ -71,18 +72,19 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                 children: [
                   FTile(
                     prefixIcon: FIcon(FAssets.icons.trash),
-                    title: const Text("Borrar libro"),
+                    title:
+                        const Text("book_details_screen.menu.remove_book").tr(),
                     onPress: () {
                       showAdaptiveDialog(
                         context: context,
                         builder: (context) => FDialog(
                           direction: Axis.vertical,
-                          body: const Padding(
-                            padding: EdgeInsets.only(bottom: 16),
-                            child: Text(
-                              "¿Estás seguro de que deseas eliminar este libro? Esto eliminará el libro de tus colecciones y no podrás recuperarlo.",
+                          body: Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: const Text(
+                              "book_details_screen.menu.remove_book_description",
                               textAlign: TextAlign.start,
-                            ),
+                            ).tr(),
                           ),
                           actions: <FButton>[
                             FButton(
@@ -99,12 +101,16 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                 context.pop();
                               },
                               style: FButtonStyle.destructive,
-                              label: const Text("Eliminar"),
+                              label: const Text(
+                                      "book_details_screen.menu.remove_book")
+                                  .tr(),
                             ),
                             FButton(
                               onPress: () => context.pop(),
                               style: FButtonStyle.outline,
-                              label: const Text("Cancelar"),
+                              label:
+                                  const Text("book_details_screen.menu.cancel")
+                                      .tr(),
                             ),
                           ],
                         ),
@@ -113,7 +119,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                   ),
                   FTile(
                     prefixIcon: FIcon(FAssets.icons.library),
-                    title: const Text("Colecciones"),
+                    title:
+                        const Text("book_details_screen.menu.collections").tr(),
                     onPress: () {
                       showAdaptiveDialog(
                         context: context,
@@ -123,13 +130,19 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                               if (state is CollectionsLoaded) {
                                 if (state.collections.isEmpty) {
                                   return FDialog(
-                                    title: const Text("Colecciones"),
-                                    body: const Text("No tienes colecciones"),
+                                    title: const Text(
+                                            "book_details_screen.menu.collections")
+                                        .tr(),
+                                    body: const Text(
+                                            "book_details_screen.menu.no_collections")
+                                        .tr(),
                                     actions: [
                                       FButton(
                                         onPress: () => context.pop(),
                                         style: FButtonStyle.outline,
-                                        label: const Text("Cancelar"),
+                                        label: const Text(
+                                                "book_details_screen.menu.cancel")
+                                            .tr(),
                                       ),
                                     ],
                                   );
@@ -149,7 +162,9 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                   },
                                 );
                                 return FDialog(
-                                  title: const Text("Colecciones"),
+                                  title: const Text(
+                                          "book_details_screen.menu.collections")
+                                      .tr(),
                                   body: FSelectTileGroup<int>(
                                     controller: controller,
                                     children:
@@ -209,12 +224,16 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                         context.pop();
                                       },
                                       style: FButtonStyle.primary,
-                                      label: const Text("Guardar"),
+                                      label: const Text(
+                                              "book_details_screen.menu.save")
+                                          .tr(),
                                     ),
                                     FButton(
                                       onPress: () => context.pop(),
                                       style: FButtonStyle.outline,
-                                      label: const Text("Cancelar"),
+                                      label: const Text(
+                                              "book_details_screen.menu.cancel")
+                                          .tr(),
                                     ),
                                   ],
                                 );
@@ -228,7 +247,9 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                   ),
                   FTile(
                     prefixIcon: FIcon(FAssets.icons.fileText),
-                    title: const Text("Generar resumen"),
+                    title:
+                        const Text("book_details_screen.menu.generate_summary")
+                            .tr(),
                     onPress: () {
                       context.read<SummaryBloc>().add(
                             GenerateSummary(
@@ -242,7 +263,9 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                           return BlocBuilder<SummaryBloc, SummaryState>(
                             builder: (context, state) {
                               return FDialog(
-                                title: const Text("Resumen"),
+                                title: const Text(
+                                        "book_details_screen.menu.summary")
+                                    .tr(),
                                 body: state is SummaryLoaded
                                     ? SelectableText(
                                         state.summary,
@@ -258,7 +281,9 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                   FButton(
                                     onPress: () => context.pop(),
                                     style: FButtonStyle.outline,
-                                    label: const Text("Cerrar"),
+                                    label: const Text(
+                                            "book_details_screen.menu.close")
+                                        .tr(),
                                   ),
                                 ],
                               );
@@ -344,7 +369,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                 ),
               ),
               style: FButtonStyle.primary,
-              label: const Text("Reanudar lectura"),
+              label: const Text("book_details_screen.resume_reading").tr(),
             ),
             const SizedBox(height: 8),
             FButton(
@@ -369,7 +394,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                 ),
               ),
               style: FButtonStyle.outline,
-              label: const Text("Cuestionario"),
+              label: const Text("book_details_screen.questionnaire").tr(),
             ),
             const SizedBox(height: 8),
             FButton(
@@ -390,18 +415,18 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                 ),
               ),
               style: FButtonStyle.outline,
-              label: const Text("Recomendaciones"),
+              label: const Text("book_details_screen.recommendations").tr(),
             ),
             const FDivider(),
-            const SizedBox(
+            SizedBox(
               width: double.infinity,
-              child: Text(
-                "Descripción",
+              child: const Text(
+                "book_details_screen.description",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ),
-              ),
+              ).tr(),
             ),
             const SizedBox(height: 8),
             Text(
@@ -413,15 +438,15 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
               ),
             ),
             const FDivider(),
-            const SizedBox(
+            SizedBox(
               width: double.infinity,
-              child: Text(
-                "Géneros",
+              child: const Text(
+                "book_details_screen.genres",
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.w600,
                 ),
-              ),
+              ).tr(),
             ),
             const SizedBox(height: 8),
             SizedBox(

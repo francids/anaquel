@@ -85,6 +85,30 @@
     "error_loading_local_books": "An error occurred while loading the local books",
     "no_local_books": "No local books found"
   },
+  "book_details_screen": {
+    "title": "Book details",
+    "status": {
+      "not_read": "Not read",
+      "reading": "Reading",
+      "read": "Read"
+    },
+    "resume_reading": "Resume reading",
+    "questionnaire": "Questionnaire",
+    "recommendations": "Recommendations",
+    "description": "Description",
+    "genres": "Genres",
+    "menu": {
+      "save": "Save",
+      "close": "Close",
+      "cancel": "Cancel",
+      "remove_book": "Remove book",
+      "remove_book_description": "Are you sure you want to remove this book?",
+      "collections": "Collections",
+      "no_collections": "No collections found",
+      "summary": "Summary",
+      "generate_summary": "Generate summary"
+    }
+  },
   "profile_screen": {
     "error": "An error occurred while loading the profile data",
     "edit_profile": "Edit profile",

@@ -85,6 +85,30 @@
     "error_loading_local_books": "Se produjo un error al cargar los libros locales",
     "no_local_books": "No se encontraron libros locales"
   },
+  "book_details_screen": {
+    "title": "Detalles del libro",
+    "status": {
+      "not_read": "No leído",
+      "reading": "Leyendo",
+      "read": "Leído"
+    },
+    "resume_reading": "Continuar leyendo",
+    "questionnaire": "Cuestionario",
+    "recommendations": "Recomendaciones",
+    "description": "Descripción",
+    "genres": "Géneros",
+    "menu": {
+      "save": "Guardar",
+      "close": "Cerrar",
+      "cancel": "Cancelar",
+      "remove_book": "Eliminar libro",
+      "remove_book_description": "¿Estás seguro de que deseas eliminar este libro?",
+      "collections": "Colecciones",
+      "no_collections": "No se encontraron colecciones",
+      "summary": "Resumen",
+      "generate_summary": "Generar resumen"
+    }
+  },
   "profile_screen": {
     "error": "Se produjo un error al cargar los datos del perfil",
     "edit_profile": "Editar perfil",
