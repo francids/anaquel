@@ -2,6 +2,7 @@ import 'package:anaquel/data/models/collection.dart';
 import 'package:anaquel/logic/collections_bloc.dart';
 import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/widgets/books/large_book_card.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -89,18 +90,20 @@ class _CollectionScreenState extends State<CollectionScreen>
                 children: [
                   FTile(
                     prefixIcon: FIcon(FAssets.icons.trash),
-                    title: const Text("Eliminar colección"),
+                    title: const Text(
+                            "collection_screen.menu.delete_collection.title")
+                        .tr(),
                     onPress: () {
                       showAdaptiveDialog(
                         context: context,
                         builder: (context) => FDialog(
                           direction: Axis.vertical,
-                          body: const Padding(
-                            padding: EdgeInsets.only(bottom: 16),
-                            child: Text(
-                              "¿Estás seguro de que deseas eliminar esta colección?",
+                          body: Padding(
+                            padding: const EdgeInsets.only(bottom: 16),
+                            child: const Text(
+                              "collection_screen.menu.delete_collection.message",
                               textAlign: TextAlign.start,
-                            ),
+                            ).tr(),
                           ),
                           actions: <FButton>[
                             FButton(
@@ -114,12 +117,16 @@ class _CollectionScreenState extends State<CollectionScreen>
                                 context.pop(),
                               },
                               style: FButtonStyle.destructive,
-                              label: const Text("Eliminar"),
+                              label: const Text(
+                                      "collection_screen.menu.delete_collection.delete")
+                                  .tr(),
                             ),
                             FButton(
                               onPress: () => context.pop(),
                               style: FButtonStyle.outline,
-                              label: const Text("Cancelar"),
+                              label: const Text(
+                                      "collection_screen.menu.delete_collection.cancel")
+                                  .tr(),
                             ),
                           ],
                         ),
@@ -170,8 +177,8 @@ class _CollectionScreenState extends State<CollectionScreen>
                 );
               });
               if (collection.books.isEmpty) {
-                return const Center(
-                  child: Text("No hay libros en esta colección"),
+                return Center(
+                  child: const Text("collection_screen.no_books").tr(),
                 );
               }
               return BlocBuilder<UserBooksBloc, UserBooksState>(

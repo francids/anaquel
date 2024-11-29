@@ -109,6 +109,17 @@
       "generate_summary": "Generar resumen"
     }
   },
+  "collection_screen": {
+    "menu": {
+      "delete_collection": {
+        "title": "Eliminar colección",
+        "message": "¿Estás seguro de que deseas eliminar esta colección?",
+        "delete": "Eliminar",
+        "cancel": "Cancelar"
+      }
+    },
+    "no_books": "No se encontraron libros en esta colección"
+  },
   "profile_screen": {
     "error": "Se produjo un error al cargar los datos del perfil",
     "edit_profile": "Editar perfil",

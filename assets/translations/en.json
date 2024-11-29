@@ -109,6 +109,17 @@
       "generate_summary": "Generate summary"
     }
   },
+  "collection_screen": {
+    "menu": {
+      "delete_collection": {
+        "title": "Delete collection",
+        "message": "Are you sure you want to delete this collection?",
+        "delete": "Delete",
+        "cancel": "Cancel"
+      }
+    },
+    "no_books": "No books found in this collection"
+  },
   "profile_screen": {
     "error": "An error occurred while loading the profile data",
     "edit_profile": "Edit profile",
