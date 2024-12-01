@@ -1,6 +1,7 @@
 import 'package:anaquel/logic/books_bloc.dart';
 import 'package:anaquel/screens/create_book_screen.dart';
 import 'package:anaquel/widgets/books/register_small_book_card.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
@@ -15,7 +16,7 @@ class RegisterBookScreen extends StatelessWidget {
       listener: (context, state) {},
       child: FScaffold(
         header: FHeader.nested(
-          title: const Text("Registrando libro"),
+          title: const Text("register_book_screen.title").tr(),
           prefixActions: [
             FHeaderAction.back(
               onPress: () => context.pop(),
@@ -45,11 +46,11 @@ class RegisterBookScreen extends StatelessWidget {
                   ),
                 ),
                 style: FButtonStyle.outline,
-                label: const Text("Crear libro"),
+                label: const Text("register_book_screen.create").tr(),
               ),
               const FDivider(),
               FTextField(
-                hint: "Buscar libro",
+                hint: "register_book_screen.search".tr(),
                 maxLines: 1,
                 suffix: Container(
                   padding: const EdgeInsets.all(12),
@@ -68,7 +69,8 @@ class RegisterBookScreen extends StatelessWidget {
                   if (state is BooksError) {
                     return FAlert(
                       icon: FAssets.icons.badgeAlert(),
-                      title: const Text("Error al buscar libros"),
+                      title:
+                          const Text("register_book_screen.search_error").tr(),
                       subtitle: Text(state.message),
                       style: FAlertStyle.destructive,
                     );

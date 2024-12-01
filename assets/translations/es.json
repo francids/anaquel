@@ -109,6 +109,12 @@
       "generate_summary": "Generar resumen"
     }
   },
+  "register_book_screen": {
+    "title": "Registrando libro",
+    "create": "Crear libro",
+    "search": "Buscar libro",
+    "search_error": "Se produjo un error al buscar el libro"
+  },
   "collection_screen": {
     "menu": {
       "delete_collection": {
