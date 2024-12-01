@@ -7,10 +7,12 @@ abstract class QuestionsEvent {}
 class GenerateQuestions extends QuestionsEvent {
   final String bookTitle;
   final String bookAuthor;
+  final String language;
 
   GenerateQuestions({
     required this.bookTitle,
     required this.bookAuthor,
+    required this.language,
   });
 }
 
@@ -42,6 +44,7 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
         final questions = await questionsService.generateQuestions(
           event.bookTitle,
           event.bookAuthor,
+          event.language,
         );
         emit(QuestionsLoaded(questions));
       } catch (e) {

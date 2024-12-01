@@ -1,4 +1,5 @@
 import 'package:anaquel/logic/questions_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
@@ -64,6 +65,9 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
                             GenerateQuestions(
                               bookTitle: widget.bookTitle,
                               bookAuthor: widget.bookAuthor,
+                              language: context.locale.languageCode == "en"
+                                  ? "english"
+                                  : "español",
                             ),
                           );
                     },

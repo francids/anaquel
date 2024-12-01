@@ -23,12 +23,16 @@ class QuestionsService {
   }
 
   Future<List<Question>> generateQuestions(
-      String bookTitle, String bookAuthor) async {
+    String bookTitle,
+    String bookAuthor,
+    String language,
+  ) async {
     final response = await _dio.get(
       "${Config.baseIntelligenceUrl}/questions",
       queryParameters: {
         "bookTitle": bookTitle,
         "bookAuthor": bookAuthor,
+        "language": language,
       },
     );
 
