@@ -7,30 +7,48 @@ import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class GetStartedScreen extends StatelessWidget {
+class GetStartedScreen extends StatefulWidget {
   const GetStartedScreen({super.key});
 
+  @override
+  State<GetStartedScreen> createState() => _GetStartedScreenState();
+}
+
+class _GetStartedScreenState extends State<GetStartedScreen> {
   Future<void> saveHasSeenGetStarted() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool("has_seen_get_started", true);
   }
 
-  void goToLogin(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarIconBrightness: Brightness.dark,
-      ),
-    );
-    saveHasSeenGetStarted().then((_) => context.push("/login"));
+  void goToLogin() async {
+    await saveHasSeenGetStarted();
+    if (mounted) {
+      context.go("/login");
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     SystemChrome.setSystemUIOverlayStyle(
       const SystemUiOverlayStyle(
         statusBarIconBrightness: Brightness.light,
       ),
     );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(
+        statusBarIconBrightness: Brightness.dark,
+      ),
+    );
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return IntroductionScreen(
       key: GlobalKey<IntroductionScreenState>(),
       allowImplicitScrolling: true,
@@ -121,8 +139,8 @@ class GetStartedScreen extends StatelessWidget {
       showNextButton: true,
       showSkipButton: true,
       showDoneButton: true,
-      onDone: () => goToLogin(context),
-      onSkip: () => goToLogin(context),
+      onDone: goToLogin,
+      onSkip: goToLogin,
       next: const Text("get_started.next").tr(),
       skip: const Text("get_started.skip").tr(),
       done: const Text("get_started.done").tr(),
