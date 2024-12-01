@@ -25,12 +25,17 @@ class SummaryService {
     );
   }
 
-  Future<String> generateSummary(String bookTitle, String bookAuthor) async {
+  Future<String> generateSummary(
+    String bookTitle,
+    String bookAuthor,
+    String language,
+  ) async {
     final response = await _dio.get(
       "/summary",
       queryParameters: {
         "bookTitle": bookTitle,
         "bookAuthor": bookAuthor,
+        "language": language,
       },
     );
 

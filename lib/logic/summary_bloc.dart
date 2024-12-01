@@ -6,10 +6,12 @@ abstract class SummaryEvent {}
 class GenerateSummary extends SummaryEvent {
   final String bookTitle;
   final String bookAuthor;
+  final String language;
 
   GenerateSummary({
     required this.bookTitle,
     required this.bookAuthor,
+    required this.language,
   });
 }
 
@@ -41,6 +43,7 @@ class SummaryBloc extends Bloc<SummaryEvent, SummaryState> {
         final summary = await summaryService.generateSummary(
           event.bookTitle,
           event.bookAuthor,
+          event.language,
         );
         emit(SummaryLoaded(summary));
       } catch (e) {

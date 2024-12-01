@@ -255,6 +255,9 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                             GenerateSummary(
                               bookTitle: widget.userBook.title,
                               bookAuthor: widget.userBook.authors.join(", "),
+                              language: context.locale.languageCode == "en"
+                                  ? "english"
+                                  : "español",
                             ),
                           );
                       showAdaptiveDialog(
