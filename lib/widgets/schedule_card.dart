@@ -1,20 +1,39 @@
 import 'package:anaquel/constants/colors.dart';
+import 'package:anaquel/data/models/schedule.dart';
 import 'package:anaquel/screens/edit_schedule_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_touch_ripple/flutter_touch_ripple.dart';
 import 'package:forui/forui.dart';
 
-class ScheduleCard extends StatefulWidget {
-  const ScheduleCard({super.key, required this.time});
+class ScheduleCard extends StatelessWidget {
+  const ScheduleCard({super.key, required this.schedule});
 
-  final String time;
+  final Schedule schedule;
 
-  @override
-  State<ScheduleCard> createState() => _ScheduleCardState();
-}
-
-class _ScheduleCardState extends State<ScheduleCard> {
-  List<bool> isSelected = [true, true, true, false, false, false, false];
+  String formatDays(List<String> days) {
+    if (days.length == 7) {
+      return "Everyday";
+    }
+    if (days.contains("Monday") &&
+        days.contains("Tuesday") &&
+        days.contains("Wednesday") &&
+        days.contains("Thursday") &&
+        days.contains("Friday") &&
+        !days.contains("Saturday") &&
+        !days.contains("Sunday")) {
+      return "Weekdays";
+    }
+    if (days.contains("Saturday") &&
+        days.contains("Sunday") &&
+        !days.contains("Monday") &&
+        !days.contains("Tuesday") &&
+        !days.contains("Wednesday") &&
+        !days.contains("Thursday") &&
+        !days.contains("Friday")) {
+      return "Weekends";
+    }
+    return days.map((day) => day.substring(0, 3)).join(', ');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,7 +74,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  "Normal",
+                  schedule.label,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
@@ -69,7 +88,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  widget.time,
+                  schedule.time,
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
@@ -85,20 +104,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  [
-                    "Lunes",
-                    "Martes",
-                    "Miércoles",
-                    "Jueves",
-                    "Viernes",
-                    "Sábado",
-                    "Domingo"
-                  ]
-                      .asMap()
-                      .entries
-                      .map((entry) => isSelected[entry.key] ? entry.value : '')
-                      .where((day) => day.isNotEmpty)
-                      .join(', '),
+                  formatDays(schedule.days),
                   style: const TextStyle(
                     color: AppColors.eerieBlack,
                     fontWeight: FontWeight.normal,

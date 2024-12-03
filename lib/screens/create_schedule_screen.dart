@@ -1,16 +1,10 @@
+import 'package:anaquel/data/models/schedule.dart';
+import 'package:anaquel/logic/schedules_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
-
-enum ScheduleDay {
-  monday,
-  tuesday,
-  wednesday,
-  thursday,
-  friday,
-  saturday,
-  sunday,
-}
 
 class CreateScheduleScreen extends StatefulWidget {
   const CreateScheduleScreen({super.key});
@@ -22,7 +16,7 @@ class CreateScheduleScreen extends StatefulWidget {
 class _CreateScheduleScreenState extends State<CreateScheduleScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _labelController = TextEditingController();
-  final FMultiSelectGroupController<ScheduleDay> _daysController =
+  final FMultiSelectGroupController<String> _daysController =
       FMultiSelectGroupController();
   TimeOfDay selectedTime = const TimeOfDay(hour: 8, minute: 0);
 
@@ -105,31 +99,31 @@ class _CreateScheduleScreenState extends State<CreateScheduleScreen> {
                 children: [
                   FSelectTile(
                     title: const Text("Lunes"),
-                    value: ScheduleDay.monday,
+                    value: "monday",
                   ),
                   FSelectTile(
                     title: const Text("Martes"),
-                    value: ScheduleDay.tuesday,
+                    value: "tuesday",
                   ),
                   FSelectTile(
                     title: const Text("Miércoles"),
-                    value: ScheduleDay.wednesday,
+                    value: "wednesday",
                   ),
                   FSelectTile(
                     title: const Text("Jueves"),
-                    value: ScheduleDay.thursday,
+                    value: "thursday",
                   ),
                   FSelectTile(
                     title: const Text("Viernes"),
-                    value: ScheduleDay.friday,
+                    value: "friday",
                   ),
                   FSelectTile(
                     title: const Text("Sábado"),
-                    value: ScheduleDay.saturday,
+                    value: "saturday",
                   ),
                   FSelectTile(
                     title: const Text("Domingo"),
-                    value: ScheduleDay.sunday,
+                    value: "sunday",
                   ),
                 ],
               ),
@@ -139,9 +133,23 @@ class _CreateScheduleScreenState extends State<CreateScheduleScreen> {
                   if (!_formKey.currentState!.validate()) {
                     return;
                   }
-                  print("Título: ${_labelController.text}");
-                  print("Hora: ${selectedTime.format(context)}");
-                  print("Días seleccionados: ${_daysController.values}");
+                  String scheduleTime = DateFormat("HH:MM:SS").format(
+                    DateTime(
+                      0,
+                      1,
+                      1,
+                      selectedTime.hour,
+                      selectedTime.minute,
+                    ),
+                  );
+                  Schedule schedule = Schedule(
+                    id: 0,
+                    label: _labelController.text,
+                    time: scheduleTime,
+                    days: _daysController.values.toList(),
+                  );
+                  context.read<SchedulesBloc>().add(AddSchedule(schedule));
+                  context.pop();
                 },
                 style: FButtonStyle.primary,
                 label: const Text('Crear horario'),
