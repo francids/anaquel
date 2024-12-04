@@ -12,6 +12,18 @@ class AddSchedule extends SchedulesEvent {
   AddSchedule(this.schedule);
 }
 
+class UpdateSchedule extends SchedulesEvent {
+  final Schedule schedule;
+
+  UpdateSchedule(this.schedule);
+}
+
+class DeleteSchedule extends SchedulesEvent {
+  final int schedule;
+
+  DeleteSchedule(this.schedule);
+}
+
 abstract class SchedulesState {}
 
 class SchedulesInitial extends SchedulesState {}
@@ -48,6 +60,28 @@ class SchedulesBloc extends Bloc<SchedulesEvent, SchedulesState> {
       emit(SchedulesLoading());
       try {
         await schedulesService.addSchedule(event.schedule);
+        final schedules = await schedulesService.getSchedules();
+        emit(SchedulesLoaded(schedules));
+      } catch (e) {
+        emit(SchedulesError(e.toString()));
+      }
+    });
+
+    on<UpdateSchedule>((event, emit) async {
+      emit(SchedulesLoading());
+      try {
+        await schedulesService.updateSchedule(event.schedule);
+        final schedules = await schedulesService.getSchedules();
+        emit(SchedulesLoaded(schedules));
+      } catch (e) {
+        emit(SchedulesError(e.toString()));
+      }
+    });
+
+    on<DeleteSchedule>((event, emit) async {
+      emit(SchedulesLoading());
+      try {
+        await schedulesService.deleteSchedule(event.schedule);
         final schedules = await schedulesService.getSchedules();
         emit(SchedulesLoaded(schedules));
       } catch (e) {

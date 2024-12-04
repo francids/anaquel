@@ -55,4 +55,33 @@ class SchedulesService {
       throw Exception('Error al agregar el horario');
     }
   }
+
+  Future<void> updateSchedule(Schedule schedule) async {
+    final response = await _dio.put(
+      "/schedules/users",
+      data: {
+        "id": schedule.id,
+        "time": schedule.time,
+        "label": schedule.label,
+        "days": schedule.days,
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Error al actualizar el horario');
+    }
+  }
+
+  Future<void> deleteSchedule(int id) async {
+    final response = await _dio.delete(
+      "/schedules/users",
+      queryParameters: {
+        "schedule": id,
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Error al eliminar el horario');
+    }
+  }
 }

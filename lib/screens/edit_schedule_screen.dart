@@ -1,19 +1,15 @@
+import 'package:anaquel/data/models/schedule.dart';
+import 'package:anaquel/logic/schedules_bloc.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
-enum ScheduleDay {
-  monday,
-  tuesday,
-  wednesday,
-  thursday,
-  friday,
-  saturday,
-  sunday,
-}
-
 class EditScheduleScreen extends StatefulWidget {
-  const EditScheduleScreen({super.key});
+  const EditScheduleScreen({super.key, required this.schedule});
+
+  final Schedule schedule;
 
   @override
   State<EditScheduleScreen> createState() => _EditScheduleScreenState();
@@ -22,9 +18,8 @@ class EditScheduleScreen extends StatefulWidget {
 class _EditScheduleScreenState extends State<EditScheduleScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _labelController = TextEditingController();
-  final FMultiSelectGroupController<ScheduleDay> _daysController =
-      FMultiSelectGroupController();
-  TimeOfDay selectedTime = const TimeOfDay(hour: 8, minute: 0);
+  late final FMultiSelectGroupController<String> _daysController;
+  late final TimeOfDay selectedTime;
 
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
@@ -36,6 +31,41 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
         selectedTime = picked;
       });
     }
+  }
+
+  @override
+  void initState() {
+    selectedTime = TimeOfDay(
+      hour: int.parse(widget.schedule.time.split(':')[0]),
+      minute: int.parse(widget.schedule.time.split(':')[1]),
+    );
+    _labelController.text = widget.schedule.label;
+    _daysController = FMultiSelectGroupController(
+      values: widget.schedule.days
+          .map((day) {
+            switch (day) {
+              case "Monday":
+                return "monday";
+              case "Tuesday":
+                return "tuesday";
+              case "Wednesday":
+                return "wednesday";
+              case "Thursday":
+                return "thursday";
+              case "Friday":
+                return "friday";
+              case "Saturday":
+                return "saturday";
+              case "Sunday":
+                return "sunday";
+              default:
+                return null;
+            }
+          })
+          .whereType<String>()
+          .toSet(),
+    );
+    super.initState();
   }
 
   @override
@@ -63,6 +93,9 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
                     actions: [
                       FButton(
                         onPress: () {
+                          context
+                              .read<SchedulesBloc>()
+                              .add(DeleteSchedule(widget.schedule.id));
                           context.pop();
                           context.pop();
                         },
@@ -140,31 +173,31 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
                 children: [
                   FSelectTile(
                     title: const Text("Lunes"),
-                    value: ScheduleDay.monday,
+                    value: "monday",
                   ),
                   FSelectTile(
                     title: const Text("Martes"),
-                    value: ScheduleDay.tuesday,
+                    value: "tuesday",
                   ),
                   FSelectTile(
                     title: const Text("Miércoles"),
-                    value: ScheduleDay.wednesday,
+                    value: "wednesday",
                   ),
                   FSelectTile(
                     title: const Text("Jueves"),
-                    value: ScheduleDay.thursday,
+                    value: "thursday",
                   ),
                   FSelectTile(
                     title: const Text("Viernes"),
-                    value: ScheduleDay.friday,
+                    value: "friday",
                   ),
                   FSelectTile(
                     title: const Text("Sábado"),
-                    value: ScheduleDay.saturday,
+                    value: "saturday",
                   ),
                   FSelectTile(
                     title: const Text("Domingo"),
-                    value: ScheduleDay.sunday,
+                    value: "sunday",
                   ),
                 ],
               ),
@@ -174,9 +207,23 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
                   if (!_formKey.currentState!.validate()) {
                     return;
                   }
-                  print("Título: ${_labelController.text}");
-                  print("Hora: ${selectedTime.format(context)}");
-                  print("Días seleccionados: ${_daysController.values}");
+                  String scheduleTime = DateFormat("HH:MM:SS").format(
+                    DateTime(
+                      0,
+                      1,
+                      1,
+                      selectedTime.hour,
+                      selectedTime.minute,
+                    ),
+                  );
+                  Schedule schedule = Schedule(
+                    id: widget.schedule.id,
+                    label: _labelController.text,
+                    time: scheduleTime,
+                    days: _daysController.values.toList(),
+                  );
+                  context.read<SchedulesBloc>().add(UpdateSchedule(schedule));
+                  context.pop();
                 },
                 style: FButtonStyle.primary,
                 label: const Text('Guardar'),

@@ -42,7 +42,7 @@ class ScheduleCard extends StatelessWidget {
       onTap: () => Navigator.of(context).push(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              const EditScheduleScreen(),
+              EditScheduleScreen(schedule: schedule),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: Tween<Offset>(
@@ -88,7 +88,7 @@ class ScheduleCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  schedule.time,
+                  '${schedule.time.split(':')[0]}:${schedule.time.split(':')[1]}',
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
