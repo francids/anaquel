@@ -1,15 +1,27 @@
+import 'package:shared_preferences/shared_preferences.dart';
+
 class Schedule {
+  late final SharedPreferences prefs;
+
   final int id;
   final String label;
   final String time;
   final List<String> days;
+  bool active = true;
 
   Schedule({
     required this.id,
     required this.label,
     required this.time,
     required this.days,
-  });
+  }) : active = true {
+    _initPrefs();
+  }
+
+  Future<void> _initPrefs() async {
+    prefs = await SharedPreferences.getInstance();
+    active = prefs.getBool("schedule-$id") ?? true;
+  }
 
   factory Schedule.fromJson(Map<String, dynamic> json) {
     return Schedule(

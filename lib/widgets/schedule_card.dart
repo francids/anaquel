@@ -1,15 +1,32 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/schedule.dart';
 import 'package:anaquel/screens/edit_schedule_screen.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_touch_ripple/flutter_touch_ripple.dart';
 import 'package:forui/forui.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class ScheduleCard extends StatelessWidget {
+final Map<String, int> dayMapping = {
+  "monday": 1,
+  "tuesday": 2,
+  "wednesday": 3,
+  "thursday": 4,
+  "friday": 5,
+  "saturday": 6,
+  "sunday": 7,
+};
+
+class ScheduleCard extends StatefulWidget {
   const ScheduleCard({super.key, required this.schedule});
 
   final Schedule schedule;
 
+  @override
+  State<ScheduleCard> createState() => _ScheduleCardState();
+}
+
+class _ScheduleCardState extends State<ScheduleCard> {
   String formatDays(List<String> days) {
     if (days.length == 7) {
       return "Everyday";
@@ -42,7 +59,7 @@ class ScheduleCard extends StatelessWidget {
       onTap: () => Navigator.of(context).push(
         PageRouteBuilder(
           pageBuilder: (context, animation, secondaryAnimation) =>
-              EditScheduleScreen(schedule: schedule),
+              EditScheduleScreen(schedule: widget.schedule),
           transitionsBuilder: (context, animation, secondaryAnimation, child) {
             return SlideTransition(
               position: Tween<Offset>(
@@ -74,7 +91,7 @@ class ScheduleCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  schedule.label,
+                  widget.schedule.label,
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
@@ -88,14 +105,26 @@ class ScheduleCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  '${schedule.time.split(':')[0]}:${schedule.time.split(':')[1]}',
+                  '${widget.schedule.time.split(':')[0]}:${widget.schedule.time.split(':')[1]}',
                   style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                const FSwitch(
-                  value: true,
+                FSwitch(
+                  value: widget.schedule.active,
+                  onChange: (value) {
+                    toggleSchedule(widget.schedule, value).then((_) {
+                      setState(() {
+                        widget.schedule.active = value;
+                      });
+                    });
+                    // WidgetsBinding.instance.addPostFrameCallback((_) {
+                    //   setState(() async {
+                    //     await toggleSchedule(widget.schedule, value);
+                    //   });
+                    // });
+                  },
                   enabled: true,
                 ),
               ],
@@ -105,7 +134,7 @@ class ScheduleCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  formatDays(schedule.days),
+                  formatDays(widget.schedule.days),
                   style: const TextStyle(
                     color: AppColors.eerieBlack,
                     fontWeight: FontWeight.normal,
@@ -118,5 +147,51 @@ class ScheduleCard extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future toggleSchedule(Schedule schedule, bool toWhatBoolean) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    if (!toWhatBoolean) {
+      prefs.setBool("schedule-${schedule.id}", false);
+      for (String day in schedule.days) {
+        final int? dayNumber = dayMapping[day.toLowerCase()];
+        if (dayNumber == null) continue;
+        await AwesomeNotifications().cancelSchedule(
+          schedule.id * 100 + dayNumber,
+        );
+      }
+      schedule.active = false;
+    } else {
+      prefs.setBool("schedule-${schedule.id}", true);
+      for (String day in schedule.days) {
+        final int? dayNumber = dayMapping[day.toLowerCase()];
+        if (dayNumber == null) continue;
+        try {
+          await AwesomeNotifications().createNotification(
+            content: NotificationContent(
+              id: schedule.id * 100 + dayNumber,
+              channelKey: "scheduled",
+              title: "¡Hora de leer!",
+              body: "¡Es hora de sumergirte en tu próxima aventura literaria!",
+              notificationLayout: NotificationLayout.Default,
+              category: NotificationCategory.Reminder,
+            ),
+            schedule: NotificationCalendar(
+              weekday: dayNumber,
+              hour: int.parse(schedule.time.split(":")[0]),
+              minute: int.parse(schedule.time.split(":")[1]),
+              second: 0,
+              millisecond: 0,
+              repeats: true,
+              timeZone:
+                  await AwesomeNotifications().getLocalTimeZoneIdentifier(),
+            ),
+          );
+        } catch (e) {
+          throw Exception("Error al crear la notificación");
+        }
+      }
+      schedule.active = true;
+    }
   }
 }

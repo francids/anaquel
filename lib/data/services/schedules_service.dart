@@ -2,8 +2,8 @@ import 'package:anaquel/data/models/schedule.dart';
 import 'package:anaquel/utils/config.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SchedulesService {
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
@@ -28,6 +28,10 @@ class SchedulesService {
   }
 
   Future<void> createNotification(Schedule schedule) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool active = prefs.getBool("schedule-${schedule.id}") ?? true;
+    if (active == false) return;
+
     final Map<String, int> dayMapping = {
       "monday": 1,
       "tuesday": 2,
@@ -45,7 +49,7 @@ class SchedulesService {
       try {
         await AwesomeNotifications().createNotification(
           content: NotificationContent(
-            id: UniqueKey().hashCode,
+            id: schedule.id * 100 + dayNumber,
             channelKey: "scheduled",
             title: "¡Hora de leer!",
             body: "¡Es hora de sumergirte en tu próxima aventura literaria!",
