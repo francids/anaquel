@@ -1,7 +1,7 @@
 class Question {
   final int id;
   final String question;
-  final String answer;
+  String answer;
 
   Question({
     this.id = 0,
@@ -15,5 +15,13 @@ class Question {
       question: json['question'],
       answer: json['answer'] ?? "",
     );
+  }
+
+  Map<String, dynamic> toJson(int bookId) {
+    return {
+      "question": question,
+      "answer": answer,
+      "book": bookId,
+    };
   }
 }

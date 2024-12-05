@@ -26,7 +26,8 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
   late FPopoverController popoverController;
 
   @override
-  initState() {
+  void initState() {
+    context.read<QuestionsBloc>().add(GetQuestions(widget.bookId));
     popoverController = FPopoverController(vsync: this);
     super.initState();
   }
@@ -71,11 +72,6 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
                             ),
                           );
                     },
-                  ),
-                  FTile(
-                    prefixIcon: FIcon(FAssets.icons.save),
-                    title: const Text("Guardar"),
-                    onPress: () {},
                   ),
                 ],
               ),
@@ -125,19 +121,40 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
                 }
                 if (state is QuestionsLoaded) {
                   return Column(
-                    children: state.questions.map((question) {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 24),
-                        child: FTextField(
-                          label: Text(question.question),
-                          minLines: 3,
-                          hint: "Escribe tu respuesta aquí",
+                    children: [
+                      Column(
+                        children: state.questions.map((question) {
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 24),
+                            child: FTextField(
+                              label: Text(question.question),
+                              initialValue: question.answer,
+                              onChange: (value) {
+                                question.answer = value;
+                              },
+                              minLines: 3,
+                              hint: "Escribe tu respuesta aquí",
+                            ),
+                          );
+                        }).toList(),
+                      ),
+                      if (state.questions.isNotEmpty)
+                        FButton(
+                          label: const Text("Guardar"),
+                          onPress: () {
+                            context.read<QuestionsBloc>().add(
+                                  SaveQuestions(
+                                    widget.bookId,
+                                    state.questions,
+                                  ),
+                                );
+                          },
                         ),
-                      );
-                    }).toList(),
+                      const SizedBox(height: 24),
+                    ],
                   );
                 }
-                return const SizedBox(height: 0);
+                return const SizedBox.shrink();
               },
             ),
           ],

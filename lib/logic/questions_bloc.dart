@@ -16,6 +16,19 @@ class GenerateQuestions extends QuestionsEvent {
   });
 }
 
+class GetQuestions extends QuestionsEvent {
+  final int bookId;
+
+  GetQuestions(this.bookId);
+}
+
+class SaveQuestions extends QuestionsEvent {
+  final int bookId;
+  final List<Question> questions;
+
+  SaveQuestions(this.bookId, this.questions);
+}
+
 abstract class QuestionsState {}
 
 class QuestionsInitial extends QuestionsState {}
@@ -45,6 +58,29 @@ class QuestionsBloc extends Bloc<QuestionsEvent, QuestionsState> {
           event.bookTitle,
           event.bookAuthor,
           event.language,
+        );
+        emit(QuestionsLoaded(questions));
+      } catch (e) {
+        emit(QuestionsError(e.toString()));
+      }
+    });
+
+    on<GetQuestions>((event, emit) async {
+      emit(QuestionsLoading());
+      try {
+        final questions = await questionsService.getQuestions(event.bookId);
+        emit(QuestionsLoaded(questions));
+      } catch (e) {
+        emit(QuestionsError(e.toString()));
+      }
+    });
+
+    on<SaveQuestions>((event, emit) async {
+      emit(QuestionsLoading());
+      try {
+        final questions = await questionsService.saveQuestionsWithAnswers(
+          event.bookId,
+          event.questions,
         );
         emit(QuestionsLoaded(questions));
       } catch (e) {
