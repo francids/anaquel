@@ -1,6 +1,8 @@
 import 'package:anaquel/data/models/schedule.dart';
 import 'package:anaquel/utils/config.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SchedulesService {
@@ -25,18 +27,65 @@ class SchedulesService {
     );
   }
 
-  Future<List<Schedule>> getSchedules() async {
-    final response = await _dio.get(
-      "/schedules/users/schedules",
-    );
+  Future<void> createNotification(Schedule schedule) async {
+    final Map<String, int> dayMapping = {
+      "monday": 1,
+      "tuesday": 2,
+      "wednesday": 3,
+      "thursday": 4,
+      "friday": 5,
+      "saturday": 6,
+      "sunday": 7,
+    };
 
-    if (response.statusCode == 200) {
-      final List<Schedule> schedules = (response.data as List)
-          .map((schedule) => Schedule.fromJson(schedule))
-          .toList();
-      return schedules;
-    } else {
-      throw Exception('Error al obtener los horarios');
+    for (String day in schedule.days) {
+      final int? dayNumber = dayMapping[day.toLowerCase()];
+      if (dayNumber == null) continue;
+
+      try {
+        await AwesomeNotifications().createNotification(
+          content: NotificationContent(
+            id: UniqueKey().hashCode,
+            channelKey: "scheduled",
+            title: "¡Hora de leer!",
+            body: "¡Es hora de sumergirte en tu próxima aventura literaria!",
+            notificationLayout: NotificationLayout.Default,
+            category: NotificationCategory.Reminder,
+          ),
+          schedule: NotificationCalendar(
+            weekday: dayNumber,
+            hour: int.parse(schedule.time.split(":")[0]),
+            minute: int.parse(schedule.time.split(":")[1]),
+            second: 0,
+            millisecond: 0,
+            repeats: true,
+            timeZone: await AwesomeNotifications().getLocalTimeZoneIdentifier(),
+          ),
+        );
+      } catch (e) {
+        throw Exception("Error al crear la notificación");
+      }
+    }
+  }
+
+  Future<List<Schedule>> getSchedules() async {
+    try {
+      final response = await _dio.get("/schedules/users/schedules");
+      if (response.statusCode == 200) {
+        final List<Schedule> schedules = (response.data as List)
+            .map((schedule) => Schedule.fromJson(schedule))
+            .toList();
+        // await AwesomeNotifications().cancelAll();
+        for (final schedule in schedules) {
+          await createNotification(schedule);
+        }
+        return schedules;
+      } else {
+        throw Exception(
+            "Error al obtener los horarios: ${response.statusCode}");
+      }
+    } catch (e) {
+      throw Exception("Error al obtener los horarios");
     }
   }
 

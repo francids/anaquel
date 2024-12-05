@@ -95,6 +95,7 @@ class ScheduleCard extends StatelessWidget {
                   ),
                 ),
                 const FSwitch(
+                  value: true,
                   enabled: true,
                 ),
               ],

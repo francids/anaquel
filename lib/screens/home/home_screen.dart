@@ -1,4 +1,5 @@
 import 'package:anaquel/constants/colors.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,6 +34,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
     _screens = [
       PrincipalScreen(onShowAllBooks: goToBooks),
       const BooksScreen(),

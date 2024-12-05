@@ -18,8 +18,9 @@ class EditScheduleScreen extends StatefulWidget {
 class _EditScheduleScreenState extends State<EditScheduleScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _labelController = TextEditingController();
-  late final FMultiSelectGroupController<String> _daysController;
-  late final TimeOfDay selectedTime;
+  final FMultiSelectGroupController<String> _daysController =
+      FMultiSelectGroupController();
+  TimeOfDay selectedTime = TimeOfDay.now();
 
   Future<void> _selectTime(BuildContext context) async {
     final TimeOfDay? picked = await showTimePicker(
@@ -40,32 +41,16 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
       minute: int.parse(widget.schedule.time.split(':')[1]),
     );
     _labelController.text = widget.schedule.label;
-    _daysController = FMultiSelectGroupController(
-      values: widget.schedule.days
-          .map((day) {
-            switch (day) {
-              case "Monday":
-                return "monday";
-              case "Tuesday":
-                return "tuesday";
-              case "Wednesday":
-                return "wednesday";
-              case "Thursday":
-                return "thursday";
-              case "Friday":
-                return "friday";
-              case "Saturday":
-                return "saturday";
-              case "Sunday":
-                return "sunday";
-              default:
-                return null;
-            }
-          })
-          .whereType<String>()
-          .toSet(),
-    );
+    _daysController.values =
+        widget.schedule.days.map((day) => day.toLowerCase()).toSet();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _labelController.dispose();
+    _daysController.dispose();
+    super.dispose();
   }
 
   @override
@@ -152,7 +137,10 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
                     ),
                     maxLines: 1,
                     validator: (value) {
-                      if (value!.isEmpty) {
+                      if (value == null) {
+                        return null;
+                      }
+                      if (value.isEmpty) {
                         return "La hora no puede estar vacía";
                       }
                       return null;
@@ -165,7 +153,10 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
                 controller: _daysController,
                 label: const Text("Días"),
                 validator: (value) {
-                  if (value!.isEmpty) {
+                  if (value == null) {
+                    return null;
+                  }
+                  if (value.isEmpty) {
                     return "Debes seleccionar al menos un día";
                   }
                   return null;
@@ -207,14 +198,8 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
                   if (!_formKey.currentState!.validate()) {
                     return;
                   }
-                  String scheduleTime = DateFormat("HH:MM:SS").format(
-                    DateTime(
-                      0,
-                      1,
-                      1,
-                      selectedTime.hour,
-                      selectedTime.minute,
-                    ),
+                  String scheduleTime = DateFormat("HH:mm:ss").format(
+                    DateTime(0, 1, 1, selectedTime.hour, selectedTime.minute),
                   );
                   Schedule schedule = Schedule(
                     id: widget.schedule.id,

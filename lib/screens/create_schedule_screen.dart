@@ -133,14 +133,8 @@ class _CreateScheduleScreenState extends State<CreateScheduleScreen> {
                   if (!_formKey.currentState!.validate()) {
                     return;
                   }
-                  String scheduleTime = DateFormat("HH:MM:SS").format(
-                    DateTime(
-                      0,
-                      1,
-                      1,
-                      selectedTime.hour,
-                      selectedTime.minute,
-                    ),
+                  String scheduleTime = DateFormat("HH:mm:ss").format(
+                    DateTime(0, 1, 1, selectedTime.hour, selectedTime.minute),
                   );
                   Schedule schedule = Schedule(
                     id: 0,
