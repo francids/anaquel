@@ -75,7 +75,7 @@ class SchedulesService {
         final List<Schedule> schedules = (response.data as List)
             .map((schedule) => Schedule.fromJson(schedule))
             .toList();
-        // await AwesomeNotifications().cancelAll();
+        await AwesomeNotifications().cancelAllSchedules();
         for (final schedule in schedules) {
           await createNotification(schedule);
         }
