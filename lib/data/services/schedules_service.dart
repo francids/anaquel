@@ -2,6 +2,7 @@ import 'package:anaquel/data/models/schedule.dart';
 import 'package:anaquel/utils/config.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:dio/dio.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -51,8 +52,8 @@ class SchedulesService {
           content: NotificationContent(
             id: schedule.id * 100 + dayNumber,
             channelKey: "scheduled",
-            title: "¡Hora de leer!",
-            body: "¡Es hora de sumergirte en tu próxima aventura literaria!",
+            title: schedule.label,
+            body: "schedules_screen.notification.body".tr(),
             notificationLayout: NotificationLayout.Default,
             category: NotificationCategory.Reminder,
           ),

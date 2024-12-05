@@ -2,6 +2,7 @@ import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/schedule.dart';
 import 'package:anaquel/screens/edit_schedule_screen.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_touch_ripple/flutter_touch_ripple.dart';
 import 'package:forui/forui.dart';
@@ -29,7 +30,7 @@ class ScheduleCard extends StatefulWidget {
 class _ScheduleCardState extends State<ScheduleCard> {
   String formatDays(List<String> days) {
     if (days.length == 7) {
-      return "Everyday";
+      return "schedules_screen.days.everyday".tr();
     }
     if (days.contains("Monday") &&
         days.contains("Tuesday") &&
@@ -38,7 +39,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
         days.contains("Friday") &&
         !days.contains("Saturday") &&
         !days.contains("Sunday")) {
-      return "Weekdays";
+      return "schedules_screen.days.weekdays".tr();
     }
     if (days.contains("Saturday") &&
         days.contains("Sunday") &&
@@ -47,9 +48,12 @@ class _ScheduleCardState extends State<ScheduleCard> {
         !days.contains("Wednesday") &&
         !days.contains("Thursday") &&
         !days.contains("Friday")) {
-      return "Weekends";
+      return "schedules_screen.days.weekends".tr();
     }
-    return days.map((day) => day.substring(0, 3)).join(', ');
+    return days
+        .map((day) =>
+            ("schedules_screen.days.${day.toLowerCase()}").tr().substring(0, 3))
+        .join(", ");
   }
 
   @override
@@ -119,11 +123,6 @@ class _ScheduleCardState extends State<ScheduleCard> {
                         widget.schedule.active = value;
                       });
                     });
-                    // WidgetsBinding.instance.addPostFrameCallback((_) {
-                    //   setState(() async {
-                    //     await toggleSchedule(widget.schedule, value);
-                    //   });
-                    // });
                   },
                   enabled: true,
                 ),
@@ -171,8 +170,8 @@ class _ScheduleCardState extends State<ScheduleCard> {
             content: NotificationContent(
               id: schedule.id * 100 + dayNumber,
               channelKey: "scheduled",
-              title: "¡Hora de leer!",
-              body: "¡Es hora de sumergirte en tu próxima aventura literaria!",
+              title: schedule.label,
+              body: "schedules_screen.notification.body".tr(),
               notificationLayout: NotificationLayout.Default,
               category: NotificationCategory.Reminder,
             ),
@@ -188,7 +187,7 @@ class _ScheduleCardState extends State<ScheduleCard> {
             ),
           );
         } catch (e) {
-          throw Exception("Error al crear la notificación");
+          throw Exception("Error");
         }
       }
       schedule.active = true;

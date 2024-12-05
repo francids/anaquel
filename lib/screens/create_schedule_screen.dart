@@ -36,7 +36,7 @@ class _CreateScheduleScreenState extends State<CreateScheduleScreen> {
   Widget build(BuildContext context) {
     return FScaffold(
       header: FHeader.nested(
-        title: const Text("Creando horario"),
+        title: const Text("schedules_screen.create.title").tr(),
         prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
@@ -56,13 +56,14 @@ class _CreateScheduleScreenState extends State<CreateScheduleScreen> {
           child: Column(
             children: [
               FTextField(
-                label: const Text("Etiqueta"),
-                description: const Text("Ejemplo: Club de lectura"),
+                label: const Text("schedules_screen.form.tag").tr(),
+                description:
+                    const Text("schedules_screen.form.tag_example").tr(),
                 controller: _labelController,
                 maxLines: 1,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return "El etiqueta no puede estar vacío";
+                    return "schedules_screen.form.tag_required".tr();
                   }
                   return null;
                 },
@@ -72,14 +73,14 @@ class _CreateScheduleScreenState extends State<CreateScheduleScreen> {
                 onTap: () => _selectTime(context),
                 child: AbsorbPointer(
                   child: FTextField(
-                    label: const Text("Hora"),
+                    label: const Text("schedules_screen.form.time").tr(),
                     controller: TextEditingController(
                       text: selectedTime.format(context),
                     ),
                     maxLines: 1,
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return "La hora no puede estar vacía";
+                        return "schedules_screen.form.time_required".tr();
                       }
                       return null;
                     },
@@ -89,40 +90,40 @@ class _CreateScheduleScreenState extends State<CreateScheduleScreen> {
               const FDivider(),
               FSelectTileGroup(
                 controller: _daysController,
-                label: const Text("Días"),
+                label: const Text("schedules_screen.form.days").tr(),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return "Debes seleccionar al menos un día";
+                    return "schedules_screen.form.days_required".tr();
                   }
                   return null;
                 },
                 children: [
                   FSelectTile(
-                    title: const Text("Lunes"),
+                    title: const Text("schedules_screen.days.monday").tr(),
                     value: "monday",
                   ),
                   FSelectTile(
-                    title: const Text("Martes"),
+                    title: const Text("schedules_screen.days.tuesday").tr(),
                     value: "tuesday",
                   ),
                   FSelectTile(
-                    title: const Text("Miércoles"),
+                    title: const Text("schedules_screen.days.wednesday").tr(),
                     value: "wednesday",
                   ),
                   FSelectTile(
-                    title: const Text("Jueves"),
+                    title: const Text("schedules_screen.days.thursday").tr(),
                     value: "thursday",
                   ),
                   FSelectTile(
-                    title: const Text("Viernes"),
+                    title: const Text("schedules_screen.days.friday").tr(),
                     value: "friday",
                   ),
                   FSelectTile(
-                    title: const Text("Sábado"),
+                    title: const Text("schedules_screen.days.saturday").tr(),
                     value: "saturday",
                   ),
                   FSelectTile(
-                    title: const Text("Domingo"),
+                    title: const Text("schedules_screen.days.sunday").tr(),
                     value: "sunday",
                   ),
                 ],
@@ -146,7 +147,7 @@ class _CreateScheduleScreenState extends State<CreateScheduleScreen> {
                   context.pop();
                 },
                 style: FButtonStyle.primary,
-                label: const Text('Crear horario'),
+                label: const Text("schedules_screen.create.title").tr(),
               ),
             ],
           ),

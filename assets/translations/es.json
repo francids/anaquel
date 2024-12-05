@@ -126,6 +126,47 @@
     },
     "no_books": "No se encontraron libros en esta colección"
   },
+  "schedules_screen": {
+    "create_schedule": "Crear horario",
+    "no_schedules": "No se encontraron horarios",
+    "days": {
+      "monday": "Lunes",
+      "tuesday": "Martes",
+      "wednesday": "Miércoles",
+      "thursday": "Jueves",
+      "friday": "Viernes",
+      "saturday": "Sábado",
+      "sunday": "Domingo",
+      "everyday": "Todos los días",
+      "weekdays": "Días de semana",
+      "weekends": "Fines de semana"
+    },
+    "bottom": "Selecciona una hora para editar o eliminar el horario",
+    "create": {
+      "title": "Creando horario"
+    },
+    "edit": {
+      "title": "Editando horario"
+    },
+    "delete": {
+      "title": "Eliminar horario",
+      "body": "¿Estás seguro de que deseas eliminar este horario?",
+      "delete": "Eliminar",
+      "cancel": "Cancelar"
+    },
+    "form": {
+      "tag": "Etiqueta",
+      "tag_example": "Ejemplo: Club de lectura",
+      "tag_required": "La etiqueta es requerida",
+      "time": "Hora",
+      "time_required": "La hora es requerida",
+      "days": "Días",
+      "days_required": "Debes seleccionar al menos un día"
+    },
+    "notification": {
+      "body": "It's time to read! Take a moment to enjoy your book."
+    }
+  },
   "profile_screen": {
     "error": "Se produjo un error al cargar los datos del perfil",
     "edit_profile": "Editar perfil",

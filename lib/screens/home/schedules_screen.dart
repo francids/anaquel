@@ -1,5 +1,6 @@
 import 'package:anaquel/logic/schedules_bloc.dart';
 import 'package:anaquel/screens/create_schedule_screen.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
@@ -34,7 +35,7 @@ class SchedulesScreen extends StatelessWidget {
               );
             },
             style: FButtonStyle.primary,
-            label: const Text("Crear hora de lectura"),
+            label: const Text("schedules_screen.create_schedule").tr(),
           ),
           const SizedBox(height: 8),
           BlocBuilder<SchedulesBloc, SchedulesState>(
@@ -45,8 +46,7 @@ class SchedulesScreen extends StatelessWidget {
                 if (state.schedules.isEmpty) {
                   return FAlert(
                     icon: FAssets.icons.badgeInfo(),
-                    title: const Text("No hay horarios"),
-                    subtitle: const Text("Crea un horario de lectura"),
+                    title: const Text("schedules_screen.no_schedules").tr(),
                     style: FAlertStyle.primary,
                   );
                 }
@@ -66,9 +66,9 @@ class SchedulesScreen extends StatelessWidget {
                         return const SizedBox(height: 12);
                       },
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: double.infinity,
-                      child: Text("Selecciona una hora para editar o eliminar"),
+                      child: const Text("schedules_screen.bottom").tr(),
                     ),
                   ],
                 );

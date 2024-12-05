@@ -57,7 +57,7 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
   Widget build(BuildContext context) {
     return FScaffold(
       header: FHeader.nested(
-        title: const Text("Editando horario"),
+        title: const Text("schedules_screen.edit.title").tr(),
         prefixActions: [
           FHeaderAction.back(
             onPress: () => context.pop(),
@@ -71,10 +71,8 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
                 context: context,
                 builder: (context) {
                   return FDialog(
-                    title: const Text("Eliminar horario"),
-                    body: const Text(
-                      "¿Estás seguro de que deseas eliminar este horario?",
-                    ),
+                    title: const Text("schedules_screen.delete.title").tr(),
+                    body: const Text("schedules_screen.delete.body").tr(),
                     actions: [
                       FButton(
                         onPress: () {
@@ -85,14 +83,16 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
                           context.pop();
                         },
                         style: FButtonStyle.destructive,
-                        label: const Text("Eliminar"),
+                        label:
+                            const Text("schedules_screen.delete.delete").tr(),
                       ),
                       FButton(
                         onPress: () {
                           context.pop();
                         },
                         style: FButtonStyle.outline,
-                        label: const Text("Cancelar"),
+                        label:
+                            const Text("schedules_screen.delete.cancel").tr(),
                       ),
                     ],
                   );
@@ -115,13 +115,14 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
           child: Column(
             children: [
               FTextField(
-                label: const Text("Etiqueta"),
-                description: const Text("Ejemplo: Club de lectura"),
+                label: const Text("schedules_screen.form.tag").tr(),
+                description:
+                    const Text("schedules_screen.form.tag_example").tr(),
                 controller: _labelController,
                 maxLines: 1,
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return "El etiqueta no puede estar vacío";
+                    return "schedules_screen.form.tag_required".tr();
                   }
                   return null;
                 },
@@ -131,7 +132,7 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
                 onTap: () => _selectTime(context),
                 child: AbsorbPointer(
                   child: FTextField(
-                    label: const Text("Hora"),
+                    label: const Text("schedules_screen.form.time").tr(),
                     controller: TextEditingController(
                       text: selectedTime.format(context),
                     ),
@@ -141,7 +142,7 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
                         return null;
                       }
                       if (value.isEmpty) {
-                        return "La hora no puede estar vacía";
+                        return "schedules_screen.form.time_required".tr();
                       }
                       return null;
                     },
@@ -151,43 +152,43 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
               const FDivider(),
               FSelectTileGroup(
                 controller: _daysController,
-                label: const Text("Días"),
+                label: const Text("schedules_screen.form.days").tr(),
                 validator: (value) {
                   if (value == null) {
                     return null;
                   }
                   if (value.isEmpty) {
-                    return "Debes seleccionar al menos un día";
+                    return "schedules_screen.form.days_required".tr();
                   }
                   return null;
                 },
                 children: [
                   FSelectTile(
-                    title: const Text("Lunes"),
+                    title: const Text("schedules_screen.days.monday").tr(),
                     value: "monday",
                   ),
                   FSelectTile(
-                    title: const Text("Martes"),
+                    title: const Text("schedules_screen.days.tuesday").tr(),
                     value: "tuesday",
                   ),
                   FSelectTile(
-                    title: const Text("Miércoles"),
+                    title: const Text("schedules_screen.days.wednesday").tr(),
                     value: "wednesday",
                   ),
                   FSelectTile(
-                    title: const Text("Jueves"),
+                    title: const Text("schedules_screen.days.thursday").tr(),
                     value: "thursday",
                   ),
                   FSelectTile(
-                    title: const Text("Viernes"),
+                    title: const Text("schedules_screen.days.friday").tr(),
                     value: "friday",
                   ),
                   FSelectTile(
-                    title: const Text("Sábado"),
+                    title: const Text("schedules_screen.days.saturday").tr(),
                     value: "saturday",
                   ),
                   FSelectTile(
-                    title: const Text("Domingo"),
+                    title: const Text("schedules_screen.days.sunday").tr(),
                     value: "sunday",
                   ),
                 ],
@@ -211,7 +212,7 @@ class _EditScheduleScreenState extends State<EditScheduleScreen> {
                   context.pop();
                 },
                 style: FButtonStyle.primary,
-                label: const Text('Guardar'),
+                label: const Text("schedules_screen.edit.title").tr(),
               ),
             ],
           ),

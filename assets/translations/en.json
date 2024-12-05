@@ -126,6 +126,47 @@
     },
     "no_books": "No books found in this collection"
   },
+  "schedules_screen": {
+    "create_schedule": "Create schedule",
+    "no_schedules": "No schedules found",
+    "days": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday",
+      "everyday": "Every day",
+      "weekdays": "Weekdays",
+      "weekends": "Weekends"
+    },
+    "bottom": "Select a time to edit or delete the schedule",
+    "create": {
+      "title": "Create schedule"
+    },
+    "edit": {
+      "title": "Edit schedule"
+    },
+    "delete": {
+      "title": "Delete schedule",
+      "body": "Are you sure you want to delete this schedule?",
+      "delete": "Delete",
+      "cancel": "Cancel"
+    },
+    "form": {
+      "tag": "Tag",
+      "tag_example": "Example: Morning",
+      "tag_required": "The tag is required",
+      "time": "Time",
+      "time_required": "The time is required",
+      "days": "Days",
+      "days_required": "At least one day is required"
+    },
+    "notification": {
+      "body": "It's time to read!"
+    }
+  },
   "profile_screen": {
     "error": "An error occurred while loading the profile data",
     "edit_profile": "Edit profile",
