@@ -20,14 +20,16 @@ class AnaquelApp extends StatelessWidget {
         locale: context.locale,
         debugShowCheckedModeBanner: false,
         theme: anaquelMaterialTheme(),
-        builder: (context, child) {
-          return MediaQuery(
-            data: MediaQuery.of(context).scale(),
-            child: AnaquelTheme(child!),
-          );
-        },
+        builder: (context, child) => _buildScaledApp(context, child),
         routerConfig: appRouter,
       ),
+    );
+  }
+
+  Widget _buildScaledApp(BuildContext context, Widget? child) {
+    return MediaQuery(
+      data: MediaQuery.of(context).scale(),
+      child: AnaquelTheme(child!),
     );
   }
 }

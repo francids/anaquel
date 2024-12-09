@@ -5,7 +5,7 @@ import 'package:forui/forui.dart';
 class AnaquelTheme extends StatelessWidget {
   const AnaquelTheme(this.child, {super.key});
 
-  final Widget? child;
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -196,7 +196,7 @@ class AnaquelTheme extends StatelessWidget {
 
     return FTheme(
       data: lightTheme,
-      child: child!,
+      child: child,
     );
   }
 }
