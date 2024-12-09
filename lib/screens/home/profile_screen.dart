@@ -11,7 +11,9 @@ import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
+  final VoidCallback onLanguageChanged;
+
+  const ProfileScreen({super.key, required this.onLanguageChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -149,6 +151,7 @@ class ProfileScreen extends StatelessWidget {
                   FButton(
                     onPress: () {
                       context.setLocale(const Locale('es'));
+                      onLanguageChanged();
                       context.pop();
                     },
                     style: FButtonStyle.outline,
@@ -158,6 +161,7 @@ class ProfileScreen extends StatelessWidget {
                   FButton(
                     onPress: () {
                       context.setLocale(const Locale('en'));
+                      onLanguageChanged();
                       context.pop();
                     },
                     style: FButtonStyle.outline,

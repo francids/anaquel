@@ -27,8 +27,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int index = 0;
+  Locale? currentLocale;
 
   void goToBooks() => setState(() => index = 1);
+
+  void _refreshState() {
+    setState(() {
+      currentLocale = context.locale;
+    });
+  }
 
   List<Widget> _screens = [];
 
@@ -39,12 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
         AwesomeNotifications().requestPermissionToSendNotifications();
       }
     });
-    _screens = [
-      PrincipalScreen(onShowAllBooks: goToBooks),
-      const BooksScreen(),
-      const SchedulesScreen(),
-      const ProfileScreen(),
-    ];
     context.read<UserBloc>().add(GetUser());
     context.read<UserBooksBloc>().add(GetUserBooks());
     context.read<CollectionsBloc>().add(GetCollections());
@@ -54,18 +55,30 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    currentLocale = context.locale;
+    _screens = [
+      PrincipalScreen(onShowAllBooks: goToBooks),
+      const BooksScreen(),
+      const SchedulesScreen(),
+      ProfileScreen(onLanguageChanged: _refreshState),
+    ];
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FScaffold(
       header: FHeader(
         title: Text(
           [
-            'Anaquel',
-            'books',
-            'reading_schedules',
-            'profile',
+            "Anaquel",
+            "books".tr(),
+            "reading_schedules".tr(),
+            "profile".tr(),
           ][index],
-        ).tr(),
-        key: ValueKey(index),
+        ),
+        key: ValueKey("$index-${context.locale}"),
         style: FRootHeaderStyle(
           titleTextStyle: TextStyle(
             fontSize: 24,
@@ -98,19 +111,19 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           FBottomNavigationBarItem(
             icon: FAssets.icons.house(),
-            label: const Text("principal").tr(),
+            label: Text("principal".tr()),
           ),
           FBottomNavigationBarItem(
             icon: FAssets.icons.book(),
-            label: const Text("books").tr(),
+            label: Text("books".tr()),
           ),
           FBottomNavigationBarItem(
             icon: FAssets.icons.alarmClock(),
-            label: const Text("schedules").tr(),
+            label: Text("schedules".tr()),
           ),
           FBottomNavigationBarItem(
             icon: FAssets.icons.user(),
-            label: const Text("profile").tr(),
+            label: Text("profile".tr()),
           ),
         ],
       ),
