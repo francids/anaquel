@@ -60,7 +60,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
                 children: [
                   FTile(
                     prefixIcon: FIcon(FAssets.icons.alignLeft),
-                    title: const Text("Generar cuestionario"),
+                    title: const Text("questionnaire_screen.generate").tr(),
                     onPress: () {
                       context.read<QuestionsBloc>().add(
                             GenerateQuestions(
@@ -90,15 +90,15 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
         ),
         child: Column(
           children: [
-            const SizedBox(
+            SizedBox(
               width: double.infinity,
-              child: Text(
-                "Cuestionario",
+              child: const Text(
+                "questionnaire_screen.title",
                 style: TextStyle(
                   fontSize: 22,
                   fontWeight: FontWeight.w600,
                 ),
-              ),
+              ).tr(),
             ),
             const SizedBox(height: 24),
             BlocBuilder<QuestionsBloc, QuestionsState>(
@@ -114,12 +114,20 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
                 if (state is QuestionsError) {
                   return FAlert(
                     icon: FAssets.icons.badgeX(),
-                    title: const Text("Error al cargar el cuestionario"),
+                    title: const Text("questionnaire_screen.error").tr(),
                     subtitle: Text(state.message),
                     style: FAlertStyle.destructive,
                   );
                 }
                 if (state is QuestionsLoaded) {
+                  if (state.questions.isEmpty) {
+                    return FAlert(
+                      icon: FAssets.icons.badgeInfo(),
+                      title:
+                          const Text("questionnaire_screen.no_questions").tr(),
+                      style: FAlertStyle.primary,
+                    );
+                  }
                   return Column(
                     children: [
                       Column(
@@ -133,14 +141,14 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
                                 question.answer = value;
                               },
                               minLines: 3,
-                              hint: "Escribe tu respuesta aquí",
+                              hint: "questionnaire_screen.placeholder".tr(),
                             ),
                           );
                         }).toList(),
                       ),
                       if (state.questions.isNotEmpty)
                         FButton(
-                          label: const Text("Guardar"),
+                          label: const Text("questionnaire_screen.save").tr(),
                           onPress: () {
                             context.read<QuestionsBloc>().add(
                                   SaveQuestions(

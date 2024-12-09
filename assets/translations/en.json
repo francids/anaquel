@@ -109,6 +109,14 @@
       "generate_summary": "Generate summary"
     }
   },
+  "questionnaire_screen": {
+    "title": "Questionnaire",
+    "no_questions": "No questions found",
+    "error": "An error occurred while loading the questionnaire",
+    "placeholder": "Answer here",
+    "save": "Save",
+    "generate": "Generate questionnaire"
+  },
   "register_book_screen": {
     "title": "Register book",
     "create": "Create book",

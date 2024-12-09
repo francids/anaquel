@@ -109,6 +109,14 @@
       "generate_summary": "Generar resumen"
     }
   },
+  "questionnaire_screen": {
+    "title": "Cuestionario",
+    "no_questions": "No se encontraron preguntas",
+    "error": "Se produjo un error al cargar el cuestionario",
+    "placeholder": "Escribe tu respuesta aquí",
+    "save": "Guardar",
+    "generate": "Generar cuestionario"
+  },
   "register_book_screen": {
     "title": "Registrando libro",
     "create": "Crear libro",
