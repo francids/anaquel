@@ -60,6 +60,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<SignUpEvent>((event, emit) async {
       emit(AuthLoading());
       try {
+        // Sign up
         await authService.signUp(event.user);
         emit(AuthInitial());
 

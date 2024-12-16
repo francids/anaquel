@@ -48,6 +48,11 @@
         "message": "O puedes registrarte con:",
         "google": "Registrarse con Google"
       }
+    },
+    "verification_code_screen": {
+      "title": "Código de verificación",
+      "message": "Un código de verificación ha sido enviado a tu correo electrónico. Verifica tu bandeja de entrada para continuar.",
+      "error_code": "El código es incorrecto"
     }
   },
   "principal": "Principal",

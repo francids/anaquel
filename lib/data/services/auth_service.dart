@@ -62,4 +62,19 @@ class AuthService {
   Future<String?> getCookie() async {
     return await secureStorage.read(key: 'cookie');
   }
+
+  Future<String> getVerificationCode(String email) async {
+    final response = await _dio.post(
+      "/auth/code",
+      data: {
+        "email": email,
+      },
+    );
+
+    if (response.statusCode == 200) {
+      return response.data["code"];
+    } else {
+      throw Exception('Error al obtener el código de verificación');
+    }
+  }
 }
