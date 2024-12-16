@@ -26,7 +26,7 @@ class LogInScreen extends StatelessWidget {
       child: FScaffold(
         header: Column(
           children: [
-            FHeader(
+            FHeader.nested(
               title: const Text(
                 "auth_screens.log_in_screen.login",
                 textAlign: TextAlign.center,
@@ -36,7 +36,7 @@ class LogInScreen extends StatelessWidget {
                   height: 1,
                 ),
               ).tr(),
-              actions: [
+              suffixActions: [
                 FHeaderAction(
                   icon: FAssets.icons.languages(),
                   onPress: () {
