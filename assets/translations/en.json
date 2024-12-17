@@ -50,6 +50,7 @@
       }
     },
     "verification_code_screen": {
+      "request": "Sending request",
       "title": "Verification code",
       "message": "A verification code has been sent to your email. Check your inbox to continue.",
       "error_code": "The code is incorrect"

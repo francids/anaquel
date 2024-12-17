@@ -26,19 +26,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   bool _isLoading = false;
 
-  goToVerificationCodeScreen(BuildContext context, String verificationCode) {
+  void goToVerificationCodeScreen(
+    BuildContext context,
+    String verificationCode,
+  ) {
     Navigator.of(context).push(
       PageRouteBuilder(
-        pageBuilder: (context, animation, secondaryAnimation) =>
-            VerificationCodeScreen(
-          verificationCode: verificationCode,
-          user: User(
-            name: nameController.text,
-            email: emailController.text,
-            username: usernameController.text,
-            password: passwordController.text,
-          ),
-        ),
+        pageBuilder: (context, animation, secondaryAnimation) {
+          return VerificationCodeScreen(
+            verificationCode: verificationCode,
+            user: User(
+              name: nameController.text,
+              email: emailController.text,
+              username: usernameController.text,
+              password: passwordController.text,
+            ),
+          );
+        },
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
             position: Tween<Offset>(
@@ -56,207 +60,200 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     final AuthService authService = AuthService();
 
-    return Stack(
-      children: [
-        FScaffold(
-          header: Column(
+    return FScaffold(
+      header: Column(
+        children: [
+          FHeader.nested(
+            title: const Text(
+              "auth_screens.sign_up_screen.sign_up",
+            ).tr(),
+            prefixActions: [
+              FHeaderAction.back(
+                onPress: () => context.pop(),
+              ),
+            ],
+            suffixActions: [
+              FHeaderAction(
+                icon: FAssets.icons.languages(),
+                onPress: () {
+                  context.setLocale(
+                    context.locale == const Locale("en")
+                        ? const Locale("es")
+                        : const Locale("en"),
+                  );
+                },
+              ),
+            ],
+          ),
+          if (_isLoading) const LinearProgressIndicator(),
+        ],
+      ),
+      contentPad: false,
+      content: SingleChildScrollView(
+        padding: EdgeInsets.only(
+          top: 16,
+          left: 16,
+          right: 16,
+          bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+        ),
+        child: Form(
+          key: _formKey,
+          child: Column(
             children: [
-              FHeader.nested(
-                title: const Text(
-                  "auth_screens.sign_up_screen.sign_up",
+              FTextField(
+                controller: usernameController,
+                label: const Text(
+                  "auth_screens.sign_up_screen.username",
                 ).tr(),
-                prefixActions: [
-                  FHeaderAction.back(
-                    onPress: () => context.pop(),
-                  ),
-                ],
-                suffixActions: [
-                  FHeaderAction(
-                    icon: FAssets.icons.languages(),
-                    onPress: () {
-                      context.setLocale(
-                        context.locale == const Locale("en")
-                            ? const Locale("es")
-                            : const Locale("en"),
-                      );
-                    },
-                  ),
-                ],
+                autofillHints: const [AutofillHints.username],
+                keyboardType: TextInputType.text,
+                maxLines: 1,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "auth_screens.sign_up_screen.error.empty_field".tr();
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              FTextField(
+                controller: nameController,
+                label: const Text(
+                  "auth_screens.sign_up_screen.name",
+                ).tr(),
+                autofillHints: const [AutofillHints.name],
+                keyboardType: TextInputType.name,
+                maxLines: 1,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "auth_screens.sign_up_screen.error.empty_field".tr();
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              FTextField(
+                controller: emailController,
+                label: const Text(
+                  "auth_screens.sign_up_screen.email",
+                ).tr(),
+                autofillHints: const [AutofillHints.email],
+                keyboardType: TextInputType.emailAddress,
+                maxLines: 1,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "auth_screens.sign_up_screen.error.empty_field".tr();
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              FTextField(
+                controller: passwordController,
+                label: const Text(
+                  "auth_screens.sign_up_screen.password",
+                ).tr(),
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
+                maxLines: 1,
+                autofillHints: const [AutofillHints.password],
+                keyboardType: TextInputType.visiblePassword,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "auth_screens.sign_up_screen.error.empty_field".tr();
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              FTextField(
+                controller: confirmPasswordController,
+                label: const Text(
+                  "auth_screens.sign_up_screen.confirm_password",
+                ).tr(),
+                obscureText: true,
+                enableSuggestions: false,
+                autocorrect: false,
+                maxLines: 1,
+                autofillHints: const [AutofillHints.password],
+                keyboardType: TextInputType.visiblePassword,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "auth_screens.sign_up_screen.error.empty_field".tr();
+                  }
+                  if (value != passwordController.text) {
+                    return "auth_screens.sign_up_screen.error.password_mismatch"
+                        .tr();
+                  }
+                  return null;
+                },
+              ),
+              const SizedBox(height: 16),
+              FButton(
+                onPress: (!_isLoading)
+                    ? () async {
+                        FocusScope.of(context).unfocus();
+
+                        if (!_formKey.currentState!.validate()) {
+                          return;
+                        }
+                        setState(() {
+                          _isLoading = true;
+                        });
+                        try {
+                          String verificationCode =
+                              await authService.getVerificationCode(
+                            emailController.text,
+                          );
+                          goToVerificationCodeScreen(
+                            context,
+                            verificationCode,
+                          );
+                        } catch (e) {
+                          debugPrint(e.toString());
+                        } finally {
+                          setState(() {
+                            _isLoading = false;
+                          });
+                        }
+                      }
+                    : null,
+                style: FButtonStyle.primary,
+                prefix: (_isLoading) ? const FButtonSpinner() : null,
+                label: Text(
+                  (_isLoading)
+                      ? "auth_screens.verification_code_screen.request"
+                      : "auth_screens.sign_up_screen.sign_up",
+                ).tr(),
               ),
               BlocBuilder<AuthBloc, AuthState>(
                 builder: (context, state) {
-                  if (state is AuthLoading) {
-                    return const LinearProgressIndicator();
+                  if (state is AuthFailure) {
+                    return Column(
+                      children: [
+                        const SizedBox(height: 16),
+                        FAlert(
+                          icon: FAssets.icons.badgeX(),
+                          title: const Text(
+                            "auth_screens.sign_up_screen.error.title",
+                          ).tr(),
+                          subtitle: const Text(
+                            "auth_screens.sign_up_screen.error.message",
+                          ).tr(),
+                          style: FAlertStyle.destructive,
+                        ),
+                      ],
+                    );
                   }
                   return const SizedBox.shrink();
                 },
-              )
+              ),
+              const SizedBox(height: 16),
             ],
           ),
-          contentPad: false,
-          content: SingleChildScrollView(
-            padding: EdgeInsets.only(
-              top: 16,
-              left: 16,
-              right: 16,
-              bottom: MediaQuery.of(context).viewInsets.bottom + 16,
-            ),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  FTextField(
-                    controller: usernameController,
-                    label: const Text(
-                      "auth_screens.sign_up_screen.username",
-                    ).tr(),
-                    autofillHints: const [AutofillHints.username],
-                    keyboardType: TextInputType.text,
-                    maxLines: 1,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "auth_screens.sign_up_screen.error.empty_field"
-                            .tr();
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  FTextField(
-                    controller: nameController,
-                    label: const Text(
-                      "auth_screens.sign_up_screen.name",
-                    ).tr(),
-                    autofillHints: const [AutofillHints.name],
-                    keyboardType: TextInputType.name,
-                    maxLines: 1,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "auth_screens.sign_up_screen.error.empty_field"
-                            .tr();
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  FTextField(
-                    controller: emailController,
-                    label: const Text(
-                      "auth_screens.sign_up_screen.email",
-                    ).tr(),
-                    autofillHints: const [AutofillHints.email],
-                    keyboardType: TextInputType.emailAddress,
-                    maxLines: 1,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "auth_screens.sign_up_screen.error.empty_field"
-                            .tr();
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  FTextField(
-                    controller: passwordController,
-                    label: const Text(
-                      "auth_screens.sign_up_screen.password",
-                    ).tr(),
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    maxLines: 1,
-                    autofillHints: const [AutofillHints.password],
-                    keyboardType: TextInputType.visiblePassword,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "auth_screens.sign_up_screen.error.empty_field"
-                            .tr();
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  FTextField(
-                    controller: confirmPasswordController,
-                    label: const Text(
-                      "auth_screens.sign_up_screen.confirm_password",
-                    ).tr(),
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    maxLines: 1,
-                    autofillHints: const [AutofillHints.password],
-                    keyboardType: TextInputType.visiblePassword,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return "auth_screens.sign_up_screen.error.empty_field"
-                            .tr();
-                      }
-                      if (value != passwordController.text) {
-                        return "auth_screens.sign_up_screen.error.password_mismatch"
-                            .tr();
-                      }
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                  FButton(
-                    onPress: () async {
-                      if (!_formKey.currentState!.validate()) {
-                        return;
-                      }
-                      setState(() {
-                        _isLoading = true;
-                      });
-                      try {
-                        String verificationCode = await authService
-                            .getVerificationCode(emailController.text);
-                        goToVerificationCodeScreen(context, verificationCode);
-                      } catch (e) {
-                        debugPrint(e.toString());
-                      } finally {
-                        setState(() {
-                          _isLoading = false;
-                        });
-                      }
-                    },
-                    style: FButtonStyle.primary,
-                    label: const Text(
-                      "auth_screens.sign_up_screen.sign_up",
-                    ).tr(),
-                  ),
-                  BlocBuilder<AuthBloc, AuthState>(
-                    builder: (context, state) {
-                      if (state is AuthFailure) {
-                        return Column(
-                          children: [
-                            const SizedBox(height: 16),
-                            FAlert(
-                              icon: FAssets.icons.badgeX(),
-                              title: const Text(
-                                "auth_screens.sign_up_screen.error.title",
-                              ).tr(),
-                              subtitle: const Text(
-                                "auth_screens.sign_up_screen.error.message",
-                              ).tr(),
-                              style: FAlertStyle.destructive,
-                            ),
-                          ],
-                        );
-                      }
-                      return const SizedBox.shrink();
-                    },
-                  ),
-                  const SizedBox(height: 16),
-                ],
-              ),
-            ),
-          ),
         ),
-        if (_isLoading)
-          const ModalBarrier(dismissible: false, color: Colors.black54),
-        if (_isLoading) const Center(child: CircularProgressIndicator()),
-      ],
+      ),
     );
   }
 }

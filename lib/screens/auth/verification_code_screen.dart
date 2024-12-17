@@ -53,24 +53,36 @@ class VerificationCodeScreen extends StatelessWidget {
           }
         },
         child: FScaffold(
-          header: FHeader.nested(
-            title: const Text(
-              "auth_screens.verification_code_screen.title",
-            ).tr(),
-            prefixActions: [
-              FHeaderAction.back(
-                onPress: () => context.pop(),
+          header: Column(
+            children: [
+              FHeader.nested(
+                title: const Text(
+                  "auth_screens.verification_code_screen.title",
+                ).tr(),
+                prefixActions: [
+                  FHeaderAction.back(
+                    onPress: () => context.pop(),
+                  ),
+                ],
+                suffixActions: [
+                  FHeaderAction(
+                    icon: FAssets.icons.languages(),
+                    onPress: () {
+                      context.setLocale(
+                        context.locale == const Locale("en")
+                            ? const Locale("es")
+                            : const Locale("en"),
+                      );
+                    },
+                  ),
+                ],
               ),
-            ],
-            suffixActions: [
-              FHeaderAction(
-                icon: FAssets.icons.languages(),
-                onPress: () {
-                  context.setLocale(
-                    context.locale == const Locale("en")
-                        ? const Locale("es")
-                        : const Locale("en"),
-                  );
+              BlocBuilder<AuthBloc, AuthState>(
+                builder: (context, state) {
+                  if (state is AuthLoading) {
+                    return const LinearProgressIndicator();
+                  }
+                  return const SizedBox.shrink();
                 },
               ),
             ],
