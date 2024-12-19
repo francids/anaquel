@@ -82,7 +82,11 @@ class _HomeScreenState extends State<HomeScreen> {
         style: FRootHeaderStyle(
           titleTextStyle: TextStyle(
             fontSize: 24,
-            color: index == 0 ? AppColors.burgundy : AppColors.black,
+            color: index == 0
+                ? (Theme.of(context).brightness == Brightness.light
+                    ? AppColors.burgundy
+                    : AppColors.white)
+                : null,
             fontWeight: index == 0 ? FontWeight.w800 : FontWeight.w600,
           ),
           actionSpacing: 16,
