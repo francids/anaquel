@@ -40,6 +40,28 @@ class _CreateBookScreenState extends State<CreateBookScreen> {
     return newImagePath;
   }
 
+  Future createBook(BuildContext context) async {
+    if (_imageFile == null) return;
+    if (!_formKey.currentState!.validate()) return;
+
+    final localBooksBloc = context.read<LocalBooksBloc>();
+    final navigator = Navigator.of(context);
+
+    String localBookCoverUrl = await _saveImage(_titleController.text);
+    LocalBook localBook = LocalBook(
+      id: const Uuid().v4(),
+      coverUrl: localBookCoverUrl,
+      title: _titleController.text,
+      author: _authorController.text,
+      description: _descriptionController.text,
+      genres: _genresController.text.split(",").map((e) => e.trim()).toList(),
+      status: 0,
+    );
+
+    localBooksBloc.add(AddLocalBook(localBook: localBook));
+    navigator.pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return FScaffold(
@@ -170,31 +192,7 @@ class _CreateBookScreenState extends State<CreateBookScreen> {
               ),
               const FDivider(),
               FButton(
-                onPress: () {
-                  if (_imageFile == null) return;
-                  if (!_formKey.currentState!.validate()) return;
-                  _saveImage(_titleController.text).then(
-                    (value) {
-                      context.read<LocalBooksBloc>().add(
-                            AddLocalBook(
-                              localBook: LocalBook(
-                                id: const Uuid().v4(),
-                                coverUrl: value,
-                                title: _titleController.text,
-                                author: _authorController.text,
-                                description: _descriptionController.text,
-                                genres: _genresController.text
-                                    .split(",")
-                                    .map((e) => e.trim())
-                                    .toList(),
-                                status: 0,
-                              ),
-                            ),
-                          );
-                    },
-                  );
-                  context.pop();
-                },
+                onPress: () => createBook(context),
                 style: FButtonStyle.primary,
                 label: const Text("local_books_screens.create.create").tr(),
               ),
