@@ -16,6 +16,8 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
+  final AuthService authService = AuthService();
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
@@ -25,22 +27,43 @@ class _SignUpScreenState extends State<SignUpScreen> {
       TextEditingController();
 
   bool _isLoading = false;
+  bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
+
+  Future<void> submit() async {
+    FocusScope.of(context).unfocus();
+    if (!_formKey.currentState!.validate()) return;
+    setState(() => _isLoading = true);
+
+    final email = emailController.text;
+    NavigatorState navigator = Navigator.of(context);
+
+    try {
+      String verificationCode = await authService.getVerificationCode(email);
+      goToVerificationCodeScreen(navigator, verificationCode);
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
 
   void goToVerificationCodeScreen(
-    BuildContext context,
+    NavigatorState navigator,
     String verificationCode,
   ) {
-    Navigator.of(context).push(
+    final user = User(
+      name: nameController.text,
+      email: emailController.text,
+      username: usernameController.text,
+      password: passwordController.text,
+    );
+    navigator.push(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) {
           return VerificationCodeScreen(
             verificationCode: verificationCode,
-            user: User(
-              name: nameController.text,
-              email: emailController.text,
-              username: usernameController.text,
-              password: passwordController.text,
-            ),
+            user: user,
           );
         },
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
@@ -58,8 +81,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final AuthService authService = AuthService();
-
     return FScaffold(
       header: Column(
         children: [
@@ -132,52 +153,95 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 },
               ),
               const SizedBox(height: 16),
-              FTextField(
+              FTextField.email(
                 controller: emailController,
                 label: const Text(
                   "auth_screens.sign_up_screen.email",
                 ).tr(),
-                autofillHints: const [AutofillHints.email],
-                keyboardType: TextInputType.emailAddress,
-                maxLines: 1,
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "auth_screens.sign_up_screen.error.empty_field".tr();
+                  }
+                  if (!RegExp(r'^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$')
+                      .hasMatch(value)) {
+                    return "auth_screens.sign_up_screen.error.invalid_email"
+                        .tr();
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
-              FTextField(
+              FTextField.password(
                 controller: passwordController,
+                obscureText: _obscurePassword,
                 label: const Text(
                   "auth_screens.sign_up_screen.password",
                 ).tr(),
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                maxLines: 1,
-                autofillHints: const [AutofillHints.password],
-                keyboardType: TextInputType.visiblePassword,
+                description: (passwordController.text.isEmpty)
+                    ? const Text(
+                        "auth_screens.sign_up_screen.password_description",
+                      ).tr()
+                    : null,
+                suffix: FButton.icon(
+                  style: FButtonStyle.ghost,
+                  child: Padding(
+                    padding: const EdgeInsets.all(6),
+                    child: FIcon(
+                      (_obscurePassword)
+                          ? FAssets.icons.eyeClosed
+                          : FAssets.icons.eye,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.6),
+                    ),
+                  ),
+                  onPress: () => setState(
+                    () => _obscurePassword = !_obscurePassword,
+                  ),
+                ),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "auth_screens.sign_up_screen.error.empty_field".tr();
+                  }
+                  if (value.length < 8) {
+                    return "auth_screens.sign_up_screen.error.password_length"
+                        .tr();
+                  }
+                  if (!RegExp(
+                    r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$&*~])',
+                  ).hasMatch(value)) {
+                    return "auth_screens.sign_up_screen.error.password_complexity"
+                        .tr();
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
-              FTextField(
+              FTextField.password(
                 controller: confirmPasswordController,
+                obscureText: _obscureConfirmPassword,
                 label: const Text(
                   "auth_screens.sign_up_screen.confirm_password",
                 ).tr(),
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                maxLines: 1,
-                autofillHints: const [AutofillHints.password],
-                keyboardType: TextInputType.visiblePassword,
+                suffix: FButton.icon(
+                  style: FButtonStyle.ghost,
+                  child: Padding(
+                    padding: const EdgeInsets.all(6),
+                    child: FIcon(
+                      (_obscureConfirmPassword)
+                          ? FAssets.icons.eyeClosed
+                          : FAssets.icons.eye,
+                      color: Theme.of(context)
+                          .colorScheme
+                          .onSurface
+                          .withOpacity(0.6),
+                    ),
+                  ),
+                  onPress: () => setState(
+                    () => _obscureConfirmPassword = !_obscureConfirmPassword,
+                  ),
+                ),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "auth_screens.sign_up_screen.error.empty_field".tr();
@@ -191,34 +255,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 16),
               FButton(
-                onPress: (!_isLoading)
-                    ? () async {
-                        FocusScope.of(context).unfocus();
-
-                        if (!_formKey.currentState!.validate()) {
-                          return;
-                        }
-                        setState(() {
-                          _isLoading = true;
-                        });
-                        try {
-                          String verificationCode =
-                              await authService.getVerificationCode(
-                            emailController.text,
-                          );
-                          goToVerificationCodeScreen(
-                            context,
-                            verificationCode,
-                          );
-                        } catch (e) {
-                          debugPrint(e.toString());
-                        } finally {
-                          setState(() {
-                            _isLoading = false;
-                          });
-                        }
-                      }
-                    : null,
+                onPress: (!_isLoading) ? submit : null,
                 style: FButtonStyle.primary,
                 prefix: (_isLoading) ? const FButtonSpinner() : null,
                 label: Text(
