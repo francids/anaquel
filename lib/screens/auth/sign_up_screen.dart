@@ -109,14 +109,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           if (_isLoading) const LinearProgressIndicator(),
         ],
       ),
+      resizeToAvoidBottomInset: true,
       contentPad: false,
       content: SingleChildScrollView(
-        padding: EdgeInsets.only(
-          top: 16,
-          left: 16,
-          right: 16,
-          bottom: MediaQuery.of(context).viewInsets.bottom + 16,
-        ),
+        padding: const EdgeInsets.all(16),
         child: Form(
           key: _formKey,
           child: Column(
@@ -193,7 +189,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
-                          .withOpacity(0.6),
+                          .withAlpha(153),
                     ),
                   ),
                   onPress: () => setState(
@@ -235,7 +231,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       color: Theme.of(context)
                           .colorScheme
                           .onSurface
-                          .withOpacity(0.6),
+                          .withAlpha(153),
                     ),
                   ),
                   onPress: () => setState(

@@ -59,14 +59,10 @@ class LogInScreen extends StatelessWidget {
             )
           ],
         ),
+        resizeToAvoidBottomInset: true,
         contentPad: false,
         content: SingleChildScrollView(
-          padding: EdgeInsets.only(
-            top: 16,
-            left: 16,
-            right: 16,
-            bottom: MediaQuery.of(context).viewInsets.bottom + 16,
-          ),
+          padding: const EdgeInsets.all(16),
           child: Form(
             key: _formKey,
             child: Column(
@@ -150,7 +146,7 @@ class LogInScreen extends StatelessWidget {
                     onTap: () => Navigator.of(context).push(
                       PageRouteBuilder(
                         pageBuilder: (context, animation, secondaryAnimation) =>
-                            SignUpScreen(),
+                            const SignUpScreen(),
                         transitionsBuilder:
                             (context, animation, secondaryAnimation, child) {
                           return SlideTransition(

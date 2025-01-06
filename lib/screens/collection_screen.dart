@@ -80,10 +80,10 @@ class _CollectionScreenState extends State<CollectionScreen>
         ],
         suffixActions: [
           FPopoverMenu.tappable(
-            controller: popoverController,
+            popoverController: popoverController,
             menuAnchor: Alignment.topRight,
             childAnchor: Alignment.bottomRight,
-            ignoreDirectionalPadding: true,
+            directionPadding: false,
             hideOnTapOutside: true,
             menu: [
               FTileGroup(

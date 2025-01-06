@@ -52,10 +52,10 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
         ],
         suffixActions: [
           FPopoverMenu.tappable(
-            controller: popoverController,
+            popoverController: popoverController,
             menuAnchor: Alignment.topRight,
             childAnchor: Alignment.bottomRight,
-            ignoreDirectionalPadding: true,
+            directionPadding: false,
             hideOnTapOutside: true,
             menu: [
               FTileGroup(
@@ -294,7 +294,7 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
             horizontal: 8,
           ),
           child: FSelectTileGroup<int>(
-            controller: controller,
+            groupController: controller,
             children: [
               FSelectTile(
                 title: const Text("local_books_screens.details.status.not_read")

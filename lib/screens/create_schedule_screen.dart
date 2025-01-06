@@ -89,7 +89,7 @@ class _CreateScheduleScreenState extends State<CreateScheduleScreen> {
               ),
               const FDivider(),
               FSelectTileGroup(
-                controller: _daysController,
+                groupController: _daysController,
                 label: const Text("schedules_screen.form.days").tr(),
                 validator: (value) {
                   if (value!.isEmpty) {

@@ -62,10 +62,10 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
         ],
         suffixActions: [
           FPopoverMenu.tappable(
-            controller: popoverController,
+            popoverController: popoverController,
             menuAnchor: Alignment.topRight,
             childAnchor: Alignment.bottomRight,
-            ignoreDirectionalPadding: true,
+            directionPadding: false,
             hideOnTapOutside: true,
             menu: [
               FTileGroup(
@@ -166,7 +166,7 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                           "book_details_screen.menu.collections")
                                       .tr(),
                                   body: FSelectTileGroup<int>(
-                                    controller: controller,
+                                    groupController: controller,
                                     children:
                                         state.collections.map((collection) {
                                       return FSelectTile(
