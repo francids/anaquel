@@ -82,12 +82,7 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
       ),
       contentPad: false,
       content: SingleChildScrollView(
-        padding: EdgeInsets.only(
-          top: 16,
-          left: 16,
-          right: 16,
-          bottom: MediaQuery.of(context).viewInsets.bottom + 8,
-        ),
+        padding: const EdgeInsets.all(16),
         child: Column(
           children: [
             SizedBox(
