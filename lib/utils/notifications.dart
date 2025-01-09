@@ -10,6 +10,5 @@ Future<void> initializeNotifications() async {
         channelDescription: "Notificaciones programadas",
       ),
     ],
-    debug: true,
   );
 }

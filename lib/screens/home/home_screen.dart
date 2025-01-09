@@ -41,6 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
+    super.initState();
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
         AwesomeNotifications().requestPermissionToSendNotifications();
@@ -51,7 +52,6 @@ class _HomeScreenState extends State<HomeScreen> {
     context.read<CollectionsBloc>().add(GetCollections());
     context.read<LocalBooksBloc>().add(LoadLocalBooks());
     context.read<SchedulesBloc>().add(GetSchedules());
-    super.initState();
   }
 
   @override

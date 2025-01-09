@@ -15,6 +15,7 @@ Future<void> _initializeApp() async {
   ScaledWidgetsFlutterBinding.ensureInitialized(scaleFactor: (_) => 1.0);
   await initializeNotifications();
   await dotenv.load(fileName: ".env", isOptional: true);
+  EasyLocalization.logger.enableBuildModes = [];
   await EasyLocalization.ensureInitialized();
   configureSystemUI();
 }

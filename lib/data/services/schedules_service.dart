@@ -80,14 +80,21 @@ class SchedulesService {
         final List<Schedule> schedules = (response.data as List)
             .map((schedule) => Schedule.fromJson(schedule))
             .toList();
-        await AwesomeNotifications().cancelAllSchedules();
+
+        if ((await AwesomeNotifications().listScheduledNotifications())
+            .isNotEmpty) {
+          await AwesomeNotifications().cancelAllSchedules();
+        }
+
+        if (schedules.isEmpty) return schedules;
         for (final schedule in schedules) {
           await createNotification(schedule);
         }
         return schedules;
       } else {
         throw Exception(
-            "Error al obtener los horarios: ${response.statusCode}");
+          "Error al obtener los horarios: ${response.statusCode}",
+        );
       }
     } catch (e) {
       throw Exception("Error al obtener los horarios");
