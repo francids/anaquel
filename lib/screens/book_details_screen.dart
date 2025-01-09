@@ -72,8 +72,9 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                 children: [
                   FTile(
                     prefixIcon: FIcon(FAssets.icons.trash),
-                    title:
-                        const Text("book_details_screen.menu.remove_book").tr(),
+                    title: const Text(
+                      "book_details_screen.menu.remove_book",
+                    ).tr(),
                     onPress: () {
                       showAdaptiveDialog(
                         context: context,
@@ -102,15 +103,15 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                               },
                               style: FButtonStyle.destructive,
                               label: const Text(
-                                      "book_details_screen.menu.remove_book")
-                                  .tr(),
+                                "book_details_screen.menu.remove_book",
+                              ).tr(),
                             ),
                             FButton(
                               onPress: () => context.pop(),
                               style: FButtonStyle.outline,
-                              label:
-                                  const Text("book_details_screen.menu.cancel")
-                                      .tr(),
+                              label: const Text(
+                                "book_details_screen.menu.cancel",
+                              ).tr(),
                             ),
                           ],
                         ),
@@ -119,9 +120,11 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                   ),
                   FTile(
                     prefixIcon: FIcon(FAssets.icons.library),
-                    title:
-                        const Text("book_details_screen.menu.collections").tr(),
+                    title: const Text(
+                      "book_details_screen.menu.collections",
+                    ).tr(),
                     onPress: () {
+                      context.read<CollectionsBloc>().add(GetCollections());
                       showAdaptiveDialog(
                         context: context,
                         builder: (context) {
@@ -131,18 +134,18 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                 if (state.collections.isEmpty) {
                                   return FDialog(
                                     title: const Text(
-                                            "book_details_screen.menu.collections")
-                                        .tr(),
+                                      "book_details_screen.menu.collections",
+                                    ).tr(),
                                     body: const Text(
-                                            "book_details_screen.menu.no_collections")
-                                        .tr(),
+                                      "book_details_screen.menu.no_collections",
+                                    ).tr(),
                                     actions: [
                                       FButton(
                                         onPress: () => context.pop(),
                                         style: FButtonStyle.outline,
                                         label: const Text(
-                                                "book_details_screen.menu.cancel")
-                                            .tr(),
+                                          "book_details_screen.menu.cancel",
+                                        ).tr(),
                                       ),
                                     ],
                                   );
@@ -161,32 +164,43 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                     for (final value in originalValues) value,
                                   },
                                 );
+
                                 return FDialog(
                                   title: const Text(
-                                          "book_details_screen.menu.collections")
-                                      .tr(),
-                                  body: FSelectTileGroup<int>(
-                                    groupController: controller,
-                                    children:
-                                        state.collections.map((collection) {
-                                      return FSelectTile(
-                                        title: Text(collection.name),
-                                        value: collection.id,
-                                        suffixIcon: Container(
-                                          width: 16,
-                                          height: 16,
-                                          decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                            color: Color(
-                                              int.parse(
-                                                "0xFF${collection.color.replaceAll("#", "")}",
+                                    "book_details_screen.menu.collections",
+                                  ).tr(),
+                                  body: SizedBox(
+                                    height: state.collections.length * 48.0,
+                                    width: context.theme.breakpoints.sm,
+                                    child: SingleChildScrollView(
+                                      child: FSelectTileGroup<int>.builder(
+                                        maxHeight:
+                                            state.collections.length * 48.0,
+                                        groupController: controller,
+                                        count: state.collections.length,
+                                        tileBuilder: (context, index) {
+                                          return FSelectTile(
+                                            title: Text(
+                                              state.collections[index].name,
+                                            ),
+                                            value: state.collections[index].id,
+                                            suffixIcon: Container(
+                                              width: 16,
+                                              height: 16,
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                                color: Color(
+                                                  int.parse(
+                                                    "0xFF${state.collections[index].color.replaceAll("#", "")}",
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ),
-                                      );
-                                    }).toList(),
+                                          );
+                                        },
+                                      ),
+                                    ),
                                   ),
                                   actions: [
                                     FButton(
@@ -225,20 +239,55 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                       },
                                       style: FButtonStyle.primary,
                                       label: const Text(
-                                              "book_details_screen.menu.save")
-                                          .tr(),
+                                        "book_details_screen.menu.save",
+                                      ).tr(),
                                     ),
                                     FButton(
                                       onPress: () => context.pop(),
                                       style: FButtonStyle.outline,
                                       label: const Text(
-                                              "book_details_screen.menu.cancel")
-                                          .tr(),
+                                        "book_details_screen.menu.cancel",
+                                      ).tr(),
+                                    ),
+                                  ],
+                                );
+                              } else if (state is CollectionsLoading) {
+                                return FDialog(
+                                  title: const Text(
+                                    "book_details_screen.menu.collections",
+                                  ).tr(),
+                                  body: const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
+                                  actions: [
+                                    FButton(
+                                      onPress: () => context.pop(),
+                                      style: FButtonStyle.outline,
+                                      label: const Text(
+                                        "book_details_screen.menu.cancel",
+                                      ).tr(),
+                                    ),
+                                  ],
+                                );
+                              } else {
+                                return FDialog(
+                                  title: const Text(
+                                    "book_details_screen.menu.collections",
+                                  ).tr(),
+                                  body: const Text(
+                                    "Error loading collections.",
+                                  ),
+                                  actions: [
+                                    FButton(
+                                      onPress: () => context.pop(),
+                                      style: FButtonStyle.outline,
+                                      label: const Text(
+                                        "book_details_screen.menu.cancel",
+                                      ).tr(),
                                     ),
                                   ],
                                 );
                               }
-                              return const SizedBox.shrink();
                             },
                           );
                         },
@@ -247,9 +296,9 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                   ),
                   FTile(
                     prefixIcon: FIcon(FAssets.icons.fileText),
-                    title:
-                        const Text("book_details_screen.menu.generate_summary")
-                            .tr(),
+                    title: const Text(
+                      "book_details_screen.menu.generate_summary",
+                    ).tr(),
                     onPress: () {
                       context.read<SummaryBloc>().add(
                             GenerateSummary(
@@ -267,8 +316,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                             builder: (context, state) {
                               return FDialog(
                                 title: const Text(
-                                        "book_details_screen.menu.summary")
-                                    .tr(),
+                                  "book_details_screen.menu.summary",
+                                ).tr(),
                                 body: state is SummaryLoaded
                                     ? SelectableText(
                                         state.summary,
@@ -285,8 +334,8 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                                     onPress: () => context.pop(),
                                     style: FButtonStyle.outline,
                                     label: const Text(
-                                            "book_details_screen.menu.close")
-                                        .tr(),
+                                      "book_details_screen.menu.close",
+                                    ).tr(),
                                   ),
                                 ],
                               );
@@ -372,7 +421,9 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                 ),
               ),
               style: FButtonStyle.primary,
-              label: const Text("book_details_screen.resume_reading").tr(),
+              label: const Text(
+                "book_details_screen.resume_reading",
+              ).tr(),
             ),
             const SizedBox(height: 8),
             FButton(
@@ -397,7 +448,9 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                 ),
               ),
               style: FButtonStyle.outline,
-              label: const Text("book_details_screen.questionnaire").tr(),
+              label: const Text(
+                "book_details_screen.questionnaire",
+              ).tr(),
             ),
             const SizedBox(height: 8),
             FButton(
@@ -418,7 +471,9 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                 ),
               ),
               style: FButtonStyle.outline,
-              label: const Text("book_details_screen.recommendations").tr(),
+              label: const Text(
+                "book_details_screen.recommendations",
+              ).tr(),
             ),
             const FDivider(),
             SizedBox(
