@@ -179,6 +179,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ).tr()
                     : null,
                 suffix: FButton.icon(
+                  focusNode: FocusNode(canRequestFocus: false),
                   style: FButtonStyle.ghost,
                   child: Padding(
                     padding: const EdgeInsets.all(6),
@@ -221,6 +222,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   "auth_screens.sign_up_screen.confirm_password",
                 ).tr(),
                 suffix: FButton.icon(
+                  focusNode: FocusNode(canRequestFocus: false),
                   style: FButtonStyle.ghost,
                   child: Padding(
                     padding: const EdgeInsets.all(6),

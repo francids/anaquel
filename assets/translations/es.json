@@ -58,6 +58,19 @@
       "title": "Código de verificación",
       "message": "Un código de verificación ha sido enviado a tu correo electrónico. Verifica tu bandeja de entrada para continuar.",
       "error_code": "El código es incorrecto"
+    },
+    "change_password_screen": {
+      "title": "Cambiar contraseña",
+      "current_password": "Contraseña actual",
+      "new_password": "Nueva contraseña",
+      "confirm_password": "Confirmar contraseña",
+      "changing_password": "Cambiando contraseña",
+      "success": "La contraseña ha sido cambiada exitosamente",
+      "ok": "Entendido",
+      "warning": "Advertencia",
+      "warning_description": "Si cambias tu contraseña, se cerrará la sesión actual y deberás iniciar sesión nuevamente",
+      "error": "Error",
+      "error_description": "Se produjo un error al cambiar la contraseña"
     }
   },
   "principal": "Principal",

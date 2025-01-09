@@ -60,7 +60,7 @@ class AuthService {
   }
 
   Future<String?> getCookie() async {
-    return await secureStorage.read(key: 'cookie');
+    return await secureStorage.read(key: "cookie");
   }
 
   Future<String> getVerificationCode(String email) async {
@@ -75,6 +75,26 @@ class AuthService {
       return response.data["code"];
     } else {
       throw Exception('Error al obtener el código de verificación');
+    }
+  }
+
+  Future<void> changePassword(String oldPassword, String newPassword) async {
+    final cookie = await getCookie();
+    final response = await _dio.put(
+      "/users/credentials",
+      data: {
+        "oldPassword": oldPassword,
+        "newPassword": newPassword,
+      },
+      options: Options(
+        headers: {
+          "Cookie": cookie,
+        },
+      ),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception("Error al cambiar la contraseña");
     }
   }
 }

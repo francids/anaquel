@@ -58,6 +58,19 @@
       "title": "Verification code",
       "message": "A verification code has been sent to your email. Check your inbox to continue.",
       "error_code": "The code is incorrect"
+    },
+    "change_password_screen": {
+      "title": "Change password",
+      "current_password": "Current password",
+      "new_password": "New password",
+      "confirm_password": "Confirm password",
+      "changing_password": "Changing password",
+      "success": "The password has been changed successfully",
+      "ok": "Ok",
+      "warning": "Warning",
+      "warning_description": "If you change your password, you will be logged out of the application",
+      "error": "Error",
+      "error_description": "An error occurred while changing the password"
     }
   },
   "principal": "Principal",
