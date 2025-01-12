@@ -71,6 +71,13 @@
       "warning_description": "If you change your password, you will be logged out of the application",
       "error": "Error",
       "error_description": "An error occurred while changing the password"
+    },
+    "edit_profile_screen": {
+      "title": "Edit profile",
+      "save": "Save",
+      "no_changes": "No changes were made",
+      "no_changes_body": "No changes were detected in your profile",
+      "ok": "Ok"
     }
   },
   "principal": "Principal",

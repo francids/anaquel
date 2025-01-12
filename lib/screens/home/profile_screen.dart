@@ -85,7 +85,7 @@ class ProfileScreen extends StatelessWidget {
                             PageRouteBuilder(
                               pageBuilder:
                                   (context, animation, secondaryAnimation) =>
-                                      const EditProfileScreen(),
+                                      EditProfileScreen(oldUser: state.user),
                               transitionsBuilder: (context, animation,
                                   secondaryAnimation, child) {
                                 return SlideTransition(
@@ -98,9 +98,15 @@ class ProfileScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                          prefixIcon: FIcon(FAssets.icons.user),
-                          title: const Text("profile_screen.edit_profile").tr(),
-                          suffixIcon: FIcon(FAssets.icons.chevronRight),
+                          prefixIcon: FIcon(
+                            FAssets.icons.user,
+                          ),
+                          title: const Text(
+                            "profile_screen.edit_profile",
+                          ).tr(),
+                          suffixIcon: FIcon(
+                            FAssets.icons.chevronRight,
+                          ),
                         ),
                         FTile(
                           onPress: () => Navigator.of(context).push(
@@ -120,10 +126,15 @@ class ProfileScreen extends StatelessWidget {
                               },
                             ),
                           ),
-                          prefixIcon: FIcon(FAssets.icons.lock),
-                          title:
-                              const Text("profile_screen.change_password").tr(),
-                          suffixIcon: FIcon(FAssets.icons.chevronRight),
+                          prefixIcon: FIcon(
+                            FAssets.icons.lock,
+                          ),
+                          title: const Text(
+                            "profile_screen.change_password",
+                          ).tr(),
+                          suffixIcon: FIcon(
+                            FAssets.icons.chevronRight,
+                          ),
                         ),
                       ],
                     ),
@@ -133,7 +144,6 @@ class ProfileScreen extends StatelessWidget {
               return const SizedBox.shrink();
             },
           ),
-          // const SizedBox(height: 12),
           const FDivider(),
           FTile(
             onPress: () => showAdaptiveDialog(
@@ -155,24 +165,28 @@ class ProfileScreen extends StatelessWidget {
                       context.pop();
                     },
                     style: FButtonStyle.outline,
-                    label: const Text("profile_screen.change_language.spanish")
-                        .tr(),
+                    label: const Text(
+                      "profile_screen.change_language.spanish",
+                    ).tr(),
                   ),
                   FButton(
                     onPress: () {
-                      context.setLocale(const Locale('en'));
+                      context.setLocale(const Locale("en"));
                       onLanguageChanged();
                       context.pop();
                     },
                     style: FButtonStyle.outline,
-                    label: const Text("profile_screen.change_language.english")
-                        .tr(),
+                    label: const Text(
+                      "profile_screen.change_language.english",
+                    ).tr(),
                   ),
                 ],
               ),
             ),
             prefixIcon: FIcon(FAssets.icons.languages),
-            title: const Text("profile_screen.change_language.title").tr(),
+            title: const Text(
+              "profile_screen.change_language.title",
+            ).tr(),
             details: Text(
               context.locale.languageCode == "es"
                   ? "profile_screen.change_language.spanish".tr()
@@ -185,9 +199,7 @@ class ProfileScreen extends StatelessWidget {
             builder: (context, state) {
               if (state is UserBooksLoaded) {
                 List<String> favoritesGenres = state.userBooks
-                    .map(
-                      (e) => e.genres,
-                    )
+                    .map((e) => e.genres)
                     .expand((e) => e)
                     .toList();
                 if (favoritesGenres.isEmpty) {
@@ -252,21 +264,27 @@ class ProfileScreen extends StatelessWidget {
                           context.read<AuthBloc>().add(LogoutEvent());
                         },
                         style: FButtonStyle.destructive,
-                        label: const Text("profile_screen.logout.title").tr(),
+                        label: const Text(
+                          "profile_screen.logout.title",
+                        ).tr(),
                       ),
                       FButton(
                         onPress: () {
                           context.pop();
                         },
                         style: FButtonStyle.outline,
-                        label: const Text("profile_screen.logout.cancel").tr(),
+                        label: const Text(
+                          "profile_screen.logout.cancel",
+                        ).tr(),
                       ),
                     ],
                   );
                 },
               ),
               style: FButtonStyle.destructive,
-              label: const Text("profile_screen.logout.title").tr(),
+              label: const Text(
+                "profile_screen.logout.title",
+              ).tr(),
             ),
           ),
         ],

@@ -71,6 +71,13 @@
       "warning_description": "Si cambias tu contraseña, se cerrará la sesión actual y deberás iniciar sesión nuevamente",
       "error": "Error",
       "error_description": "Se produjo un error al cambiar la contraseña"
+    },
+    "edit_profile_screen": {
+      "title": "Editando perfil",
+      "save": "Continuar",
+      "no_changes": "No se realizaron cambios",
+      "no_changes_body": "No se detectaron cambios en tu perfil",
+      "ok": "Entendido"
     }
   },
   "principal": "Principal",
