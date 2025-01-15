@@ -1,13 +1,13 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_touch_ripple/flutter_touch_ripple.dart';
 
 class CollectionChip extends StatelessWidget {
-  const CollectionChip(
-      {super.key,
-      required this.label,
-      required this.color,
-      required this.onPress});
+  const CollectionChip({
+    super.key,
+    required this.label,
+    required this.color,
+    required this.onPress,
+  });
 
   final String label;
   final Color color;
@@ -15,13 +15,15 @@ class CollectionChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TouchRipple(
-      rippleBorderRadius: BorderRadius.circular(8),
-      onTap: () => onPress(),
-      child: ClipRRect(
+    return Material(
+      child: InkWell(
         borderRadius: BorderRadius.circular(8),
-        child: Container(
-          color: color,
+        onTap: () => onPress(),
+        child: Ink(
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(8),
+          ),
           width: double.infinity,
           child: Padding(
             padding: const EdgeInsets.all(10.0),
