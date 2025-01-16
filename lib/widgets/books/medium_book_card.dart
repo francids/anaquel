@@ -16,53 +16,56 @@ class MediumBookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: InkWell(
-        borderRadius: BorderRadius.circular(8),
-        onTap: () => Navigator.of(context).push(
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                BookDetailsScreen(userBook: userBook),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-              return SlideTransition(
-                position: Tween<Offset>(
-                  begin: const Offset(1, 0),
-                  end: Offset.zero,
-                ).animate(animation),
-                child: child,
-              );
-            },
+    return CachedNetworkImage(
+      placeholder: (context, url) {
+        return Shimmer.fromColors(
+          baseColor: AppColors.antiFlashWhite,
+          highlightColor: AppColors.timberwolf,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(8),
+            ),
+            color: AppColors.antiFlashWhite,
           ),
-        ),
-        child: Ink(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Column(
-            children: [
-              CachedNetworkImage(
-                placeholder: (context, url) {
-                  return Shimmer.fromColors(
-                    baseColor: AppColors.antiFlashWhite,
-                    highlightColor: AppColors.timberwolf,
-                    child: Container(
-                      color: AppColors.antiFlashWhite,
-                    ),
-                  );
-                },
-                errorWidget: (context, url, error) => Center(
-                  child: FAssets.icons.circleX(),
-                ),
-                imageUrl: userBook.coverUrl,
-                fit: BoxFit.cover,
-                width: 125,
-                height: 200,
-              ),
-            ],
-          ),
-        ),
+        );
+      },
+      errorWidget: (context, url, error) => Center(
+        child: FAssets.icons.circleX(),
       ),
+      imageUrl: userBook.coverUrl,
+      imageBuilder: (context, imageProvider) {
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(8),
+          child: Material(
+            child: InkWell(
+              borderRadius: BorderRadius.circular(8),
+              onTap: () => Navigator.of(context).push(
+                PageRouteBuilder(
+                  pageBuilder: (context, animation, secondaryAnimation) =>
+                      BookDetailsScreen(userBook: userBook),
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) {
+                    return SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(1, 0),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    );
+                  },
+                ),
+              ),
+              child: Ink.image(
+                image: imageProvider,
+                fit: BoxFit.cover,
+              ),
+            ),
+          ),
+        );
+      },
+      fit: BoxFit.cover,
+      width: 125,
+      height: 200,
     );
   }
 }

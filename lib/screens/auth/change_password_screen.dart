@@ -25,12 +25,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   bool _obscureNewConfirmPassword = true;
   bool _alreadySubmitted = false;
 
-  @override
-  void initState() {
-    super.initState();
-    _alreadySubmitted = false;
-  }
-
   Future<void> submit() async {
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) return;
@@ -81,6 +75,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         );
       },
     );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _alreadySubmitted = false;
   }
 
   @override

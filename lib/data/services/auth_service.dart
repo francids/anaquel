@@ -78,6 +78,27 @@ class AuthService {
     }
   }
 
+  Future<void> editUser(User user) async {
+    final cookie = await getCookie();
+    final response = await _dio.post(
+      "/users",
+      data: {
+        "username": user.username,
+        "name": user.name,
+        "email": user.email,
+      },
+      options: Options(
+        headers: {
+          "Cookie": cookie,
+        },
+      ),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception("Error al editar el usuario");
+    }
+  }
+
   Future<void> changePassword(String oldPassword, String newPassword) async {
     final cookie = await getCookie();
     final response = await _dio.put(

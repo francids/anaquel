@@ -19,6 +19,12 @@ class SignUpEvent extends AuthEvent {
   SignUpEvent(this.user);
 }
 
+class EditUserEvent extends AuthEvent {
+  final User user;
+
+  EditUserEvent(this.user);
+}
+
 class ChangePasswordEvent extends AuthEvent {
   final String oldPassword;
   final String newPassword;
@@ -77,6 +83,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthSuccess(authResponse));
       } catch (e) {
         emit(AuthFailure(e.toString()));
+      }
+    });
+
+    on<EditUserEvent>((event, emit) async {
+      emit(AuthLoading());
+      final cookie = await authService.getCookie();
+      try {
+        await authService.editUser(event.user);
+        emit(AuthInitial());
+      } catch (e) {
+        emit(AuthSuccess(LoginResponse(cookie: cookie!)));
       }
     });
 

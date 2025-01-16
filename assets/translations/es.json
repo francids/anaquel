@@ -74,10 +74,14 @@
     },
     "edit_profile_screen": {
       "title": "Editando perfil",
-      "save": "Continuar",
+      "save": "Cambiar",
+      "changing": "Cambiando",
       "no_changes": "No se realizaron cambios",
       "no_changes_body": "No se detectaron cambios en tu perfil",
-      "ok": "Entendido"
+      "success": "Los cambios se guardaron exitosamente",
+      "ok": "Entendido",
+      "warning": "Advertencia",
+      "warning_description": "Si cambias la información de tu perfil, se cerrará la sesión actual y deberás iniciar sesión nuevamente"
     }
   },
   "principal": "Principal",

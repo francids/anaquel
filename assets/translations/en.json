@@ -75,9 +75,13 @@
     "edit_profile_screen": {
       "title": "Edit profile",
       "save": "Save",
+      "changing": "Changing",
       "no_changes": "No changes were made",
       "no_changes_body": "No changes were detected in your profile",
-      "ok": "Ok"
+      "success": "User updated successfully",
+      "ok": "Ok",
+      "warning": "Warning",
+      "warning_description": "If you change your information, you will be logged out of the application"
     }
   },
   "principal": "Principal",
