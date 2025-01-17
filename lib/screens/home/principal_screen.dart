@@ -62,6 +62,9 @@ class PrincipalScreen extends StatelessWidget {
             ),
           ),
           BlocBuilder<UserBooksBloc, UserBooksState>(
+            buildWhen: (previous, current) {
+              return current is UserBooksLoaded;
+            },
             builder: (context, state) {
               if (state is UserBooksLoading) {
                 return const SizedBox(
@@ -123,11 +126,53 @@ class PrincipalScreen extends StatelessWidget {
                     ],
                   );
                 }
+                final List<UserBook> readingBooks = state.userBooks
+                    .where(
+                        (userBook) => userBook.status == UserBookStatus.reading)
+                    .toList();
+                final List<UserBook> toReadBooks = state.userBooks
+                    .where(
+                        (userBook) => userBook.status == UserBookStatus.notRead)
+                    .toList();
+
+                if (readingBooks.isEmpty && toReadBooks.isEmpty) {
+                  return Column(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        width: double.infinity,
+                        child: const Text(
+                          "principal_screen.reading",
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ).tr(),
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        width: double.infinity,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: FAlert(
+                            icon: FAssets.icons.badgeInfo(),
+                            title:
+                                const Text("principal_screen.no_reading_books")
+                                    .tr(),
+                            subtitle:
+                                const Text("principal_screen.no_to_read_books")
+                                    .tr(),
+                            style: FAlertStyle.primary,
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                }
+
                 return Column(
                   children: [
-                    if (state.userBooks.any(
-                      (userBook) => userBook.status == UserBookStatus.reading,
-                    ))
+                    if (readingBooks.isNotEmpty)
                       Column(
                         children: [
                           Container(
@@ -148,10 +193,10 @@ class PrincipalScreen extends StatelessWidget {
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
-                              itemCount: state.userBooks.length,
+                              itemCount: readingBooks.length,
                               itemBuilder: (context, index) {
                                 return MediumBookCard(
-                                  userBook: state.userBooks[index],
+                                  userBook: readingBooks[index],
                                 );
                               },
                               padding:
@@ -163,18 +208,12 @@ class PrincipalScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                    if (state.userBooks.any(
-                          (userBook) =>
-                              userBook.status == UserBookStatus.notRead,
-                        ) &&
-                        state.userBooks.any(
-                          (userBook) =>
-                              userBook.status == UserBookStatus.reading,
-                        ))
-                      const FDivider(),
-                    if (state.userBooks.any(
-                      (userBook) => userBook.status == UserBookStatus.notRead,
-                    ))
+                    if (toReadBooks.isNotEmpty && readingBooks.isNotEmpty)
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        child: FDivider(),
+                      ),
+                    if (toReadBooks.isNotEmpty)
                       Column(
                         children: [
                           Container(
@@ -195,10 +234,10 @@ class PrincipalScreen extends StatelessWidget {
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,
                               shrinkWrap: true,
-                              itemCount: state.userBooks.length,
+                              itemCount: toReadBooks.length,
                               itemBuilder: (context, index) {
                                 return MediumBookCard(
-                                  userBook: state.userBooks[index],
+                                  userBook: toReadBooks[index],
                                 );
                               },
                               padding:

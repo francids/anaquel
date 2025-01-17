@@ -410,9 +410,18 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
               ),
             ),
             const SizedBox(height: 16),
-            FBadge(
-              label: Text(convertStatus(widget.userBook.status)),
-              style: FBadgeStyle.secondary,
+            GestureDetector(
+              onTap: () {
+                buildUpdateStatusDialog(context).then((value) {
+                  if (value != null) {
+                    setState(() => widget.userBook.status = value);
+                  }
+                });
+              },
+              child: FBadge(
+                label: Text(convertStatus(widget.userBook.status)),
+                style: FBadgeStyle.secondary,
+              ),
             ),
             const FDivider(),
             FButton(
@@ -534,6 +543,76 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
             const SizedBox(height: 16),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<dynamic> buildUpdateStatusDialog(BuildContext context) {
+    FRadioSelectGroupController<UserBookStatus> controller =
+        FRadioSelectGroupController<UserBookStatus>(
+            value: widget.userBook.status);
+    return showAdaptiveDialog(
+      context: context,
+      builder: (context) => FDialog(
+        direction: Axis.vertical,
+        title: const Text(
+          "local_books_screens.details.status.update_status",
+        ).tr(),
+        body: Container(
+          height: 3.5 * 48.0,
+          width: context.theme.breakpoints.sm,
+          padding: const EdgeInsets.symmetric(
+            vertical: 16,
+            horizontal: 8,
+          ),
+          child: FSelectTileGroup<UserBookStatus>(
+            groupController: controller,
+            children: [
+              FSelectTile(
+                title: const Text(
+                  "local_books_screens.details.status.not_read",
+                ).tr(),
+                value: UserBookStatus.notRead,
+              ),
+              FSelectTile(
+                title: const Text(
+                  "local_books_screens.details.status.reading",
+                ).tr(),
+                value: UserBookStatus.reading,
+              ),
+              FSelectTile(
+                title: const Text(
+                  "local_books_screens.details.status.read",
+                ).tr(),
+                value: UserBookStatus.read,
+              ),
+            ],
+          ),
+        ),
+        actions: <FButton>[
+          FButton(
+            onPress: () {
+              context.read<UserBooksBloc>().add(
+                    UpdateUserBookStatus(
+                      widget.userBook.id.toString(),
+                      controller.values.first,
+                    ),
+                  );
+              context.pop(controller.values.first);
+            },
+            style: FButtonStyle.primary,
+            label: const Text(
+              "local_books_screens.details.status.save",
+            ).tr(),
+          ),
+          FButton(
+            onPress: () => context.pop(),
+            style: FButtonStyle.outline,
+            label: const Text(
+              "local_books_screens.details.status.cancel",
+            ).tr(),
+          ),
+        ],
       ),
     );
   }

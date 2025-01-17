@@ -7,7 +7,7 @@ enum UserBookStatus {
 }
 
 class UserBook extends Book {
-  final UserBookStatus status;
+  UserBookStatus status;
   final double rating;
 
   UserBook({
@@ -23,6 +23,7 @@ class UserBook extends Book {
   });
 
   factory UserBook.fromJson(Map<String, dynamic> json) {
+    print(json);
     return UserBook(
       id: json['id'],
       title: json['title'],
@@ -31,13 +32,22 @@ class UserBook extends Book {
       isbn: json['isbn'],
       genres: List<String>.from(json['genres']),
       authors: List<String>.from(json['authors']),
-      status: UserBookStatus.values.firstWhere(
-        (e) =>
-            e.toString().toLowerCase() ==
-            json['status'].toString().toLowerCase().replaceAll(' ', ''),
-        orElse: () => UserBookStatus.notRead,
-      ),
+      status: (json['status'] as String).toUserBookStatus(),
       rating: json['rating'] ?? 0.0,
     );
+  }
+}
+
+extension on String {
+  toUserBookStatus() {
+    if (this == "Not read") {
+      return UserBookStatus.notRead;
+    } else if (this == "Reading") {
+      return UserBookStatus.reading;
+    } else if (this == "Read") {
+      return UserBookStatus.read;
+    } else {
+      return UserBookStatus.notRead;
+    }
   }
 }

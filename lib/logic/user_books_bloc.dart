@@ -12,6 +12,13 @@ class AddUserBook extends UserBooksEvent {
   AddUserBook(this.bookId);
 }
 
+class UpdateUserBookStatus extends UserBooksEvent {
+  final String bookId;
+  final UserBookStatus status;
+
+  UpdateUserBookStatus(this.bookId, this.status);
+}
+
 class RemoveUserBook extends UserBooksEvent {
   final String bookId;
 
@@ -53,6 +60,16 @@ class UserBooksBloc extends Bloc<UserBooksEvent, UserBooksState> {
     on<AddUserBook>((event, emit) async {
       try {
         await userBooksService.addUserBook(event.bookId);
+        add(GetUserBooks());
+      } catch (e) {
+        emit(UserBooksError(e.toString()));
+      }
+    });
+
+    on<UpdateUserBookStatus>((event, emit) async {
+      emit(UserBooksLoading());
+      try {
+        await userBooksService.updateUserBookStatus(event.bookId, event.status);
         add(GetUserBooks());
       } catch (e) {
         emit(UserBooksError(e.toString()));

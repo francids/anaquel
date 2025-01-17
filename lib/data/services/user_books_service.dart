@@ -56,6 +56,25 @@ class UserBooksService {
     }
   }
 
+  Future<void> updateUserBookStatus(
+    String bookId,
+    UserBookStatus status,
+  ) async {
+    final response = await _dio.post(
+      "/books/users/status",
+      queryParameters: {
+        "book": bookId,
+        "status": (status == UserBookStatus.notRead)
+            ? "Not read"
+            : status.toString().split('.').last,
+      },
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Error al actualizar el estado del libro');
+    }
+  }
+
   Future<void> removeUserBook(String bookId) async {
     final response = await _dio.delete(
       "/books/users",
