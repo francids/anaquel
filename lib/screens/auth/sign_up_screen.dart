@@ -26,14 +26,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
+  bool _alreadyTried = false;
   bool _isLoading = false;
+  bool _isUsernameAvailable = false;
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
   Future<void> submit() async {
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) return;
-    setState(() => _isLoading = true);
+    setState(() {
+      _isLoading = true;
+      _alreadyTried = true;
+    });
 
     final email = emailController.text;
     NavigatorState navigator = Navigator.of(context);
@@ -55,7 +60,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     final user = User(
       name: nameController.text,
       email: emailController.text,
-      username: usernameController.text,
+      username: usernameController.text.toLowerCase(),
       password: passwordController.text,
     );
     navigator.push(
@@ -125,6 +130,42 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 autofillHints: const [AutofillHints.username],
                 keyboardType: TextInputType.text,
                 maxLines: 1,
+                description: (usernameController.text.isEmpty)
+                    ? null
+                    : (_isUsernameAvailable)
+                        ? Row(
+                            children: [
+                              FIcon(
+                                FAssets.icons.circleCheck,
+                                color: Colors.green.shade900,
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                "auth_screens.sign_up_screen.username_non_taken",
+                                style: TextStyle(color: Colors.green.shade900),
+                              ).tr(),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              FIcon(
+                                FAssets.icons.circleX,
+                                color: Colors.red.shade900,
+                              ),
+                              const SizedBox(width: 4),
+                              Text(
+                                "auth_screens.sign_up_screen.error.username_taken",
+                                style: TextStyle(color: Colors.red.shade900),
+                              ).tr(),
+                            ],
+                          ),
+                onChange: (value) {
+                  authService.usernameExists(value.toLowerCase()).then(
+                    (exists) {
+                      setState(() => _isUsernameAvailable = !exists);
+                    },
+                  );
+                },
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "auth_screens.sign_up_screen.error.empty_field".tr();
@@ -253,7 +294,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               const SizedBox(height: 16),
               FButton(
-                onPress: (!_isLoading) ? submit : null,
+                onPress: (!_isLoading && _isUsernameAvailable) ? submit : null,
                 style: FButtonStyle.primary,
                 prefix: (_isLoading) ? const FButtonSpinner() : null,
                 label: Text(
@@ -264,12 +305,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               BlocBuilder<AuthBloc, AuthState>(
                 builder: (context, state) {
-                  if (state is AuthFailure) {
+                  if (state is AuthFailure && _alreadyTried) {
                     return Column(
                       children: [
                         const SizedBox(height: 16),
                         FAlert(
-                          icon: FAssets.icons.badgeX(),
+                          icon: FIcon(FAssets.icons.badgeX),
                           title: const Text(
                             "auth_screens.sign_up_screen.error.title",
                           ).tr(),

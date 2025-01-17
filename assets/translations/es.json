@@ -61,10 +61,12 @@
       "password": "Contraseña",
       "confirm_password": "Confirmar contraseña",
       "password_description": "La contraseña debe tener al menos 8 caracteres, una letra mayúscula, una letra minúscula, un número y un carácter especial",
+      "username_non_taken": "Nombre de usuario disponible",
       "error": {
         "title": "Error al registrarse",
         "message": "Se produjo un error al intentar registrarse",
         "empty_field": "Este campo es requerido",
+        "username_taken": "El nombre de usuario ya está en uso",
         "invalid_email": "El correo electrónico no es válido",
         "password_length": "La contraseña debe tener al menos 8 caracteres",
         "password_complexity": "La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial",

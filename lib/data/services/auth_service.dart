@@ -7,6 +7,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class AuthService {
   final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
   final Dio _dio;
+  final Map<String, bool> _usernameCache = {};
 
   AuthService()
       : _dio = Dio(
@@ -64,6 +65,10 @@ class AuthService {
   }
 
   Future<bool> usernameExists(String username) async {
+    if (_usernameCache.containsKey(username)) {
+      return _usernameCache[username]!;
+    }
+
     final response = await _dio.get(
       "/auth/exists",
       queryParameters: {
@@ -71,7 +76,10 @@ class AuthService {
       },
     );
 
-    return response.data as bool;
+    bool exists = response.data as bool;
+    _usernameCache[username] = exists;
+
+    return exists;
   }
 
   Future<String> getVerificationCode(String email) async {
