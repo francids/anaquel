@@ -41,9 +41,9 @@ class LogInScreen extends StatelessWidget {
                   icon: FAssets.icons.languages(),
                   onPress: () {
                     context.setLocale(
-                      context.locale == const Locale('en')
-                          ? const Locale('es')
-                          : const Locale('en'),
+                      context.locale == const Locale("en")
+                          ? const Locale("es")
+                          : const Locale("en"),
                     );
                   },
                 ),
@@ -69,13 +69,15 @@ class LogInScreen extends StatelessWidget {
               children: [
                 FTextField(
                   controller: usernameController,
-                  label: const Text('auth_screens.log_in_screen.username').tr(),
+                  label: const Text(
+                    "auth_screens.log_in_screen.username",
+                  ).tr(),
                   maxLines: 1,
                   autofillHints: const [AutofillHints.username],
                   keyboardType: TextInputType.text,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'auth_screens.log_in_screen.error.empty_field'
+                      return "auth_screens.log_in_screen.error.empty_field"
                           .tr();
                     }
                     return null;
@@ -84,7 +86,9 @@ class LogInScreen extends StatelessWidget {
                 const SizedBox(height: 16),
                 FTextField(
                   controller: passwordController,
-                  label: const Text('auth_screens.log_in_screen.password').tr(),
+                  label: const Text(
+                    "auth_screens.log_in_screen.password",
+                  ).tr(),
                   obscureText: true,
                   enableSuggestions: false,
                   autocorrect: false,
@@ -93,7 +97,7 @@ class LogInScreen extends StatelessWidget {
                   keyboardType: TextInputType.visiblePassword,
                   validator: (value) {
                     if (value!.isEmpty) {
-                      return 'auth_screens.log_in_screen.error.empty_field'
+                      return "auth_screens.log_in_screen.error.empty_field"
                           .tr();
                     }
                     return null;
@@ -114,22 +118,21 @@ class LogInScreen extends StatelessWidget {
                     context.read<AuthBloc>().add(LoginEvent(user));
                   },
                   style: FButtonStyle.primary,
-                  label: const Text("auth_screens.log_in_screen.login").tr(),
+                  label: const Text(
+                    "auth_screens.log_in_screen.login",
+                  ).tr(),
                 ),
                 BlocBuilder<AuthBloc, AuthState>(
+                  buildWhen: (previous, current) =>
+                      current is AuthFailure || current is AuthSuccess,
                   builder: (context, state) {
                     if (state is AuthFailure) {
                       return Column(
                         children: [
                           const SizedBox(height: 16),
                           FAlert(
-                            icon: FAssets.icons.badgeX(),
-                            title: const Text(
-                                    "auth_screens.log_in_screen.error.title")
-                                .tr(),
-                            subtitle: const Text(
-                              "auth_screens.log_in_screen.error.message",
-                            ).tr(),
+                            icon: FIcon(FAssets.icons.badgeX),
+                            title: Text(state.error).tr(),
                             style: FAlertStyle.destructive,
                           ),
                         ],
@@ -162,8 +165,8 @@ class LogInScreen extends StatelessWidget {
                     child: Row(
                       children: [
                         const Text(
-                                "auth_screens.log_in_screen.no_account.message")
-                            .tr(),
+                          "auth_screens.log_in_screen.no_account.message",
+                        ).tr(),
                         const Text(
                           "auth_screens.log_in_screen.no_account.sign_up",
                           style: TextStyle(

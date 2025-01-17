@@ -56,10 +56,25 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(this.authService) : super(AuthInitial()) {
     on<LoginEvent>((event, emit) async {
       emit(AuthLoading());
+      bool alreadyTry = false;
       try {
+        final exists = await authService.usernameExists(event.user.username);
+        if (!exists) {
+          emit(AuthFailure(
+            "auth_screens.log_in_screen.error.invalid_user",
+          ));
+          return;
+        }
+        alreadyTry = true;
         final authResponse = await authService.login(event.user);
         emit(AuthSuccess(authResponse));
       } catch (e) {
+        if (alreadyTry) {
+          emit(AuthFailure(
+            "auth_screens.log_in_screen.error.invalid_password",
+          ));
+          return;
+        }
         emit(AuthFailure(e.toString()));
       }
     });

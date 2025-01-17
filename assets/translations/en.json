@@ -40,7 +40,9 @@
       "error": {
         "title": "Error logging in",
         "message": "An error occurred while trying to log in",
-        "empty_field": "This field is required"
+        "empty_field": "This field is required",
+        "invalid_user": "The user does not exist",
+        "invalid_password": "The password is incorrect"
       },
       "other_options": {
         "message": "Or you can log in with:",

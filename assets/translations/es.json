@@ -40,7 +40,9 @@
       "error": {
         "title": "Error al iniciar sesión",
         "message": "Se produjo un error al intentar iniciar sesión",
-        "empty_field": "Este campo es requerido"
+        "empty_field": "Este campo es requerido",
+        "invalid_user": "El usuario no existe",
+        "invalid_password": "La contraseña es incorrecta"
       },
       "other_options": {
         "message": "O puedes iniciar sesión con:",

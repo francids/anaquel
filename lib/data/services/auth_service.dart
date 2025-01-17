@@ -63,6 +63,17 @@ class AuthService {
     return await secureStorage.read(key: "cookie");
   }
 
+  Future<bool> usernameExists(String username) async {
+    final response = await _dio.get(
+      "/auth/exists",
+      queryParameters: {
+        "username": username,
+      },
+    );
+
+    return response.data as bool;
+  }
+
   Future<String> getVerificationCode(String email) async {
     final response = await _dio.post(
       "/auth/code",
