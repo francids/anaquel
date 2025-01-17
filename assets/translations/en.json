@@ -2,6 +2,23 @@
   "utils": {
     "links": "Learn more"
   },
+  "faq_screen": {
+    "title": "Frequently asked questions",
+    "questions": {
+      "0": {
+        "question": "What is Anaquel?",
+        "answer": "Anaquel is an application that allows you to manage your reading in an easy and concise way."
+      },
+      "1": {
+        "question": "What can I do with Anaquel?",
+        "answer": "With Anaquel you can manage your books, group them into collections, plan your reading schedules, and generate quizzes."
+      },
+      "2": {
+        "question": "How can I start using Anaquel?",
+        "answer": "To start using Anaquel, you must create an account."
+      }
+    }
+  },
   "get_started": {
     "skip": "Skip",
     "next": "Next",
@@ -101,7 +118,8 @@
     "to_read": "To read",
     "error_loading_to_read_books": "An error occurred while loading the to read books",
     "no_to_read_books": "You have no books to read",
-    "recommendations": "Recommendations"
+    "recommendations": "Recommendations",
+    "help": "Do you have questions?"
   },
   "books_screen": {
     "collections": "Collections",
@@ -187,7 +205,6 @@
       "weekends": "Weekends"
     },
     "bottom": "Select a time to edit or delete the schedule",
-    "info": "If you want to know more about how reading schedules work, you can click on the following link:",
     "create": {
       "title": "Create schedule"
     },

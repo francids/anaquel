@@ -2,6 +2,23 @@
   "utils": {
     "links": "Saber más"
   },
+  "faq_screen": {
+    "title": "Preguntas frecuentes",
+    "questions": {
+      "0": {
+        "question": "¿Qué es Anaquel?",
+        "answer": "Anaquel es una aplicación que te permite gestionar tu lectura a tu manera."
+      },
+      "1": {
+        "question": "¿Qué puedo hacer con Anaquel?",
+        "answer": "Con Anaquel puedes gestionar tus libros, agruparlos en colecciones, planificar tus horarios de lectura y generar cuestionarios."
+      },
+      "2": {
+        "question": "¿Cómo puedo empezar a usar Anaquel?",
+        "answer": "Para empezar a usar Anaquel, debes crear una cuenta."
+      }
+    }
+  },
   "get_started": {
     "skip": "Omitir",
     "next": "Siguiente",
@@ -101,7 +118,8 @@
     "to_read": "Por leer",
     "error_loading_to_read_books": "Se produjo un error al cargar los libros que tienes por leer",
     "no_to_read_books": "No tienes libros por leer",
-    "recommendations": "Recomendaciones"
+    "recommendations": "Recomendaciones",
+    "help": "¿Tienes dudas? ¿Necesitas ayuda?"
   },
   "books_screen": {
     "collections": "Colecciones",
@@ -187,7 +205,6 @@
       "weekends": "Fines de semana"
     },
     "bottom": "Selecciona una hora para editar o eliminar el horario",
-    "info": "Si deseas saber más sobre cómo funcionan los horarios de lectura, puedes hacer clic en el siguiente enlace:",
     "create": {
       "title": "Creando horario"
     },
