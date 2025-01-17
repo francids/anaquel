@@ -119,7 +119,7 @@
     "error_loading_to_read_books": "Se produjo un error al cargar los libros que tienes por leer",
     "no_to_read_books": "No tienes libros por leer",
     "recommendations": "Recomendaciones",
-    "help": "¿Tienes dudas? ¿Necesitas ayuda?"
+    "help": "¿Tienes dudas?"
   },
   "books_screen": {
     "collections": "Colecciones",
@@ -227,7 +227,7 @@
       "days_required": "Debes seleccionar al menos un día"
     },
     "notification": {
-      "body": "It's time to read! Take a moment to enjoy your book."
+      "body": "¡Es hora de leer! Tómate un momento para disfrutar de tus libros."
     }
   },
   "profile_screen": {
