@@ -1,4 +1,7 @@
 {
+  "utils": {
+    "links": "Saber más"
+  },
   "get_started": {
     "skip": "Omitir",
     "next": "Siguiente",
@@ -184,6 +187,7 @@
       "weekends": "Fines de semana"
     },
     "bottom": "Selecciona una hora para editar o eliminar el horario",
+    "info": "Si deseas saber más sobre cómo funcionan los horarios de lectura, puedes hacer clic en el siguiente enlace:",
     "create": {
       "title": "Creando horario"
     },

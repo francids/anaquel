@@ -1,4 +1,5 @@
 import 'package:anaquel/logic/questions_bloc.dart';
+import 'package:anaquel/utils/url.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -71,6 +72,17 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen>
                                   : "español",
                             ),
                           );
+                    },
+                  ),
+                  FTile(
+                    title: const Text("utils.links").tr(),
+                    prefixIcon: FIcon(FAssets.icons.link),
+                    onPress: () {
+                      launchUrlSafely(
+                        Uri.parse(
+                          "https://anaquel.me/docs/functions/exams",
+                        ),
+                      );
                     },
                   ),
                 ],

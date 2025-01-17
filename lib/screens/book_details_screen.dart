@@ -6,6 +6,7 @@ import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/screens/questionnaire_screen.dart';
 import 'package:anaquel/screens/reading_screen.dart';
 import 'package:anaquel/screens/recommendations_books_screen.dart';
+import 'package:anaquel/utils/url.dart';
 import 'package:anaquel/widgets/chip.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -342,6 +343,17 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                             },
                           );
                         },
+                      );
+                    },
+                  ),
+                  FTile(
+                    title: const Text("utils.links").tr(),
+                    prefixIcon: FIcon(FAssets.icons.link),
+                    onPress: () {
+                      launchUrlSafely(
+                        Uri.parse(
+                          "https://anaquel.me/docs/functions/books",
+                        ),
                       );
                     },
                   ),

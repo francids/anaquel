@@ -1,4 +1,5 @@
 import 'package:anaquel/constants/colors.dart';
+import 'package:anaquel/utils/url.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -78,6 +79,20 @@ class _HomeScreenState extends State<HomeScreen> {
             "profile".tr(),
           ][index],
         ),
+        actions: (index == 2)
+            ? [
+                FHeaderAction(
+                  icon: FAssets.icons.link(),
+                  onPress: () {
+                    launchUrlSafely(
+                      Uri.parse(
+                        "https://anaquel.me/docs/functions/schedules",
+                      ),
+                    );
+                  },
+                ),
+              ]
+            : [],
         key: ValueKey("$index-${context.locale}"),
         style: FRootHeaderStyle(
           titleTextStyle: TextStyle(

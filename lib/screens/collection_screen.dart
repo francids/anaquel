@@ -1,6 +1,7 @@
 import 'package:anaquel/data/models/collection.dart';
 import 'package:anaquel/logic/collections_bloc.dart';
 import 'package:anaquel/logic/user_books_bloc.dart';
+import 'package:anaquel/utils/url.dart';
 import 'package:anaquel/widgets/books/large_book_card.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -129,6 +130,17 @@ class _CollectionScreenState extends State<CollectionScreen>
                                   .tr(),
                             ),
                           ],
+                        ),
+                      );
+                    },
+                  ),
+                  FTile(
+                    title: const Text("utils.links").tr(),
+                    prefixIcon: FIcon(FAssets.icons.link),
+                    onPress: () {
+                      launchUrlSafely(
+                        Uri.parse(
+                          "https://anaquel.me/docs/functions/collections",
                         ),
                       );
                     },

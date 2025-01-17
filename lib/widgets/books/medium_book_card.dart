@@ -24,8 +24,8 @@ class MediumBookCard extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
+              color: AppColors.antiFlashWhite,
             ),
-            color: AppColors.antiFlashWhite,
           ),
         );
       },

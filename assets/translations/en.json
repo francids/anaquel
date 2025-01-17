@@ -1,4 +1,7 @@
 {
+  "utils": {
+    "links": "Learn more"
+  },
   "get_started": {
     "skip": "Skip",
     "next": "Next",
@@ -184,6 +187,7 @@
       "weekends": "Weekends"
     },
     "bottom": "Select a time to edit or delete the schedule",
+    "info": "If you want to know more about how reading schedules work, you can click on the following link:",
     "create": {
       "title": "Create schedule"
     },
