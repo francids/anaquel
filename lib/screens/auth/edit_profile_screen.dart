@@ -1,4 +1,5 @@
 import 'package:anaquel/data/models/user.dart';
+import 'package:anaquel/data/services/auth_service.dart';
 import 'package:anaquel/logic/auth_bloc.dart';
 import 'package:anaquel/logic/user_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -17,12 +18,15 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
+  final AuthService authService = AuthService();
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
 
   bool _isLoading = false;
+  bool _isUsernameAvailable = true;
 
   Future submit() async {
     FocusScope.of(context).unfocus();
@@ -170,8 +174,48 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                         label: const Text(
                           "auth_screens.sign_up_screen.username",
                         ).tr(),
+                        description: (_usernameController.text.isEmpty ||
+                                _usernameController.text ==
+                                    widget.oldUser.username)
+                            ? null
+                            : (_isUsernameAvailable)
+                                ? Row(
+                                    children: [
+                                      FIcon(
+                                        FAssets.icons.circleCheck,
+                                        color: Colors.green.shade900,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        "auth_screens.sign_up_screen.username_non_taken",
+                                        style: TextStyle(
+                                            color: Colors.green.shade900),
+                                      ).tr(),
+                                    ],
+                                  )
+                                : Row(
+                                    children: [
+                                      FIcon(
+                                        FAssets.icons.circleX,
+                                        color: Colors.red.shade900,
+                                      ),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        "auth_screens.sign_up_screen.error.username_taken",
+                                        style: TextStyle(
+                                            color: Colors.red.shade900),
+                                      ).tr(),
+                                    ],
+                                  ),
                         maxLines: 1,
                         autofillHints: const [AutofillHints.newUsername],
+                        onChange: (value) {
+                          authService.usernameExists(value.toLowerCase()).then(
+                            (exists) {
+                              setState(() => _isUsernameAvailable = !exists);
+                            },
+                          );
+                        },
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "auth_screens.sign_up_screen.error.empty_field"
@@ -218,7 +262,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                       const FDivider(),
                       FButton(
-                        onPress: (_isLoading) ? null : submit,
+                        onPress: (!_isLoading && _isUsernameAvailable)
+                            ? submit
+                            : null,
                         style: FButtonStyle.primary,
                         prefix: (_isLoading) ? const FButtonSpinner() : null,
                         label: Text(
