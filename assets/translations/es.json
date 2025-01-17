@@ -195,6 +195,7 @@
   },
   "schedules_screen": {
     "create_schedule": "Crear horario",
+    "no_notifications_permission": "No tienes permisos para recibir notificaciones",
     "no_schedules": "No se encontraron horarios",
     "days": {
       "monday": "Lunes",

@@ -195,6 +195,7 @@
   },
   "schedules_screen": {
     "create_schedule": "Create schedule",
+    "no_notifications_permission": "You have not granted permission to send notifications",
     "no_schedules": "No schedules found",
     "days": {
       "monday": "Monday",

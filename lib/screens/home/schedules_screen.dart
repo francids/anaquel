@@ -1,5 +1,6 @@
 import 'package:anaquel/logic/schedules_bloc.dart';
 import 'package:anaquel/screens/create_schedule_screen.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,13 +41,37 @@ class SchedulesScreen extends StatelessWidget {
           const SizedBox(height: 8),
           BlocBuilder<SchedulesBloc, SchedulesState>(
             builder: (context, state) {
-              if (state is SchedulesLoading) {
+              if (state is SchedulesInitial) {
+                return GestureDetector(
+                  onTap: () {
+                    AwesomeNotifications().isNotificationAllowed().then(
+                      (isAllowed) {
+                        if (!isAllowed) {
+                          AwesomeNotifications()
+                              .requestPermissionToSendNotifications();
+                        } else {
+                          context.read<SchedulesBloc>().add(GetSchedules());
+                        }
+                      },
+                    );
+                  },
+                  child: FAlert(
+                    icon: FIcon(FAssets.icons.badgeInfo),
+                    title: const Text(
+                      "schedules_screen.no_notifications_permission",
+                    ).tr(),
+                    style: FAlertStyle.primary,
+                  ),
+                );
+              } else if (state is SchedulesLoading) {
                 return const Center(child: CircularProgressIndicator());
               } else if (state is SchedulesLoaded) {
                 if (state.schedules.isEmpty) {
                   return FAlert(
-                    icon: FAssets.icons.badgeInfo(),
-                    title: const Text("schedules_screen.no_schedules").tr(),
+                    icon: FIcon(FAssets.icons.badgeInfo),
+                    title: const Text(
+                      "schedules_screen.no_schedules",
+                    ).tr(),
                     style: FAlertStyle.primary,
                   );
                 }
@@ -68,13 +93,15 @@ class SchedulesScreen extends StatelessWidget {
                     ),
                     SizedBox(
                       width: double.infinity,
-                      child: const Text("schedules_screen.bottom").tr(),
+                      child: const Text(
+                        "schedules_screen.bottom",
+                      ).tr(),
                     ),
                   ],
                 );
               } else if (state is SchedulesError) {
                 return FAlert(
-                  icon: FAssets.icons.badgeX(),
+                  icon: FIcon(FAssets.icons.badgeX),
                   title: const Text("Error"),
                   subtitle: Text(state.message),
                   style: FAlertStyle.destructive,
