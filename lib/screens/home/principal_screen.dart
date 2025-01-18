@@ -1,9 +1,7 @@
-import 'package:anaquel/data/models/recommendation_book.dart';
 import 'package:anaquel/data/models/user_book.dart';
 import 'package:anaquel/logic/user_books_bloc.dart';
-import 'package:anaquel/screens/faq_screen.dart';
 import 'package:anaquel/widgets/books/medium_book_card.dart';
-import 'package:anaquel/widgets/books/recommendation_book_card.dart';
+import 'package:anaquel/widgets/reading_chart.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,7 +14,6 @@ class PrincipalScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<RecommendationBook> recommendations = [];
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(vertical: 16),
       child: Column(
@@ -59,13 +56,24 @@ class PrincipalScreen extends StatelessWidget {
                   ),
                 ),
                 const FDivider(),
+                SizedBox(
+                  width: double.infinity,
+                  child: const Text(
+                    "principal_screen.reading_time",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ).tr(),
+                ),
+                const SizedBox(height: 16),
+                ReadingChart(),
+                const FDivider(),
               ],
             ),
           ),
           BlocBuilder<UserBooksBloc, UserBooksState>(
-            buildWhen: (previous, current) {
-              return current is UserBooksLoaded;
-            },
+            buildWhen: (previous, current) => true,
             builder: (context, state) {
               if (state is UserBooksLoading) {
                 return const SizedBox(
@@ -241,8 +249,10 @@ class PrincipalScreen extends StatelessWidget {
                                   userBook: toReadBooks[index],
                                 );
                               },
-                              padding:
-                                  const EdgeInsets.only(left: 16, right: 16),
+                              padding: const EdgeInsets.only(
+                                left: 16,
+                                right: 16,
+                              ),
                               separatorBuilder: (context, index) {
                                 return const SizedBox(width: 12);
                               },
@@ -255,88 +265,6 @@ class PrincipalScreen extends StatelessWidget {
               }
               return const SizedBox.shrink();
             },
-          ),
-          if (recommendations.isNotEmpty)
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                children: [
-                  const FDivider(),
-                  SizedBox(
-                    width: double.infinity,
-                    child: const Text(
-                      "principal_screen.recommendations",
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ).tr(),
-                  ),
-                  const SizedBox(height: 16),
-                  SizedBox(
-                    width: double.infinity,
-                    child: ListView.separated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      padding: const EdgeInsets.all(0),
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 8),
-                      itemCount: recommendations.length,
-                      itemBuilder: (context, index) {
-                        return RecommendationBookCard(
-                          book: recommendations[index],
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                const FDivider(),
-                FCard.raw(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        const Text(
-                          "principal_screen.help",
-                          style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ).tr(),
-                        FButton.icon(
-                          onPress: () => Navigator.of(context).push(
-                            PageRouteBuilder(
-                              pageBuilder:
-                                  (context, animation, secondaryAnimation) =>
-                                      const FaqScreen(),
-                              transitionsBuilder: (context, animation,
-                                  secondaryAnimation, child) {
-                                return SlideTransition(
-                                  position: Tween<Offset>(
-                                    begin: const Offset(1, 0),
-                                    end: Offset.zero,
-                                  ).animate(animation),
-                                  child: child,
-                                );
-                              },
-                            ),
-                          ),
-                          child: FIcon(FAssets.icons.chevronRight),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
-            ),
           ),
         ],
       ),

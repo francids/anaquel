@@ -116,6 +116,7 @@
   "principal_screen": {
     "welcome": "¡Bienvenido!",
     "message": "¿Qué quieres leer hoy?",
+    "reading_time": "Tiempo de lectura",
     "reading": "Leyendo",
     "error_loading_reading_books": "Se produjo un error al cargar los libros que estás leyendo",
     "no_reading_books": "No estás leyendo ningún libro",
@@ -123,7 +124,7 @@
     "error_loading_to_read_books": "Se produjo un error al cargar los libros que tienes por leer",
     "no_to_read_books": "No tienes libros por leer",
     "recommendations": "Recomendaciones",
-    "help": "¿Tienes dudas?"
+    "help": "¿Tienes alguna duda?"
   },
   "books_screen": {
     "collections": "Colecciones",

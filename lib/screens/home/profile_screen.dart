@@ -3,6 +3,7 @@ import 'package:anaquel/logic/user_bloc.dart';
 import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/screens/auth/change_password_screen.dart';
 import 'package:anaquel/screens/auth/edit_profile_screen.dart';
+import 'package:anaquel/screens/faq_screen.dart';
 import 'package:anaquel/widgets/chip.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -136,6 +137,55 @@ class ProfileScreen extends StatelessWidget {
                           FAssets.icons.chevronRight,
                         ),
                       ),
+                      FTile(
+                        onPress: () => showAdaptiveDialog(
+                          context: context,
+                          builder: (context) => FDialog(
+                            direction: Axis.vertical,
+                            body: Padding(
+                              padding: const EdgeInsets.only(bottom: 16),
+                              child: const Text(
+                                "profile_screen.change_language.message",
+                                textAlign: TextAlign.start,
+                              ).tr(),
+                            ),
+                            actions: <FButton>[
+                              FButton(
+                                onPress: () {
+                                  context.setLocale(const Locale('es'));
+                                  onLanguageChanged();
+                                  context.pop();
+                                },
+                                style: FButtonStyle.outline,
+                                label: const Text(
+                                  "profile_screen.change_language.spanish",
+                                ).tr(),
+                              ),
+                              FButton(
+                                onPress: () {
+                                  context.setLocale(const Locale("en"));
+                                  onLanguageChanged();
+                                  context.pop();
+                                },
+                                style: FButtonStyle.outline,
+                                label: const Text(
+                                  "profile_screen.change_language.english",
+                                ).tr(),
+                              ),
+                            ],
+                          ),
+                        ),
+                        prefixIcon: FIcon(FAssets.icons.languages),
+                        title: const Text(
+                          "profile_screen.change_language.title",
+                        ).tr(),
+                        details: Text(
+                          context.locale.languageCode == "es"
+                              ? "profile_screen.change_language.spanish".tr()
+                              : "profile_screen.change_language.english".tr(),
+                        ),
+                        suffixIcon: FIcon(FAssets.icons.chevronRight),
+                      ),
                     ],
                   ),
                 ],
@@ -145,54 +195,42 @@ class ProfileScreen extends StatelessWidget {
           },
         ),
         const FDivider(),
-        FTile(
-          onPress: () => showAdaptiveDialog(
-            context: context,
-            builder: (context) => FDialog(
-              direction: Axis.vertical,
-              body: Padding(
-                padding: const EdgeInsets.only(bottom: 16),
-                child: const Text(
-                  "profile_screen.change_language.message",
-                  textAlign: TextAlign.start,
+        FCard.raw(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const Text(
+                  "principal_screen.help",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                  ),
                 ).tr(),
-              ),
-              actions: <FButton>[
-                FButton(
-                  onPress: () {
-                    context.setLocale(const Locale('es'));
-                    onLanguageChanged();
-                    context.pop();
-                  },
-                  style: FButtonStyle.outline,
-                  label: const Text(
-                    "profile_screen.change_language.spanish",
-                  ).tr(),
-                ),
-                FButton(
-                  onPress: () {
-                    context.setLocale(const Locale("en"));
-                    onLanguageChanged();
-                    context.pop();
-                  },
-                  style: FButtonStyle.outline,
-                  label: const Text(
-                    "profile_screen.change_language.english",
-                  ).tr(),
+                FButton.icon(
+                  onPress: () => Navigator.of(context).push(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          const FaqScreen(),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) {
+                        return SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(1, 0),
+                            end: Offset.zero,
+                          ).animate(animation),
+                          child: child,
+                        );
+                      },
+                    ),
+                  ),
+                  child: FIcon(FAssets.icons.chevronRight),
                 ),
               ],
             ),
           ),
-          prefixIcon: FIcon(FAssets.icons.languages),
-          title: const Text(
-            "profile_screen.change_language.title",
-          ).tr(),
-          details: Text(
-            context.locale.languageCode == "es"
-                ? "profile_screen.change_language.spanish".tr()
-                : "profile_screen.change_language.english".tr(),
-          ),
-          suffixIcon: FIcon(FAssets.icons.chevronRight),
         ),
         const FDivider(),
         BlocBuilder<UserBooksBloc, UserBooksState>(
