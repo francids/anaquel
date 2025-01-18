@@ -2,6 +2,7 @@ import 'package:anaquel/logic/local_books_bloc.dart';
 import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/widgets/books/local_small_book_card.dart';
 import 'package:anaquel/widgets/books/small_book_card.dart';
+import 'package:anaquel/widgets/reading_time_chip.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -86,8 +87,21 @@ class ReadingTimeScreen extends StatelessWidget {
                             shrinkWrap: true,
                             itemCount: state.userBooks.length,
                             itemBuilder: (context, index) {
-                              return SmallBookCard(
-                                userBook: state.userBooks[index],
+                              return Stack(
+                                children: [
+                                  SmallBookCard(
+                                    userBook: state.userBooks[index],
+                                  ),
+                                  const Positioned(
+                                    top: 0,
+                                    right: 12,
+                                    bottom: 0,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: ReadingTimeChip("30m"),
+                                    ),
+                                  ),
+                                ],
                               );
                             },
                             separatorBuilder: (context, index) {
@@ -125,8 +139,21 @@ class ReadingTimeScreen extends StatelessWidget {
                             shrinkWrap: true,
                             itemCount: state.localBooks.length,
                             itemBuilder: (context, index) {
-                              return LocalSmallBookCard(
-                                localBook: state.localBooks[index],
+                              return Stack(
+                                children: [
+                                  LocalSmallBookCard(
+                                    localBook: state.localBooks[index],
+                                  ),
+                                  const Positioned(
+                                    top: 0,
+                                    right: 12,
+                                    bottom: 0,
+                                    child: Align(
+                                      alignment: Alignment.centerRight,
+                                      child: ReadingTimeChip("30m"),
+                                    ),
+                                  ),
+                                ],
                               );
                             },
                             separatorBuilder: (context, index) {
