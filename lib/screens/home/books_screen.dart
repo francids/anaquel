@@ -323,7 +323,7 @@ class BooksScreen extends StatelessWidget {
                               borderRadius: BorderRadius.circular(8),
                               boxShadow: [
                                 BoxShadow(
-                                  color: colors[index].withOpacity(1),
+                                  color: colors[index],
                                   blurRadius: 0,
                                 ),
                               ],

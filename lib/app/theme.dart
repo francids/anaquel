@@ -155,11 +155,11 @@ class AnaquelTheme extends StatelessWidget {
       dividerStyles: FDividerStyles(
         horizontalStyle: FDividerStyle(
           padding: const EdgeInsets.symmetric(vertical: 20),
-          color: AppColors.timberwolf.withOpacity(0.5),
+          color: AppColors.timberwolf.withValues(alpha: 0.5),
         ),
         verticalStyle: FDividerStyle(
           padding: const EdgeInsets.symmetric(horizontal: 20),
-          color: AppColors.timberwolf.withOpacity(0.5),
+          color: AppColors.timberwolf.withValues(alpha: 0.5),
         ),
       ),
       bottomNavigationBarStyle: FBottomNavigationBarStyle(

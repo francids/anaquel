@@ -126,6 +126,10 @@
     "recommendations": "Recommendations",
     "help": "Do you have questions?"
   },
+  "reading_time_screen": {
+    "title": "Reading time",
+    "total_time": "Total reading time"
+  },
   "books_screen": {
     "collections": "Collections",
     "error_loading_collections": "An error occurred while loading the collections",

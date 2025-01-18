@@ -4,6 +4,7 @@ import 'package:anaquel/app/theme.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:forui/localizations.dart';
 import 'package:scaled_app/scaled_app.dart';
 
 class AnaquelApp extends StatelessWidget {
@@ -15,7 +16,10 @@ class AnaquelApp extends StatelessWidget {
       providers: Providers.blocs(),
       child: MaterialApp.router(
         title: "Anaquel",
-        localizationsDelegates: context.localizationDelegates,
+        localizationsDelegates: [
+          ...context.localizationDelegates,
+          FLocalizations.delegate,
+        ],
         supportedLocales: context.supportedLocales,
         locale: context.locale,
         debugShowCheckedModeBanner: false,

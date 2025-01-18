@@ -1,5 +1,6 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/reading_time.dart';
+import 'package:anaquel/screens/reading_time_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -25,13 +26,29 @@ class ReadingChart extends StatelessWidget {
     return "${hours}h ${minutes}m";
   }
 
-  void onTap() {}
+  void onTap(BuildContext context) {
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            const ReadingTimeScreen(),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          return SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(1, 0),
+              end: Offset.zero,
+            ).animate(animation),
+            child: child,
+          );
+        },
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Material(
       child: InkWell(
-        onTap: onTap,
+        onTap: () => onTap(context),
         overlayColor: WidgetStateProperty.all(
           context.theme.colorScheme.hover(AppColors.antiFlashWhite),
         ),
