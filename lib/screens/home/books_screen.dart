@@ -1,6 +1,8 @@
 import 'package:anaquel/logic/collections_bloc.dart';
 import 'package:anaquel/logic/local_books_bloc.dart';
 import 'package:anaquel/logic/user_books_bloc.dart';
+import 'package:anaquel/screens/all_books_screen.dart';
+import 'package:anaquel/screens/all_local_books_screen.dart';
 import 'package:anaquel/screens/register_book_screen.dart';
 import 'package:anaquel/widgets/books/local_small_book_card.dart';
 import 'package:anaquel/widgets/books/small_book_card.dart';
@@ -57,12 +59,12 @@ class BooksScreen extends StatelessWidget {
               }
               if (state is CollectionsLoaded) {
                 if (state.collections.isEmpty) {
-                  return SizedBox(
-                    width: double.infinity,
-                    height: 200,
-                    child: Center(
-                      child: const Text("books_screen.no_collections").tr(),
-                    ),
+                  return FAlert(
+                    icon: FIcon(FAssets.icons.badgeInfo),
+                    title: const Text(
+                      "books_screen.no_collections",
+                    ).tr(),
+                    style: FAlertStyle.primary,
                   );
                 }
                 return SizedBox(
@@ -152,12 +154,12 @@ class BooksScreen extends StatelessWidget {
               }
               if (state is UserBooksLoaded) {
                 if (state.userBooks.isEmpty) {
-                  return SizedBox(
-                    width: double.infinity,
-                    height: 200,
-                    child: Center(
-                      child: const Text("books_screen.no_books").tr(),
-                    ),
+                  return FAlert(
+                    icon: FIcon(FAssets.icons.badgeInfo),
+                    title: const Text(
+                      "books_screen.no_books",
+                    ).tr(),
+                    style: FAlertStyle.primary,
                   );
                 }
                 return Column(
@@ -170,7 +172,9 @@ class BooksScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(0),
                         separatorBuilder: (context, index) =>
                             const SizedBox(height: 8),
-                        itemCount: state.userBooks.length,
+                        itemCount: state.userBooks.length > 3
+                            ? 3
+                            : state.userBooks.length,
                         itemBuilder: (context, index) {
                           return SmallBookCard(
                             userBook: state.userBooks[index],
@@ -178,6 +182,29 @@ class BooksScreen extends StatelessWidget {
                         },
                       ),
                     ),
+                    const SizedBox(height: 16),
+                    if (state.userBooks.length > 3)
+                      FButton(
+                        onPress: () => Navigator.of(context).push(
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    const AllBooksScreen(),
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              return SlideTransition(
+                                position: Tween<Offset>(
+                                  begin: const Offset(1, 0),
+                                  end: Offset.zero,
+                                ).animate(animation),
+                                child: child,
+                              );
+                            },
+                          ),
+                        ),
+                        style: FButtonStyle.outline,
+                        label: const Text("all_books_screen.title").tr(),
+                      ),
                   ],
                 );
               }
@@ -205,21 +232,22 @@ class BooksScreen extends StatelessWidget {
               }
               if (state is LocalBooksError) {
                 return FAlert(
-                  icon: FAssets.icons.badgeX(),
-                  title:
-                      const Text("books_screen.error_loading_local_books").tr(),
+                  icon: FIcon(FAssets.icons.badgeX),
+                  title: const Text(
+                    "books_screen.error_loading_local_books",
+                  ).tr(),
                   subtitle: Text(state.message),
                   style: FAlertStyle.destructive,
                 );
               }
               if (state is LocalBooksLoaded) {
                 if (state.localBooks.isEmpty) {
-                  return SizedBox(
-                    width: double.infinity,
-                    height: 200,
-                    child: Center(
-                      child: const Text("books_screen.no_local_books").tr(),
-                    ),
+                  return FAlert(
+                    icon: FIcon(FAssets.icons.badgeInfo),
+                    title: const Text(
+                      "books_screen.no_local_books",
+                    ).tr(),
+                    style: FAlertStyle.primary,
                   );
                 }
                 return Column(
@@ -232,7 +260,9 @@ class BooksScreen extends StatelessWidget {
                         padding: const EdgeInsets.all(0),
                         separatorBuilder: (context, index) =>
                             const SizedBox(height: 8),
-                        itemCount: state.localBooks.length,
+                        itemCount: state.localBooks.length > 3
+                            ? 3
+                            : state.localBooks.length,
                         itemBuilder: (context, index) {
                           return LocalSmallBookCard(
                             localBook: state.localBooks[index],
@@ -240,6 +270,29 @@ class BooksScreen extends StatelessWidget {
                         },
                       ),
                     ),
+                    const SizedBox(height: 16),
+                    if (state.localBooks.length > 3)
+                      FButton(
+                        onPress: () => Navigator.of(context).push(
+                          PageRouteBuilder(
+                            pageBuilder:
+                                (context, animation, secondaryAnimation) =>
+                                    const AllLocalBooksScreen(),
+                            transitionsBuilder: (context, animation,
+                                secondaryAnimation, child) {
+                              return SlideTransition(
+                                position: Tween<Offset>(
+                                  begin: const Offset(1, 0),
+                                  end: Offset.zero,
+                                ).animate(animation),
+                                child: child,
+                              );
+                            },
+                          ),
+                        ),
+                        style: FButtonStyle.outline,
+                        label: const Text("all_local_books_screen.title").tr(),
+                      ),
                   ],
                 );
               }
@@ -311,26 +364,50 @@ class BooksScreen extends StatelessWidget {
                           ))
                       .toList(),
                   useInShowDialog: true,
-                  layoutBuilder: (context, colors, child) {
-                    return Wrap(
-                      spacing: 12,
-                      runSpacing: 6,
-                      children: List.generate(
-                        colors.length,
-                        (index) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: colors[index],
-                                  blurRadius: 0,
-                                ),
-                              ],
+                  itemBuilder: (color, isCurrentColor, changeColor) {
+                    return Container(
+                      margin: const EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                        borderRadius: context.theme.style.borderRadius,
+                        color: color,
+                        boxShadow: [
+                          BoxShadow(
+                            color: color.withValues(alpha: 0.8),
+                            offset: const Offset(1, 2),
+                          ),
+                        ],
+                      ),
+                      child: Material(
+                        color: Colors.transparent,
+                        child: InkWell(
+                          onTap: changeColor,
+                          borderRadius: context.theme.style.borderRadius,
+                          child: AnimatedOpacity(
+                            duration: const Duration(milliseconds: 250),
+                            opacity: isCurrentColor ? 1 : 0,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8),
+                              child: FIcon(
+                                FAssets.icons.check,
+                                color: useWhiteForeground(color)
+                                    ? Colors.white
+                                    : Colors.black,
+                              ),
                             ),
-                            child: child(colors[index]),
-                          );
-                        },
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                  layoutBuilder: (context, colors, child) {
+                    return SizedBox(
+                      width: context.theme.breakpoints.sm,
+                      height: context.theme.style.iconStyle.size * 3.2,
+                      child: GridView.count(
+                        crossAxisCount: 4,
+                        crossAxisSpacing: 2,
+                        mainAxisSpacing: 2,
+                        children: [for (Color color in colors) child(color)],
                       ),
                     );
                   },

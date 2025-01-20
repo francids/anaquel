@@ -132,6 +132,12 @@
     "info_title": "Información sobre el tiempo de lectura",
     "info_subtitle": "El tiempo de lectura es el tiempo total que has dedicado a leer libros en Anaquel"
   },
+  "all_local_books_screen": {
+    "title": "Todos tus libros locales"
+  },
+  "all_books_screen": {
+    "title": "Todos tus libros"
+  },
   "books_screen": {
     "collections": "Colecciones",
     "error_loading_collections": "Se produjo un error al cargar las colecciones",

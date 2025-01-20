@@ -132,6 +132,12 @@
     "info_title": "Reading time information",
     "info_subtitle": "The reading time is calculated based on the time you have spent reading the books"
   },
+  "all_local_books_screen": {
+    "title": "All local books"
+  },
+  "all_books_screen": {
+    "title": "All books"
+  },
   "books_screen": {
     "collections": "Collections",
     "error_loading_collections": "An error occurred while loading the collections",
