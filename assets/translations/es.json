@@ -128,7 +128,9 @@
   },
   "reading_time_screen": {
     "title": "Tiempo de lectura",
-    "total_time": "Tiempo total de lectura"
+    "total_time": "Tiempo total de lectura",
+    "info_title": "Información sobre el tiempo de lectura",
+    "info_subtitle": "El tiempo de lectura es el tiempo total que has dedicado a leer libros en Anaquel"
   },
   "books_screen": {
     "collections": "Colecciones",
@@ -241,6 +243,7 @@
     }
   },
   "profile_screen": {
+    "books_read_time": "Tiempo de lectura",
     "error": "Se produjo un error al cargar los datos del perfil",
     "edit_profile": "Editar perfil",
     "change_password": "Cambiar contraseña",

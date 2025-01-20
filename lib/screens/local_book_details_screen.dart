@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/local_book.dart';
+import 'package:anaquel/data/services/reading_service.dart';
 import 'package:anaquel/logic/local_books_bloc.dart';
 import 'package:anaquel/screens/edit_book_screen.dart';
 import 'package:anaquel/screens/reading_screen.dart';
@@ -23,6 +24,8 @@ class LocalBookDetailsScreen extends StatefulWidget {
 
 class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
     with SingleTickerProviderStateMixin {
+  ReadingService readingService = ReadingService();
+
   late FPopoverController popoverController;
 
   int status = 0;
@@ -212,7 +215,7 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
               onPress: () => Navigator.of(context).push(
                 PageRouteBuilder(
                   pageBuilder: (context, animation, secondaryAnimation) =>
-                      const ReadingScreen(),
+                      ReadingScreen(bookId: widget.localBook.id),
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {
                     return SlideTransition(

@@ -128,7 +128,9 @@
   },
   "reading_time_screen": {
     "title": "Reading time",
-    "total_time": "Total reading time"
+    "total_time": "Total reading time",
+    "info_title": "Reading time information",
+    "info_subtitle": "The reading time is calculated based on the time you have spent reading the books"
   },
   "books_screen": {
     "collections": "Collections",
@@ -241,6 +243,7 @@
     }
   },
   "profile_screen": {
+    "books_read_time": "Books read time",
     "error": "An error occurred while loading the profile data",
     "edit_profile": "Edit profile",
     "change_password": "Change password",

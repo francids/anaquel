@@ -1,7 +1,6 @@
 import 'package:anaquel/data/models/user_book.dart';
 import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/widgets/books/medium_book_card.dart';
-import 'package:anaquel/widgets/reading_chart.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,19 +54,6 @@ class PrincipalScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                const FDivider(),
-                SizedBox(
-                  width: double.infinity,
-                  child: const Text(
-                    "principal_screen.reading_time",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ).tr(),
-                ),
-                const SizedBox(height: 16),
-                ReadingChart(),
                 const FDivider(),
               ],
             ),

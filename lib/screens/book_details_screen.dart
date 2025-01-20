@@ -1,5 +1,6 @@
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/user_book.dart';
+import 'package:anaquel/data/services/reading_service.dart';
 import 'package:anaquel/logic/collections_bloc.dart';
 import 'package:anaquel/logic/summary_bloc.dart';
 import 'package:anaquel/logic/user_books_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:anaquel/screens/reading_screen.dart';
 import 'package:anaquel/screens/recommendations_books_screen.dart';
 import 'package:anaquel/utils/url.dart';
 import 'package:anaquel/widgets/chip.dart';
+import 'package:anaquel/widgets/reading_time_chip.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +28,17 @@ class BookDetailsScreen extends StatefulWidget {
 
 class _BookDetailsScreenState extends State<BookDetailsScreen>
     with SingleTickerProviderStateMixin {
+  ReadingService readingService = ReadingService();
+
   late FPopoverController popoverController;
+
+  String formatReadingTime(int seconds) {
+    final Duration duration = Duration(seconds: seconds);
+    final int hours = duration.inHours;
+    final int minutes = duration.inMinutes.remainder(60);
+    if (hours == 0) return "${minutes}m";
+    return "${hours}h ${minutes}m";
+  }
 
   @override
   initState() {
@@ -423,12 +435,26 @@ class _BookDetailsScreenState extends State<BookDetailsScreen>
                 style: FBadgeStyle.secondary,
               ),
             ),
+            const SizedBox(height: 12),
+            FutureBuilder(
+              future: readingService.getTimeSpentReadingByBook(
+                widget.userBook.id.toString(),
+              ),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return ReadingTimeChip(
+                    formatReadingTime(snapshot.data as int),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
+            ),
             const FDivider(),
             FButton(
               onPress: () => Navigator.of(context).push(
                 PageRouteBuilder(
                   pageBuilder: (context, animation, secondaryAnimation) =>
-                      const ReadingScreen(),
+                      ReadingScreen(bookId: widget.userBook.id.toString()),
                   transitionsBuilder:
                       (context, animation, secondaryAnimation, child) {
                     return SlideTransition(

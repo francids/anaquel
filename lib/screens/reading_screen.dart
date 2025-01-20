@@ -1,20 +1,41 @@
 import 'dart:async';
 
 import 'package:anaquel/constants/colors.dart';
+import 'package:anaquel/data/services/reading_service.dart';
 import 'package:flutter/material.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
 class ReadingScreen extends StatefulWidget {
-  const ReadingScreen({super.key});
+  const ReadingScreen({super.key, required this.bookId});
+
+  final String bookId;
 
   @override
   State<ReadingScreen> createState() => _ReadingScreenState();
 }
 
 class _ReadingScreenState extends State<ReadingScreen> {
+  final ReadingService _readingService = ReadingService();
   late Timer _timer;
   int _seconds = 0;
+
+  void _startTimer() {
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (timer) => setState(() => _seconds++),
+    );
+  }
+
+  void _saveTime() {
+    _readingService.saveReadingTime(widget.bookId, _seconds);
+  }
+
+  String _formatTime(int totalSeconds) {
+    int minutes = totalSeconds ~/ 60;
+    int seconds = totalSeconds % 60;
+    return "${minutes.toString().padLeft(2, '0')} : ${seconds.toString().padLeft(2, '0')}";
+  }
 
   @override
   void initState() {
@@ -22,29 +43,11 @@ class _ReadingScreenState extends State<ReadingScreen> {
     _startTimer();
   }
 
-  void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        _seconds++;
-      });
-    });
-  }
-
   @override
   void dispose() {
     _timer.cancel();
     _saveTime();
     super.dispose();
-  }
-
-  void _saveTime() {
-    print("Tiempo guardado: $_seconds segundos");
-  }
-
-  String _formatTime(int totalSeconds) {
-    int minutes = totalSeconds ~/ 60;
-    int seconds = totalSeconds % 60;
-    return "${minutes.toString().padLeft(2, '0')} : ${seconds.toString().padLeft(2, '0')}";
   }
 
   @override
@@ -76,7 +79,7 @@ class _ReadingScreenState extends State<ReadingScreen> {
                   ),
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.puce.withOpacity(0.2),
+                      color: AppColors.puce.withValues(alpha: 0.2),
                       blurRadius: 16,
                       offset: const Offset(0, 4),
                     ),

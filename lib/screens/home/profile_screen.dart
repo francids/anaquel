@@ -4,6 +4,7 @@ import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/screens/auth/change_password_screen.dart';
 import 'package:anaquel/screens/auth/edit_profile_screen.dart';
 import 'package:anaquel/screens/faq_screen.dart';
+import 'package:anaquel/screens/reading_time_screen.dart';
 import 'package:anaquel/widgets/chip.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -81,6 +82,36 @@ class ProfileScreen extends StatelessWidget {
                   const SizedBox(height: 16),
                   FTileGroup(
                     children: [
+                      FTile(
+                        onPress: () {
+                          Navigator.of(context).push(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      ReadingTimeScreen(),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                return SlideTransition(
+                                  position: Tween<Offset>(
+                                    begin: const Offset(1, 0),
+                                    end: Offset.zero,
+                                  ).animate(animation),
+                                  child: child,
+                                );
+                              },
+                            ),
+                          );
+                        },
+                        prefixIcon: FIcon(
+                          FAssets.icons.book,
+                        ),
+                        title: const Text(
+                          "profile_screen.books_read_time",
+                        ).tr(),
+                        suffixIcon: FIcon(
+                          FAssets.icons.chevronRight,
+                        ),
+                      ),
                       FTile(
                         onPress: () => Navigator.of(context).push(
                           PageRouteBuilder(

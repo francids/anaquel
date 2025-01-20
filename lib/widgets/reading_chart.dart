@@ -30,7 +30,7 @@ class ReadingChart extends StatelessWidget {
     Navigator.of(context).push(
       PageRouteBuilder(
         pageBuilder: (context, animation, secondaryAnimation) =>
-            const ReadingTimeScreen(),
+            ReadingTimeScreen(),
         transitionsBuilder: (context, animation, secondaryAnimation, child) {
           return SlideTransition(
             position: Tween<Offset>(

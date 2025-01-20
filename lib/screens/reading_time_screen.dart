@@ -1,3 +1,4 @@
+import 'package:anaquel/data/services/reading_service.dart';
 import 'package:anaquel/logic/local_books_bloc.dart';
 import 'package:anaquel/logic/user_books_bloc.dart';
 import 'package:anaquel/widgets/books/local_small_book_card.dart';
@@ -10,14 +11,20 @@ import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
 class ReadingTimeScreen extends StatelessWidget {
-  const ReadingTimeScreen({super.key});
+  ReadingTimeScreen({super.key});
+
+  final ReadingService readingService = ReadingService();
+
+  String formatReadingTime(int seconds) {
+    final Duration duration = Duration(seconds: seconds);
+    final int hours = duration.inHours;
+    final int minutes = duration.inMinutes.remainder(60);
+    if (hours == 0) return "${minutes}m";
+    return "${hours}h ${minutes}m";
+  }
 
   @override
   Widget build(BuildContext context) {
-    var calendarController = FCalendarController.date(
-      initialSelection: DateTime.now(),
-      selectable: (value) => value.isBefore(DateTime.now()),
-    );
     return FScaffold(
       header: FHeader.nested(
         title: const Text("reading_time_screen.title").tr(),
@@ -31,36 +38,18 @@ class ReadingTimeScreen extends StatelessWidget {
       content: ListView(
         padding: const EdgeInsets.only(top: 16),
         children: [
-          FLineCalendar(
-            builder: (context, data, child) => child!,
-            controller: calendarController,
-            start: DateTime.now().subtract(const Duration(days: 30)),
-            end: DateTime.now(),
-          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
               children: [
-                const FDivider(),
-                SizedBox(
-                  width: double.infinity,
-                  child: FCard.raw(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        children: [
-                          const Text("reading_time_screen.total_time").tr(),
-                          const Text(
-                            "1 hora 30 minutos",
-                            style: TextStyle(
-                              fontSize: 22,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                FAlert(
+                  title: const Text(
+                    "reading_time_screen.info_title",
+                  ).tr(),
+                  subtitle: const Text(
+                    "reading_time_screen.info_subtitle",
+                  ).tr(),
+                  icon: FIcon(FAssets.icons.badgeAlert),
                 ),
                 BlocBuilder<UserBooksBloc, UserBooksState>(
                   builder: (context, state) {
@@ -92,14 +81,30 @@ class ReadingTimeScreen extends StatelessWidget {
                                   SmallBookCard(
                                     userBook: state.userBooks[index],
                                   ),
-                                  const Positioned(
-                                    top: 0,
-                                    right: 12,
-                                    bottom: 0,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: ReadingTimeChip("30m"),
+                                  FutureBuilder(
+                                    future: readingService
+                                        .getTimeSpentReadingByBook(
+                                      state.userBooks[index].id.toString(),
                                     ),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                        return Positioned(
+                                          top: 0,
+                                          right: 12,
+                                          bottom: 0,
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: ReadingTimeChip(
+                                              formatReadingTime(
+                                                snapshot.data as int,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      return const SizedBox.shrink();
+                                    },
                                   ),
                                 ],
                               );
@@ -144,14 +149,30 @@ class ReadingTimeScreen extends StatelessWidget {
                                   LocalSmallBookCard(
                                     localBook: state.localBooks[index],
                                   ),
-                                  const Positioned(
-                                    top: 0,
-                                    right: 12,
-                                    bottom: 0,
-                                    child: Align(
-                                      alignment: Alignment.centerRight,
-                                      child: ReadingTimeChip("30m"),
+                                  FutureBuilder(
+                                    future: readingService
+                                        .getTimeSpentReadingByBook(
+                                      state.localBooks[index].id,
                                     ),
+                                    builder: (context, snapshot) {
+                                      if (snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                        return Positioned(
+                                          top: 0,
+                                          right: 12,
+                                          bottom: 0,
+                                          child: Align(
+                                            alignment: Alignment.centerRight,
+                                            child: ReadingTimeChip(
+                                              formatReadingTime(
+                                                snapshot.data as int,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      return const SizedBox.shrink();
+                                    },
                                   ),
                                 ],
                               );
