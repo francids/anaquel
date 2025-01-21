@@ -7,6 +7,7 @@ import 'package:anaquel/logic/local_books_bloc.dart';
 import 'package:anaquel/screens/edit_book_screen.dart';
 import 'package:anaquel/screens/reading_screen.dart';
 import 'package:anaquel/widgets/chip.dart';
+import 'package:anaquel/widgets/reading_time_chip.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,6 +30,14 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
   late FPopoverController popoverController;
 
   int status = 0;
+
+  String formatReadingTime(int seconds) {
+    final Duration duration = Duration(seconds: seconds);
+    final int hours = duration.inHours;
+    final int minutes = duration.inMinutes.remainder(60);
+    if (hours == 0) return "${minutes}m";
+    return "${hours}h ${minutes}m";
+  }
 
   @override
   initState() {
@@ -209,6 +218,20 @@ class _LocalBookDetailsScreenState extends State<LocalBookDetailsScreen>
                 ),
                 style: FBadgeStyle.secondary,
               ),
+            ),
+            const SizedBox(height: 12),
+            FutureBuilder(
+              future: readingService.getTimeSpentReadingByBook(
+                widget.localBook.id,
+              ),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.done) {
+                  return ReadingTimeChip(
+                    formatReadingTime(snapshot.data as int),
+                  );
+                }
+                return const SizedBox.shrink();
+              },
             ),
             const FDivider(),
             FButton(
