@@ -274,6 +274,7 @@ class ProfileScreen extends StatelessWidget {
               if (favoritesGenres.isEmpty) {
                 return const SizedBox.shrink();
               }
+              favoritesGenres = favoritesGenres.toSet().toList();
               return Column(
                 children: [
                   SizedBox(
