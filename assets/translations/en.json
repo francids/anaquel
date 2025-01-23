@@ -56,6 +56,26 @@
       "2": {
         "question": "How can I start using Anaquel?",
         "answer": "To start using Anaquel, you must create an account."
+      },
+      "3": {
+        "question": "Does Anaquel offer personalized recommendations?",
+        "answer": "Yes, Anaquel can suggest books based on the ones you have registered."
+      },
+      "4": {
+        "question": "Can I set notifications in Anaquel?",
+        "answer": "Yes, Anaquel allows you to schedule notifications to remind you of your reading times."
+      },
+      "5": {
+        "question": "Can I export my collections or book lists?",
+        "answer": "Currently, Anaquel does not allow direct exporting, but we are working on future updates."
+      },
+      "6": {
+        "question": "What types of questions or annotations can I store?",
+        "answer": "You can store generic questions related to your readings and any important ideas to remember."
+      },
+      "7": {
+        "question": "Does Anaquel work offline?",
+        "answer": "Some features are available offline, like viewing your registered books. However, syncing and updates require an internet connection."
       }
     }
   },

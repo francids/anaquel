@@ -2,6 +2,7 @@ import 'package:anaquel/logic/auth_bloc.dart';
 import 'package:anaquel/constants/colors.dart';
 import 'package:anaquel/data/models/user.dart';
 import 'package:anaquel/screens/auth/sign_up_screen.dart';
+import 'package:anaquel/screens/faq_screen.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -174,6 +175,45 @@ class LogInScreen extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ).tr(),
+                      ],
+                    ),
+                  ),
+                ),
+                const FDivider(),
+                FCard.raw(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text(
+                          "principal_screen.help",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.normal,
+                          ),
+                        ).tr(),
+                        FButton.icon(
+                          onPress: () => Navigator.of(context).push(
+                            PageRouteBuilder(
+                              pageBuilder:
+                                  (context, animation, secondaryAnimation) =>
+                                      const FaqScreen(),
+                              transitionsBuilder: (context, animation,
+                                  secondaryAnimation, child) {
+                                return SlideTransition(
+                                  position: Tween<Offset>(
+                                    begin: const Offset(1, 0),
+                                    end: Offset.zero,
+                                  ).animate(animation),
+                                  child: child,
+                                );
+                              },
+                            ),
+                          ),
+                          child: FIcon(FAssets.icons.chevronRight),
+                        ),
                       ],
                     ),
                   ),

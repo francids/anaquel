@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 class FaqScreen extends StatelessWidget {
   const FaqScreen({super.key});
 
-  final int quantity = 3;
+  final int quantity = 8;
 
   @override
   Widget build(BuildContext context) {

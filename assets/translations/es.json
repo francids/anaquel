@@ -56,6 +56,26 @@
       "2": {
         "question": "¿Cómo puedo empezar a usar Anaquel?",
         "answer": "Para empezar a usar Anaquel, debes crear una cuenta."
+      },
+      "3": {
+        "question": "¿Anaquel ofrece recomendaciones personalizadas?",
+        "answer": "Sí, Anaquel puede sugerirte libros basados en los que ya has registrado."
+      },
+      "4": {
+        "question": "¿Puedo configurar notificaciones en Anaquel?",
+        "answer": "Sí, Anaquel te permite programar notificaciones para recordarte tus tiempos de lectura."
+      },
+      "5": {
+        "question": "¿Puedo exportar mis colecciones o listas de libros?",
+        "answer": "Actualmente, Anaquel no permite exportaciones directas, pero estamos trabajando en futuras actualizaciones."
+      },
+      "6": {
+        "question": "¿Qué tipos de preguntas o anotaciones puedo almacenar?",
+        "answer": "Puedes registrar preguntas genéricas relacionadas con tus lecturas y cualquier idea importante para recordar."
+      },
+      "7": {
+        "question": "¿Anaquel funciona sin conexión?",
+        "answer": "Algunas funcionalidades están disponibles sin conexión, como la visualización de tus libros registrados. Sin embargo, para sincronización y actualizaciones, se necesita conexión a internet."
       }
     }
   },
