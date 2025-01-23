@@ -241,6 +241,11 @@
       "generate_summary": "Generate summary"
     }
   },
+  "recommendations_screen": {
+    "title": "Recommendations",
+    "no_recommendations": "No recommendations found",
+    "error": "An error occurred while loading the recommendations"
+  },
   "questionnaire_screen": {
     "title": "Questionnaire",
     "no_questions": "No questions found",

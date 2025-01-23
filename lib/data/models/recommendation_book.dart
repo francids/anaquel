@@ -10,4 +10,13 @@ class RecommendationBook {
     required this.coverUrl,
     required this.authors,
   });
+
+  factory RecommendationBook.fromJson(Map<String, dynamic> json) {
+    return RecommendationBook(
+      id: json["id"],
+      title: json["title"],
+      coverUrl: json["coverUrl"],
+      authors: List<String>.from(json["authors"]),
+    );
+  }
 }

@@ -241,6 +241,11 @@
       "generate_summary": "Generar resumen"
     }
   },
+  "recommendations_screen": {
+    "title": "Recomendaciones",
+    "no_recommendations": "No se encontraron recomendaciones",
+    "error": "Se produjo un error al cargar las recomendaciones"
+  },
   "questionnaire_screen": {
     "title": "Cuestionario",
     "no_questions": "No se encontraron preguntas",
