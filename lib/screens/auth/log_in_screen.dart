@@ -9,12 +9,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:forui/forui.dart';
 import 'package:go_router/go_router.dart';
 
-class LogInScreen extends StatelessWidget {
-  LogInScreen({super.key});
+class LogInScreen extends StatefulWidget {
+  const LogInScreen({super.key});
 
+  @override
+  State<LogInScreen> createState() => _LogInScreenState();
+}
+
+class _LogInScreenState extends State<LogInScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
@@ -85,17 +93,31 @@ class LogInScreen extends StatelessWidget {
                   },
                 ),
                 const SizedBox(height: 16),
-                FTextField(
+                FTextField.password(
                   controller: passwordController,
                   label: const Text(
                     "auth_screens.log_in_screen.password",
                   ).tr(),
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  maxLines: 1,
-                  autofillHints: const [AutofillHints.password],
-                  keyboardType: TextInputType.visiblePassword,
+                  obscureText: _obscurePassword,
+                  suffix: FButton.icon(
+                    focusNode: FocusNode(canRequestFocus: false),
+                    style: FButtonStyle.ghost,
+                    child: Padding(
+                      padding: const EdgeInsets.all(6),
+                      child: FIcon(
+                        (_obscurePassword)
+                            ? FAssets.icons.eyeClosed
+                            : FAssets.icons.eye,
+                        color: Theme.of(context)
+                            .colorScheme
+                            .onSurface
+                            .withAlpha(153),
+                      ),
+                    ),
+                    onPress: () => setState(
+                      () => _obscurePassword = !_obscurePassword,
+                    ),
+                  ),
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "auth_screens.log_in_screen.error.empty_field"
