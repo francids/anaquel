@@ -23,6 +23,15 @@ class Schedule {
     active = prefs.getBool("schedule-$id") ?? true;
   }
 
+  factory Schedule.fromSqfliteDb(Map<String, dynamic> json) {
+    return Schedule(
+      id: json["id"],
+      label: json["label"],
+      time: json["time"],
+      days: (json["days"] as String).split(','),
+    )..active = json["active"] == 1;
+  }
+
   factory Schedule.fromJson(Map<String, dynamic> json) {
     return Schedule(
       id: json["id"],
@@ -30,6 +39,16 @@ class Schedule {
       time: json["time"],
       days: List<String>.from(json["days"]),
     );
+  }
+
+  Map<String, dynamic> toSqfliteDb() {
+    return {
+      "id": id,
+      "label": label,
+      "time": time,
+      "days": days.join(','),
+      "active": active ? 1 : 0,
+    };
   }
 
   Map<String, dynamic> toJson() {

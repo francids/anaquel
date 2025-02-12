@@ -1,4 +1,5 @@
 import 'package:anaquel/core/db/anaquel_db.dart';
+import 'package:anaquel/core/db/schedule_db.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -30,6 +31,8 @@ class DatabaseService {
     return database;
   }
 
-  Future<void> create(Database db, int version) async =>
-      await AnaquelDB().createTable(db);
+  Future<void> create(Database db, int version) async {
+    await AnaquelDB().createTable(db);
+    await ScheduleDB().createTable(db);
+  }
 }
