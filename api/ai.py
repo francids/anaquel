@@ -2,10 +2,10 @@ import os
 from google import genai
 from typing import Dict, Any, Optional, TypeVar, Type
 
+MODEL_NAME = os.getenv("GEMINI_MODEL_NAME")
 API_KEY = os.getenv("GEMINI_API_KEY")
-client = genai.Client(api_key=API_KEY)
 
-MODEL_NAME = "gemini-2.0-flash"
+client = genai.Client(api_key=API_KEY)
 
 T = TypeVar("T")
 
