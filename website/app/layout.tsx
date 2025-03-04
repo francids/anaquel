@@ -30,7 +30,16 @@ const footer = <></>;
 export default async function RootLayout({ children }) {
   return (
     <html lang="es" dir="ltr" suppressHydrationWarning>
-      <Head></Head>
+      <Head
+        color={{
+          hue: 348,
+          saturation: 71,
+          lightness: {
+            light: 34,
+            dark: 34,
+          },
+        }}
+      />
       <body>
         <Layout
           navbar={navbar}
