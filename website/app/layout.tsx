@@ -23,11 +23,12 @@ const navbar = (
         />
       </svg>
     }
+    projectLink="https://github.com/francids/anaquel"
   />
 );
 const footer = <></>;
 
-export default async function RootLayout({ children }) {
+const RootLayout = async ({ children }) => {
   return (
     <html lang="es" dir="ltr" suppressHydrationWarning>
       <Head
@@ -46,10 +47,16 @@ export default async function RootLayout({ children }) {
           pageMap={await getPageMap()}
           docsRepositoryBase="https://github.com/francids/anaquel/tree/master/website"
           footer={footer}
+          editLink={null}
+          feedback={{
+            content: null,
+          }}
         >
           {children}
         </Layout>
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;
