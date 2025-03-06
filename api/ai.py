@@ -1,11 +1,5 @@
-import os
-from google import genai
 from typing import Dict, Any, Optional, TypeVar, Type
-
-MODEL_NAME = os.getenv("GEMINI_MODEL_NAME")
-API_KEY = os.getenv("GEMINI_API_KEY")
-
-client = genai.Client(api_key=API_KEY)
+from model import client, MODEL_NAME, DEFAULT_PARAMS
 
 T = TypeVar("T")
 
@@ -23,12 +17,7 @@ async def generate_content(
     Returns:
         Generated content as a string
     """
-    default_params = {
-        "temperature": 0.7,
-        "max_output_tokens": 2048,
-        "top_p": 0.95,
-        "top_k": 40,
-    }
+    default_params = DEFAULT_PARAMS.copy()
 
     if parameters:
         default_params.update(parameters)
@@ -58,12 +47,7 @@ async def generate_structured_content(
     Returns:
         Structured content as an instance of the provided schema
     """
-    default_params = {
-        "temperature": 0.7,
-        "max_output_tokens": 2048,
-        "top_p": 0.95,
-        "top_k": 40,
-    }
+    default_params = DEFAULT_PARAMS.copy()
 
     if parameters:
         default_params.update(parameters)
