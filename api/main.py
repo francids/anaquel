@@ -6,6 +6,7 @@ app = FastAPI()
 
 
 @app.get("/")
+@app.post("/")
 def root():
     return {
         "message": "Hello from Anaquel API",
