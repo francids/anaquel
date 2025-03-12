@@ -1,5 +1,6 @@
-from typing import Dict, Any, Optional, TypeVar, Type
+from typing import Dict, Any, Optional, TypeVar
 from model import client, MODEL_NAME, DEFAULT_PARAMS
+from pydantic import BaseModel
 
 T = TypeVar("T")
 
@@ -8,7 +9,7 @@ async def generate_content(
     prompt: str, parameters: Optional[Dict[str, Any]] = None
 ) -> str:
     """
-    Generic method to generate content using Gemini AI model.
+    Generic method to generate content using Ollama model.
 
     Args:
         prompt: The text prompt to send to the AI model
@@ -23,21 +24,23 @@ async def generate_content(
         default_params.update(parameters)
 
     try:
-        response = client.models.generate_content(
+        response = client.generate(
             model=MODEL_NAME,
-            contents=[prompt],
+            prompt=prompt,
+            options=default_params,
+            stream=False,
         )
-        return response.text
+        return response["response"]
     except Exception as e:
         print(f"Error generating content: {e}")
         return f"Error generating content: {str(e)}"
 
 
 async def generate_structured_content(
-    prompt: str, response_schema: Type[T], parameters: Optional[Dict[str, Any]] = None
+    prompt: str, response_schema: BaseModel, parameters: Optional[Dict[str, Any]] = None
 ) -> T:
     """
-    Generate structured content using Gemini AI model.
+    Generate structured content using Ollama model.
 
     Args:
         prompt: The text prompt to send to the AI model
@@ -52,16 +55,17 @@ async def generate_structured_content(
     if parameters:
         default_params.update(parameters)
 
+    formatted_prompt = f"{prompt}\n\nReturn the output as JSON, using the following schema:\n{response_schema.model_json_schema()}"
+
     try:
-        response = client.models.generate_content(
+        response = client.generate(
             model=MODEL_NAME,
-            contents=[prompt],
-            config={
-                "response_mime_type": "application/json",
-                "response_schema": response_schema,
-            },
+            prompt=formatted_prompt,
+            format=response_schema.model_json_schema(),
+            options=default_params,
+            stream=False,
         )
-        return response.parsed
+        return response_schema.model_validate_json(response["response"])
     except Exception as e:
         print(f"Error generating structured content: {e}")
         raise e
@@ -135,7 +139,15 @@ async def generate_questions_by_title_author(
     literary techniques, symbolism, and broader implications. Create questions suitable 
     for a book club or literature class discussion.
     
-    Return only the questions as a JSON array of strings.
+    Make sure to return your response as a JSON object with a 'questions' array field containing all the generated questions.
+    Example format:
+    {{
+      "questions": [
+        "Question 1 here?",
+        "Question 2 here?",
+        ...
+      ]
+    }}
     """
 
     try:
@@ -143,8 +155,20 @@ async def generate_questions_by_title_author(
             prompt, Questions, {"temperature": 0.7}
         )
         return result.questions
-    except Exception:
-        content = await generate_content(prompt, {"temperature": 0.7})
-        questions_raw = content.strip().split("\n")
-        questions = [q.strip() for q in questions_raw if q.strip() and ("?" in q)]
-        return questions[:num_questions]
+    except Exception as e:
+        print(f"Failed to generate structured output. {e}")
+        try:
+            unstructured_prompt = f"""
+            Generate {num_questions} thoughtful discussion questions about the book "{title}" by {author}.
+            Each question should be on a new line and start with a number and a period (e.g., "1.").
+            """
+            response = await generate_content(unstructured_prompt, {"temperature": 0.7})
+            lines = response.strip().split("\n")
+            questions = [
+                line.split(". ", 1)[1] if ". " in line else line
+                for line in lines
+                if line.strip()
+            ]
+            return questions[:num_questions]
+        except Exception:
+            return []

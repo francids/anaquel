@@ -1,14 +1,16 @@
 import os
-from google import genai
+from ollama import Client
 
-MODEL_NAME = os.getenv("GEMINI_MODEL_NAME")
-API_KEY = os.getenv("GEMINI_API_KEY")
+MODEL_NAME = os.getenv("OLLAMA_MODEL")
+HOST = os.getenv("OLLAMA_HOST", "http://localhost:11434")
 
-client = genai.Client(api_key=API_KEY)
+client = Client(
+    host=HOST,
+)
 
 DEFAULT_PARAMS = {
     "temperature": 0.7,
-    "max_output_tokens": 2048,
+    "num_predict": 2048,
     "top_p": 0.95,
     "top_k": 40,
 }
