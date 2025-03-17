@@ -50,6 +50,7 @@ class RegisterBookScreen extends StatelessWidget {
               ),
               const FDivider(),
               FTextField(
+                enabled: false,
                 hint: "register_book_screen.search".tr(),
                 maxLines: 1,
                 suffix: Container(

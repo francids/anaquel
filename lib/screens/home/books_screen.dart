@@ -41,66 +41,67 @@ class BooksScreen extends StatelessWidget {
             ).tr(),
           ),
           const SizedBox(height: 16),
-          BlocBuilder<CollectionsBloc, CollectionsState>(
-            builder: (context, state) {
-              if (state is CollectionsLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (state is CollectionsError) {
-                return FAlert(
-                  icon: FAssets.icons.badgeX(),
-                  title:
-                      const Text("books_screen.error_loading_collections").tr(),
-                  subtitle: Text(state.message),
-                  style: FAlertStyle.destructive,
-                );
-              }
-              if (state is CollectionsLoaded) {
-                if (state.collections.isEmpty) {
-                  return FAlert(
-                    icon: FIcon(FAssets.icons.badgeInfo),
-                    title: const Text(
-                      "books_screen.no_collections",
-                    ).tr(),
-                    style: FAlertStyle.primary,
-                  );
-                }
-                return SizedBox(
-                  width: double.infinity,
-                  child: Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    children: List.generate(
-                      state.collections.length,
-                      (index) {
-                        return SizedBox(
-                          width: MediaQuery.of(context).size.width / 2 - 24,
-                          child: CollectionChip(
-                            label: state.collections[index].name,
-                            color: Color(
-                              int.parse(
-                                    state.collections[index].color.substring(1),
-                                    radix: 16,
-                                  ) +
-                                  0xFF000000,
-                            ),
-                            onPress: () => context.push(
-                                "/collection/${state.collections[index].id}"),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                );
-              }
-              return const SizedBox.shrink();
-            },
-          ),
+          // BlocBuilder<CollectionsBloc, CollectionsState>(
+          //   builder: (context, state) {
+          //     if (state is CollectionsLoading) {
+          //       return const Center(
+          //         child: CircularProgressIndicator(),
+          //       );
+          //     }
+          //     if (state is CollectionsError) {
+          //       return FAlert(
+          //         icon: FAssets.icons.badgeX(),
+          //         title:
+          //             const Text("books_screen.error_loading_collections").tr(),
+          //         subtitle: Text(state.message),
+          //         style: FAlertStyle.destructive,
+          //       );
+          //     }
+          //     if (state is CollectionsLoaded) {
+          //       if (state.collections.isEmpty) {
+          //         return FAlert(
+          //           icon: FIcon(FAssets.icons.badgeInfo),
+          //           title: const Text(
+          //             "books_screen.no_collections",
+          //           ).tr(),
+          //           style: FAlertStyle.primary,
+          //         );
+          //       }
+          //       return SizedBox(
+          //         width: double.infinity,
+          //         child: Wrap(
+          //           spacing: 8,
+          //           runSpacing: 8,
+          //           children: List.generate(
+          //             state.collections.length,
+          //             (index) {
+          //               return SizedBox(
+          //                 width: MediaQuery.of(context).size.width / 2 - 24,
+          //                 child: CollectionChip(
+          //                   label: state.collections[index].name,
+          //                   color: Color(
+          //                     int.parse(
+          //                           state.collections[index].color.substring(1),
+          //                           radix: 16,
+          //                         ) +
+          //                         0xFF000000,
+          //                   ),
+          //                   onPress: () => context.push(
+          //                       "/collection/${state.collections[index].id}"),
+          //                 ),
+          //               );
+          //             },
+          //           ),
+          //         ),
+          //       );
+          //     }
+          //     return const SizedBox.shrink();
+          //   },
+          // ),
           const SizedBox(height: 16),
           FButton(
-            onPress: () => buildCreateCollectionDialog(context),
+            // onPress: () => buildCreateCollectionDialog(context),
+            onPress: null,
             style: FButtonStyle.outline,
             label: const Text("books_screen.create_collection.title").tr(),
           ),
@@ -126,92 +127,92 @@ class BooksScreen extends StatelessWidget {
             label: const Text("books_screen.register_book").tr(),
           ),
           const SizedBox(height: 16),
-          SizedBox(
-            width: double.infinity,
-            child: const Text(
-              "books_screen.books",
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.w600,
-              ),
-            ).tr(),
-          ),
-          const SizedBox(height: 16),
-          BlocBuilder<UserBooksBloc, UserBooksState>(
-            builder: (context, state) {
-              if (state is UserBooksLoading) {
-                return const Center(
-                  child: CircularProgressIndicator(),
-                );
-              }
-              if (state is UserBooksError) {
-                return FAlert(
-                  icon: FAssets.icons.badgeX(),
-                  title: const Text("books_screen.error_loading_books").tr(),
-                  subtitle: Text(state.message),
-                  style: FAlertStyle.destructive,
-                );
-              }
-              if (state is UserBooksLoaded) {
-                if (state.userBooks.isEmpty) {
-                  return FAlert(
-                    icon: FIcon(FAssets.icons.badgeInfo),
-                    title: const Text(
-                      "books_screen.no_books",
-                    ).tr(),
-                    style: FAlertStyle.primary,
-                  );
-                }
-                return Column(
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: ListView.separated(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        padding: const EdgeInsets.all(0),
-                        separatorBuilder: (context, index) =>
-                            const SizedBox(height: 8),
-                        itemCount: state.userBooks.length > 3
-                            ? 3
-                            : state.userBooks.length,
-                        itemBuilder: (context, index) {
-                          return SmallBookCard(
-                            userBook: state.userBooks[index],
-                          );
-                        },
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-                    if (state.userBooks.length > 3)
-                      FButton(
-                        onPress: () => Navigator.of(context).push(
-                          PageRouteBuilder(
-                            pageBuilder:
-                                (context, animation, secondaryAnimation) =>
-                                    const AllBooksScreen(),
-                            transitionsBuilder: (context, animation,
-                                secondaryAnimation, child) {
-                              return SlideTransition(
-                                position: Tween<Offset>(
-                                  begin: const Offset(1, 0),
-                                  end: Offset.zero,
-                                ).animate(animation),
-                                child: child,
-                              );
-                            },
-                          ),
-                        ),
-                        style: FButtonStyle.outline,
-                        label: const Text("all_books_screen.title").tr(),
-                      ),
-                  ],
-                );
-              }
-              return const SizedBox.shrink();
-            },
-          ),
-          const SizedBox(height: 16),
+          // SizedBox(
+          //   width: double.infinity,
+          //   child: const Text(
+          //     "books_screen.books",
+          //     style: TextStyle(
+          //       fontSize: 22,
+          //       fontWeight: FontWeight.w600,
+          //     ),
+          //   ).tr(),
+          // ),
+          // const SizedBox(height: 16),
+          // BlocBuilder<UserBooksBloc, UserBooksState>(
+          //   builder: (context, state) {
+          //     if (state is UserBooksLoading) {
+          //       return const Center(
+          //         child: CircularProgressIndicator(),
+          //       );
+          //     }
+          //     if (state is UserBooksError) {
+          //       return FAlert(
+          //         icon: FAssets.icons.badgeX(),
+          //         title: const Text("books_screen.error_loading_books").tr(),
+          //         subtitle: Text(state.message),
+          //         style: FAlertStyle.destructive,
+          //       );
+          //     }
+          //     if (state is UserBooksLoaded) {
+          //       if (state.userBooks.isEmpty) {
+          //         return FAlert(
+          //           icon: FIcon(FAssets.icons.badgeInfo),
+          //           title: const Text(
+          //             "books_screen.no_books",
+          //           ).tr(),
+          //           style: FAlertStyle.primary,
+          //         );
+          //       }
+          //       return Column(
+          //         children: [
+          //           SizedBox(
+          //             width: double.infinity,
+          //             child: ListView.separated(
+          //               shrinkWrap: true,
+          //               physics: const NeverScrollableScrollPhysics(),
+          //               padding: const EdgeInsets.all(0),
+          //               separatorBuilder: (context, index) =>
+          //                   const SizedBox(height: 8),
+          //               itemCount: state.userBooks.length > 3
+          //                   ? 3
+          //                   : state.userBooks.length,
+          //               itemBuilder: (context, index) {
+          //                 return SmallBookCard(
+          //                   userBook: state.userBooks[index],
+          //                 );
+          //               },
+          //             ),
+          //           ),
+          //           const SizedBox(height: 16),
+          //           if (state.userBooks.length > 3)
+          //             FButton(
+          //               onPress: () => Navigator.of(context).push(
+          //                 PageRouteBuilder(
+          //                   pageBuilder:
+          //                       (context, animation, secondaryAnimation) =>
+          //                           const AllBooksScreen(),
+          //                   transitionsBuilder: (context, animation,
+          //                       secondaryAnimation, child) {
+          //                     return SlideTransition(
+          //                       position: Tween<Offset>(
+          //                         begin: const Offset(1, 0),
+          //                         end: Offset.zero,
+          //                       ).animate(animation),
+          //                       child: child,
+          //                     );
+          //                   },
+          //                 ),
+          //               ),
+          //               style: FButtonStyle.outline,
+          //               label: const Text("all_books_screen.title").tr(),
+          //             ),
+          //         ],
+          //       );
+          //     }
+          //     return const SizedBox.shrink();
+          //   },
+          // ),
+          // const SizedBox(height: 16),
           SizedBox(
             width: double.infinity,
             child: const Text(
