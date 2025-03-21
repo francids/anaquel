@@ -20,9 +20,6 @@ app.include_router(questions_router)
 
 
 def main(context):
-    environ["GEMINI_MODEL_NAME"] = context.variables.get("GEMINI_MODEL_NAME")
-    environ["GEMINI_API_KEY"] = context.variables.get("GEMINI_API_KEY")
-
     try:
         request_data = json.loads(context.req.bodyRaw or "{}")
         path = context.req.path or "/"
