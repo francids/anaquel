@@ -11,10 +11,10 @@ Future<void> main() async {
   runApp(_buildLocalizedApp());
 }
 
-Future<void> _initializeApp() async {
+Future _initializeApp() async {
   ScaledWidgetsFlutterBinding.ensureInitialized(scaleFactor: (_) => 1.0);
   await initializeNotifications();
-  await dotenv.load(fileName: ".env", isOptional: true);
+  await dotenv.load(fileName: '.env', isOptional: true);
   EasyLocalization.logger.enableBuildModes = [];
   await EasyLocalization.ensureInitialized();
   configureSystemUI();
@@ -22,9 +22,9 @@ Future<void> _initializeApp() async {
 
 Widget _buildLocalizedApp() {
   return EasyLocalization(
-    path: "assets/translations",
-    supportedLocales: const [Locale("es"), Locale("en")],
-    fallbackLocale: const Locale("es"),
+    path: 'assets/translations',
+    supportedLocales: const [Locale('es'), Locale('en')],
+    fallbackLocale: const Locale('es'),
     child: const AnaquelApp(),
   );
 }

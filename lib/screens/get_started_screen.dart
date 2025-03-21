@@ -29,7 +29,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
       }
     });
     if (mounted) {
-      context.go("/login");
+      context.go("/");
     }
   }
 
