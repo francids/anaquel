@@ -41,9 +41,9 @@ async def main(context):
                 )
 
                 result = await create_summary(book)
-                return context.res.json(result)
+                return context.res.json(result.model_dump())
             except Exception as e:
-                return context.res.json({"error": str(e)}, status=500)
+                return context.res.json({"error": str(e)}, 500)
 
     elif path.startswith("/questions"):
         if method == "POST":
@@ -60,11 +60,11 @@ async def main(context):
                 )
 
                 result = await create_questions(book, num_questions)
-                return context.res.json(result)
+                return context.res.json(result.model_dump())
             except Exception as e:
-                return context.res.json({"error": str(e)}, status=500)
+                return context.res.json({"error": str(e)}, 500)
 
-    return context.res.json({"error": "Route not found"}, status=404)
+    return context.res.json({"error": "Route not found"}, 404)
 
 
 if __name__ == "__main__":
