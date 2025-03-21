@@ -10,7 +10,7 @@ summary_router = APIRouter(
 
 
 @summary_router.post("/", response_model=Summary)
-async def create_summary(book_info: BookInfo):
+async def create_summary(book_info: BookInfo) -> Summary:
     """
     Generate a literary summary of a book based on its title and author.
     """

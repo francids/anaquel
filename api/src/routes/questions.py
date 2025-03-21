@@ -16,7 +16,7 @@ async def create_questions(
     num_questions: Optional[int] = Query(
         5, description="Number of questions to generate"
     ),
-):
+) -> Questions:
     """
     Generate literary discussion questions about a book based on its title and author.
     """
