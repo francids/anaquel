@@ -21,10 +21,10 @@ async def create_questions(
     Generate literary discussion questions about a book based on its title and author.
     """
     try:
-        questions_list = await generate_questions_by_title_author(
+        questions = await generate_questions_by_title_author(
             book_info.title, book_info.author, num_questions
         )
-        return Questions(questions=questions_list)
+        return questions
     except Exception as e:
         raise HTTPException(
             status_code=500, detail=f"Error generating book questions: {str(e)}"

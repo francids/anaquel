@@ -2,9 +2,9 @@
 
 ## Configuración
 
-Para ejecutar la API de Anaquel, se necesita tener [Ollama](https://ollama.com/) en ejecución y configurar las siguientes variables de entorno:
+Para ejecutar la API de Anaquel, necesitas configurar las siguientes variables de entorno:
 
-- `OLLAMA_MODEL`: El nombre del modelo de Ollama que se utilizará.
-- `OLLAMA_HOST`: La dirección del servidor de Ollama. Por defecto, es `http://localhost:11434`.
+- `GEMINI_API_KEY`: Tu clave de API para acceder a los modelos de Gemini.
+- `GEMINI_MODEL_NAME`: El modelo específico de Gemini a utilizar.
 
 > Puedes crear un archivo `.env` con estas variables de entorno y ejecutar la aplicación con `uv run --env-file .env main.py`.
