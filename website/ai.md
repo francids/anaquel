@@ -1,3 +1,7 @@
+---
+layout: doc
+---
+
 # Anaquel Intelligence
 
 **Anaquel Intelligence** es nuestra propuesta de inteligencia artificial.
